@@ -98,7 +98,7 @@ export default function ProjectCard({ artifact, index }: ProjectCardProps) {
         onClick={() => setShowReflection(!showReflection)}
         className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors text-[#E5E7EB] font-medium text-sm border border-white/10"
       >
-        <span>Refleksi (What – So What – Now What)</span>
+        <span>Refleksi (What - So What - Now What)</span>
         {showReflection ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </button>
 

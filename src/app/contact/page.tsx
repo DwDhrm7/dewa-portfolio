@@ -4,8 +4,14 @@ import { motion } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
 import { Mail, Linkedin, Github, Send } from "lucide-react";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/translations";
+import { a } from "framer-motion/client";
 
 export default function ContactPage() {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,8 +20,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // This is a dummy form - no backend integration
-    alert("Terima kasih! Pesan Anda telah diterima. (Demo mode - form tidak terhubung ke backend)");
+    alert(t.contact.successMessage);
     setFormData({ name: "", email: "", message: "" });
   };
 
@@ -31,20 +36,20 @@ export default function ContactPage() {
   const contactInfo = [
     {
       icon: Mail,
-      label: "Email",
+      label: t.contact.emailInfo,
       value: "madedharmaputrasantikaidewa@gmail.com",
       link: "mailto:madedharmaputrasantikaidewa@gmail.com",
     },
     {
       icon: Linkedin,
-      label: "LinkedIn",
-      value: "linkedin.com/IDewaMadeDharmaPutraSantika",
-      link: "https://www.linkedin.com/in/i-dewa-made-dharma-putra-santika-a13939286/",
+      label: t.contact.linkedinInfo,
+      value: "linkedin.com/in/idewamadedharmaputrasantika",
+      link: "https://www.linkedin.com/in/idewamadedharmaputrasantika/",
     },
     {
       icon: Github,
-      label: "GitHub",
-      value: "github.com/DwDhr7",
+      label: t.contact.githubInfo,
+      value: "github.com/DwDhrm7",
       link: "https://github.com/DwDhrm7",
     },
   ];
@@ -52,10 +57,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
-        <SectionTitle
-          title="Hubungi Saya"
-          subtitle="Mari terhubung dan berkolaborasi"
-        />
+        <SectionTitle title={t.contact.title} subtitle={t.contact.subtitle} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
@@ -66,7 +68,7 @@ export default function ContactPage() {
           >
             <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-xl">
               <h3 className="text-2xl font-bold text-[#F9FAFB] mb-6">
-                Kirim Pesan
+                {t.contact.formTitle}
               </h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -75,7 +77,7 @@ export default function ContactPage() {
                     htmlFor="name"
                     className="block text-[#E5E7EB] font-medium mb-2"
                   >
-                    Nama
+                    {t.contact.nameLabel}
                   </label>
                   <input
                     type="text"
@@ -85,7 +87,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all"
-                    placeholder="Nama Anda"
+                    placeholder={t.contact.namePlaceholder}
                   />
                 </div>
 
@@ -94,7 +96,7 @@ export default function ContactPage() {
                     htmlFor="email"
                     className="block text-[#E5E7EB] font-medium mb-2"
                   >
-                    Email
+                    {t.contact.emailLabel}
                   </label>
                   <input
                     type="email"
@@ -104,7 +106,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all"
-                    placeholder="email@example.com"
+                    placeholder={t.contact.emailPlaceholder}
                   />
                 </div>
 
@@ -113,7 +115,7 @@ export default function ContactPage() {
                     htmlFor="message"
                     className="block text-[#E5E7EB] font-medium mb-2"
                   >
-                    Pesan
+                    {t.contact.messageLabel}
                   </label>
                   <textarea
                     id="message"
@@ -123,7 +125,7 @@ export default function ContactPage() {
                     required
                     rows={6}
                     className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all resize-none"
-                    placeholder="Tulis pesan Anda di sini..."
+                    placeholder={t.contact.messagePlaceholder}
                   />
                 </div>
 
@@ -132,7 +134,7 @@ export default function ContactPage() {
                   className="w-full px-6 py-3 bg-gradient-to-r from-[#22D3EE] to-[#0EA5E9] text-white rounded-xl font-medium hover:shadow-lg hover:shadow-[#22D3EE]/50 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
                 >
                   <Send size={18} />
-                  Kirim Pesan
+                  {t.contact.sendButton}
                 </button>
               </form>
             </div>
@@ -147,7 +149,7 @@ export default function ContactPage() {
           >
             <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-xl">
               <h3 className="text-2xl font-bold text-[#F9FAFB] mb-6">
-                Informasi Kontak
+                {t.contact.infoTitle}
               </h3>
 
               <div className="space-y-6">
@@ -157,9 +159,9 @@ export default function ContactPage() {
                     <motion.a
                       key={info.label}
                       href={info.link}
-                      target={info.label !== "Email" ? "_blank" : undefined}
+                      target={info.label !== t.contact.emailInfo ? "_blank" : undefined}
                       rel={
-                        info.label !== "Email"
+                        info.label !== t.contact.emailInfo
                           ? "noopener noreferrer"
                           : undefined
                       }
@@ -193,12 +195,10 @@ export default function ContactPage() {
               className="bg-gradient-to-r from-[#22D3EE]/10 to-[#FACC15]/10 rounded-2xl p-8 border border-[#22D3EE]/30"
             >
               <h4 className="text-xl font-bold text-[#F9FAFB] mb-3">
-                Siap untuk Berkolaborasi!
+                {t.contact.readyTitle}
               </h4>
               <p className="text-[#D1D5DB] leading-relaxed">
-                Saya terbuka untuk diskusi tentang proyek AI, IoT, riset
-                akademis, atau kolaborasi kreatif. Jangan ragu untuk menghubungi
-                saya melalui form atau kontak yang tersedia.
+                {t.contact.readyDesc}
               </p>
             </motion.div>
           </motion.div>

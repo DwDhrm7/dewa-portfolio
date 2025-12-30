@@ -4,19 +4,24 @@ import { motion } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
 import TimelineItem from "@/components/TimelineItem";
 import { GraduationCap, Code, Users, Globe } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/translations";
 
 export default function ResumePage() {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const hardSkills = [
-    "YOLOv8 & Computer Vision",
-    "React Native & Software Development",
-    "Machine Learning (Google Colab, TensorFlow)",
+    "YOLOv8",
+    "Machine Learning",
     "IoT & Embedded Systems",
-    "Raspberry Pi Development",
     "Python Programming",
-    "Next.js & Web Development",
+    "React Native & Front End Software Development",
+    "Next.js & Front End Web Development",
     "PHP & MySQL",
+    "Google Colab",
     "Audio Feature Extraction",
-    "Dashboard Analytics",
+    "Data Analysis & Visualization",
   ];
 
   const softSkills = [
@@ -32,39 +37,35 @@ export default function ResumePage() {
 
   const experiences = [
     {
-      title: "Ketua RADE",
-      subtitle: "Robotics and Embedded Systems Research Group",
-      period: "2024 - Sekarang",
-      description:
-        "Memimpin organisasi riset mahasiswa yang fokus pada IoT, robotika, dan AI. Mengkoordinasikan riset, pelatihan, seminar, dan kompetisi. Membawa RADE meraih prestasi di tingkat nasional.",
+      title: t.resume.exp1Title,
+      subtitle: t.resume.exp1Subtitle,
+      period: t.resume.exp1Period,
+      description: t.resume.exp1Desc,
     },
     {
-      title: "Research Assistant",
-      subtitle: "Hybrid K-NN for Dangdut Music Classification",
-      period: "2024",
-      description:
-        "Berkontribusi pada penelitian dosen terkait klasifikasi sub-genre musik dangdut menggunakan algoritma Hybrid K-NN. Terlibat dalam pengumpulan data audio, labeling, ekstraksi fitur, dan evaluasi model.",
+      title: t.resume.exp2Title,
+      subtitle: t.resume.exp2Subtitle,
+      period: t.resume.exp2Period,
+      description: t.resume.exp2Desc,
     },
     {
-      title: "Student Delegate",
-      subtitle: "Lecturer and Student Exchange Program - VRU Thailand",
-      period: "2025",
-      description:
-        "Mengikuti program exchange di Valaya Alongkorn Rajabhat University, Thailand. Mempelajari Cloud Computing, Project Management, IT Research Methodology, dan aktivitas budaya lintas negara.",
+      title: t.resume.exp3Title,
+      subtitle: t.resume.exp3Subtitle,
+      period: t.resume.exp3Period,
+      description: t.resume.exp3Desc,
     },
     {
-      title: "Teater & Puisi Performer",
-      subtitle: "Teater Biner, PEKSIMIDA, PEKSIMINAS",
-      period: "2023 - 2025",
-      description:
-        "Menulis dan menampilkan karya puisi dan teater yang mengangkat isu sosial. Aktif di Teater Biner dan berkompetisi di tingkat provinsi dan nasional.",
+      title: t.resume.exp4Title,
+      subtitle: t.resume.exp4Subtitle,
+      period: t.resume.exp4Period,
+      description: t.resume.exp4Desc,
     },
   ];
 
   return (
     <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <SectionTitle title="Resume" subtitle="Perjalanan & Kompetensi" />
+        <SectionTitle title={t.resume.title} subtitle={t.resume.subtitle} />
 
         {/* Education */}
         <motion.div
@@ -76,24 +77,22 @@ export default function ResumePage() {
         >
           <div className="flex items-center gap-3 mb-6">
             <GraduationCap className="w-8 h-8 text-[#22D3EE]" />
-            <h3 className="text-2xl font-bold text-[#F9FAFB]">Pendidikan</h3>
+            <h3 className="text-2xl font-bold text-[#F9FAFB]">
+              {t.resume.educationTitle}
+            </h3>
           </div>
 
           <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-lg">
             <h4 className="text-xl font-bold text-[#F9FAFB] mb-2">
-              ITB STIKOM Bali
+              {t.resume.university}
             </h4>
             <p className="text-[#22D3EE] font-medium mb-2">
-              Program Studi Teknologi Informasi
+              {t.resume.program}
             </p>
             <p className="text-[#FACC15] text-sm font-medium mb-3">
-              2023 - Sekarang
+              {t.resume.period}
             </p>
-            <p className="text-[#D1D5DB] mt-2">
-              Fokus pada Artificial Intelligence, IoT, dan Robotics dengan
-              partisipasi aktif di berbagai kegiatan riset dan organisasi
-              kampus.
-            </p>
+            <p className="text-[#D1D5DB] mt-2">{t.resume.focus}</p>
           </div>
         </motion.div>
 
@@ -109,7 +108,7 @@ export default function ResumePage() {
             <div className="flex items-center gap-3 mb-6">
               <Code className="w-8 h-8 text-[#22D3EE]" />
               <h3 className="text-2xl font-bold text-[#F9FAFB]">
-                Technical Skills
+                {t.resume.technicalSkillsTitle}
               </h3>
             </div>
 
@@ -140,7 +139,9 @@ export default function ResumePage() {
           >
             <div className="flex items-center gap-3 mb-6">
               <Users className="w-8 h-8 text-[#FACC15]" />
-              <h3 className="text-2xl font-bold text-[#F9FAFB]">Soft Skills</h3>
+              <h3 className="text-2xl font-bold text-[#F9FAFB]">
+                {t.resume.softSkillsTitle}
+              </h3>
             </div>
 
             <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-lg">
@@ -172,7 +173,7 @@ export default function ResumePage() {
           <div className="flex items-center gap-3 mb-8">
             <Globe className="w-8 h-8 text-[#22D3EE]" />
             <h3 className="text-2xl font-bold text-[#F9FAFB]">
-              Pengalaman & Aktivitas
+              {t.resume.experienceTitle}
             </h3>
           </div>
 

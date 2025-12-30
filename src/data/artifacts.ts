@@ -28,7 +28,6 @@ export const artifacts: Artifact[] = [
       "YOLOv8",
       "Raspberry Pi",
       "Python",
-      "Edge Computing",
       "IoT",
       "Dashboard Analytics",
     ],
@@ -62,6 +61,7 @@ export const artifacts: Artifact[] = [
       "K-Nearest Neighbour",
       "Machine Learning",
       "Data Analysis",
+      "Google Colab",
     ],
     links: [
       {
