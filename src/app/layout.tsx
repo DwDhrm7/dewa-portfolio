@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Dewa Dharma",
   description:
     "Portfolio profesional I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

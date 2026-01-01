@@ -90,7 +90,7 @@ export default function ContactPage() {
     {
       icon: Github,
       label: t.contact.githubInfo,
-      value: "github.com/yourprofile",
+      value: "github.com/DewaDharma",
       link: "https://github.com/DwDhrm7",
     },
   ];
