@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import type { Artifact } from "@/data/artifacts";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ProjectCardProps {
   artifact: Artifact;
@@ -12,6 +13,12 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ artifact, index }: ProjectCardProps) {
   const [showReflection, setShowReflection] = useState(false);
+  const { language } = useLanguage();
+
+  const title = artifact.title[language];
+  const role = artifact.role[language];
+  const description = artifact.description[language];
+  const reflection = artifact.reflection[language];
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -19,8 +26,10 @@ export default function ProjectCard({ artifact, index }: ProjectCardProps) {
         return "bg-[#22D3EE]/20 text-[#22D3EE] border-[#22D3EE]/30";
       case "Case Based":
         return "bg-[#FACC15]/20 text-[#FACC15] border-[#FACC15]/30";
+      case "Additional":
+        return "bg-purple-400/20 text-purple-400 border-purple-400/30";
       default:
-        return "bg-purple-500/20 text-purple-400 border-purple-500/30";
+        return "bg-white/10 text-white border-white/10";
     }
   };
 
@@ -32,7 +41,6 @@ export default function ProjectCard({ artifact, index }: ProjectCardProps) {
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group relative bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-6 md:p-8 border border-white/10 hover:border-[#22D3EE]/50 transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl hover:shadow-[#22D3EE]/20"
     >
-      {/* Category Badge */}
       <div className="flex items-center gap-2 mb-4">
         <span
           className={`px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(
@@ -43,20 +51,16 @@ export default function ProjectCard({ artifact, index }: ProjectCardProps) {
         </span>
       </div>
 
-      {/* Title */}
       <h3 className="text-2xl md:text-3xl font-bold text-[#F9FAFB] mb-2 group-hover:text-[#22D3EE] transition-colors">
-        {artifact.title}
+        {title}
       </h3>
 
-      {/* Role */}
-      <p className="text-[#FACC15] font-medium mb-4">{artifact.role}</p>
+      <p className="text-[#FACC15] font-medium mb-4">{role}</p>
 
-      {/* Description */}
       <p className="text-[#D1D5DB] mb-4 leading-relaxed">
-        {artifact.description}
+        {description}
       </p>
 
-      {/* Tech Stack */}
       {artifact.techStack && artifact.techStack.length > 0 && (
         <div className="mb-4">
           <p className="text-sm text-[#E5E7EB] font-medium mb-2">
@@ -75,7 +79,6 @@ export default function ProjectCard({ artifact, index }: ProjectCardProps) {
         </div>
       )}
 
-      {/* Links */}
       {artifact.links && artifact.links.length > 0 && (
         <div className="flex flex-wrap gap-3 mb-4">
           {artifact.links.map((link) => (
@@ -93,16 +96,18 @@ export default function ProjectCard({ artifact, index }: ProjectCardProps) {
         </div>
       )}
 
-      {/* Reflection Toggle */}
       <button
         onClick={() => setShowReflection(!showReflection)}
         className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors text-[#E5E7EB] font-medium text-sm border border-white/10"
       >
-        <span>Refleksi (What - So What - Now What)</span>
+        <span>
+          {language === "id" 
+            ? "Refleksi (What – So What – Now What)" 
+            : "Reflection (What – So What – Now What)"}
+        </span>
         {showReflection ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </button>
 
-      {/* Reflection Content */}
       {showReflection && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
@@ -114,21 +119,21 @@ export default function ProjectCard({ artifact, index }: ProjectCardProps) {
           <div className="p-4 bg-white/5 rounded-lg border border-white/10">
             <h4 className="text-[#22D3EE] font-semibold mb-2">What</h4>
             <p className="text-[#D1D5DB] text-sm leading-relaxed">
-              {artifact.reflection.what}
+              {reflection.what}
             </p>
           </div>
 
           <div className="p-4 bg-white/5 rounded-lg border border-white/10">
             <h4 className="text-[#FACC15] font-semibold mb-2">So What</h4>
             <p className="text-[#D1D5DB] text-sm leading-relaxed">
-              {artifact.reflection.soWhat}
+              {reflection.soWhat}
             </p>
           </div>
 
           <div className="p-4 bg-white/5 rounded-lg border border-white/10">
             <h4 className="text-purple-400 font-semibold mb-2">Now What</h4>
             <p className="text-[#D1D5DB] text-sm leading-relaxed">
-              {artifact.reflection.nowWhat}
+              {reflection.nowWhat}
             </p>
           </div>
         </motion.div>

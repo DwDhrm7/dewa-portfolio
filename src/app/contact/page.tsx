@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
-import { Mail, Linkedin, Github, Send } from "lucide-react";
+import { Mail, Linkedin, Github, Send, CheckCircle, XCircle } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
-import { a } from "framer-motion/client";
+import emailjs from '@emailjs/browser';
 
 export default function ContactPage() {
   const { language } = useLanguage();
@@ -18,10 +18,51 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(t.contact.successMessage);
-    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // EmailJS Configuration
+      const serviceId = 'service_p10iz6p';        // Ganti dengan Service ID Anda
+      const templateId = 'template_xet7p6z';      // Ganti dengan Template ID Anda
+      const publicKey = '5fg0Kyqd28pp5QNer';        // Ganti dengan Public Key Anda
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_name: 'Dewa Dharma', // Nama Anda
+      };
+
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", message: "" });
+        
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus('idle');
+        }, 5000);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -49,7 +90,7 @@ export default function ContactPage() {
     {
       icon: Github,
       label: t.contact.githubInfo,
-      value: "github.com/DwDhrm7",
+      value: "github.com/yourprofile",
       link: "https://github.com/DwDhrm7",
     },
   ];
@@ -86,7 +127,8 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder={t.contact.namePlaceholder}
                   />
                 </div>
@@ -105,7 +147,8 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder={t.contact.emailPlaceholder}
                   />
                 </div>
@@ -123,19 +166,64 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={handleChange}
                     required
+                    disabled={isSubmitting}
                     rows={6}
-                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all resize-none"
+                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder={t.contact.messagePlaceholder}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 bg-gradient-to-r from-[#22D3EE] to-[#0EA5E9] text-white rounded-xl font-medium hover:shadow-lg hover:shadow-[#22D3EE]/50 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                  disabled={isSubmitting}
+                  className={`w-full px-6 py-3 bg-gradient-to-r from-[#22D3EE] to-[#0EA5E9] text-white rounded-xl font-medium hover:shadow-lg hover:shadow-[#22D3EE]/50 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2 ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 >
-                  <Send size={18} />
-                  {t.contact.sendButton}
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      {language === 'id' ? 'Mengirim...' : 'Sending...'}
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      {t.contact.sendButton}
+                    </>
+                  )}
                 </button>
+
+                {/* Success Message */}
+                {submitStatus === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400"
+                  >
+                    <CheckCircle size={20} />
+                    <span className="text-sm">
+                      {language === 'id'
+                        ? '✨ Pesan berhasil dikirim! Saya akan segera membalas ke email Anda.'
+                        : '✨ Message sent successfully! I will reply to your email soon.'}
+                    </span>
+                  </motion.div>
+                )}
+
+                {/* Error Message */}
+                {submitStatus === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400"
+                  >
+                    <XCircle size={20} />
+                    <span className="text-sm">
+                      {language === 'id'
+                        ? '❌ Gagal mengirim pesan. Silakan coba lagi atau hubungi via email langsung.'
+                        : '❌ Failed to send message. Please try again or contact via email directly.'}
+                    </span>
+                  </motion.div>
+                )}
               </form>
             </div>
           </motion.div>
