@@ -158,8 +158,6 @@ Jika Tailwind tidak jalan:
 ## 👑 Author
 
 **I Dewa Made Dharma Putra Santika**  
-Bali — Indonesia  
-AI | Robotics | IoT | Software Development
 
 ---
 
