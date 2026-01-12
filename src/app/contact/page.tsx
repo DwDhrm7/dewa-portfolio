@@ -28,15 +28,15 @@ export default function ContactPage() {
 
     try {
       // EmailJS Configuration
-      const serviceId = 'service_p10iz6p';        // Ganti dengan Service ID Anda
-      const templateId = 'template_xet7p6z';      // Ganti dengan Template ID Anda
-      const publicKey = '5fg0Kyqd28pp5QNer';        // Ganti dengan Public Key Anda
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';     
 
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
         message: formData.message,
-        to_name: 'Dewa Dharma', // Nama Anda
+        to_name: 'Dewa Dharma',
       };
 
       const response = await emailjs.send(

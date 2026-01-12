@@ -8,7 +8,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";  // ← TAMBAH IN
 export const metadata: Metadata = {
   title: "Dewa Dharma",
   description:
-    "Portfolio profesional I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
+    "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
   icons: {
     icon: "/favicon.ico",
   },

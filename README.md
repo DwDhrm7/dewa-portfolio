@@ -1,16 +1,80 @@
-# Portfolio Website - I Dewa Made Dharma Putra Santika
+# 🌐 Personal Portfolio — I Dewa Made Dharma Putra Santika
 
-Portfolio profesional dan elegan yang dibangun dengan Next.js, TypeScript, dan Tailwind CSS.
+Website portfolio profesional modern yang dibangun menggunakan **Next.js 15, TypeScript, dan Tailwind CSS**, dilengkapi animasi halus, struktur modular, sistem multi-bahasa, dan tampilan elegan yang responsif di semua perangkat.
 
-## 🌟 Fitur
+---
 
-- ✨ Desain modern dan elegan dengan tema gelap
-- ❄️ Efek salju animasi yang tidak mengganggu
-- 📱 Fully responsive untuk semua ukuran layar
-- 🎨 Glassmorphism dan gradien yang halus
-- ⚡ Performa optimal dengan Next.js 15
-- 🎭 Animasi smooth dengan Framer Motion
-- 📄 5 halaman lengkap: Home, About, Resume, Portfolio, Contact
+## 🌟 Fitur Utama
+
+### 🎨 Desain & UI/UX
+- Tema gelap elegan + glassmorphism + gradient halus
+- Navbar transparan dengan efek blur + sticky + shadow
+- Layout profesional & konsisten pada setiap halaman
+- Full responsive (Mobile, Tablet, Desktop)
+- Komponen UI reusable & modular
+
+---
+
+### 🌍 Multi Bahasa (ID & EN)
+Website mendukung **dua bahasa**:
+- 🇮🇩 Bahasa Indonesia  
+- 🇺🇸 English  
+
+Dengan:
+- Sistem context: `/src/contexts/LanguageContext.tsx`
+- File translate: `/src/translations/en.ts` & `/src/translations/id.ts`
+- Toggle bahasa dari Navbar (Desktop & Mobile)
+
+Semua teks halaman otomatis mengikuti bahasa aktif.
+
+---
+
+### ❄️ Snow Effect Engine
+Efek salju ringan & halus:
+- Dibangun dengan `<canvas>`
+- Particle snow custom (gravity, drift, opacity)
+- Optimized — tidak memberatkan performa
+
+File:
+```
+src/components/SnowEffect.tsx
+```
+
+---
+
+### ⚡ Performa & Teknologi Modern
+- Next.js **App Router**
+- TypeScript strict
+- Tailwind 100% utility
+- Framer Motion animasi halus
+- Lucide React icons
+- Struktur kode bersih & scalable
+
+---
+
+## 📄 Halaman Utama
+
+| Halaman | Deskripsi |
+|--------|----------|
+| **Home** | Hero section profesional + CTA |
+| **About** | Profil & filosofi diri |
+| **Resume** | Timeline pengalaman + Hard & Soft Skills |
+| **Portfolio** | Data proyek otomatis dari `artifacts.ts` |
+| **Contact** | Halaman kontak stylish |
+
+---
+
+## 🧠 Struktur Data Portfolio
+Project menggunakan _data-driven system_  
+Semua karya diambil dari:
+
+```
+src/data/artifacts.ts
+```
+
+Cukup tambah data → otomatis muncul di halaman Portfolio.
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -20,152 +84,84 @@ Portfolio profesional dan elegan yang dibangun dengan Next.js, TypeScript, dan T
 - **Animation**: Framer Motion
 - **Icons**: Lucide React
 
-## 📁 Struktur Project
+---
+
+## 📂 Struktur Folder
 
 ```
-my-portfolio/
-├── src/
-│   ├── app/
-│   │   ├── about/
-│   │   │   └── page.tsx          # Halaman About
-│   │   ├── resume/
-│   │   │   └── page.tsx          # Halaman Resume
-│   │   ├── portfolio/
-│   │   │   └── page.tsx          # Halaman Portfolio
-│   │   ├── contact/
-│   │   │   └── page.tsx          # Halaman Contact
-│   │   ├── layout.tsx            # Root layout
-│   │   ├── page.tsx              # Homepage
-│   │   └── globals.css           # Global styles
-│   ├── components/
-│   │   ├── Navbar.tsx            # Navigation bar
-│   │   ├── Footer.tsx            # Footer
-│   │   ├── Hero.tsx              # Hero section
-│   │   ├── SectionTitle.tsx      # Section title component
-│   │   ├── ProjectCard.tsx       # Project card component
-│   │   ├── TimelineItem.tsx      # Timeline item component
-│   │   └── SnowEffect.tsx        # Snow animation effect
-│   └── data/
-│       └── artifacts.ts          # Portfolio data
-├── package.json
-├── tsconfig.json
-├── tailwind.config.ts
-├── postcss.config.mjs
-├── next.config.ts
-└── README.md
+src/
+├── app/
+│   ├── page.tsx
+│   ├── about/
+│   ├── resume/
+│   ├── portfolio/
+│   └── contact/
+├── components/
+│   ├── Hero.tsx
+│   ├── Navbar.tsx
+│   ├── Footer.tsx
+│   ├── ProjectCard.tsx
+│   ├── TimelineItem.tsx
+│   ├── SectionTitle.tsx
+│   └── SnowEffect.tsx
+├── contexts/
+│   └── LanguageContext.tsx
+├── translations/
+│   ├── id.ts
+│   ├── en.ts
+│   └── index.ts
+└── data/
+    └── artifacts.ts
 ```
 
-## 🚀 Cara Menjalankan
+---
 
-### Prerequisites
+## 🚀 Instalasi & Menjalankan Project
 
-- Node.js 18.17 atau lebih baru
-- npm atau yarn
+### 1️⃣ Clone Repo
+```bash
+git clone https://github.com/USERNAME/REPO-NAME.git
+cd REPO-NAME
+```
 
-### Instalasi
-
-1. **Install dependencies**
-
+### 2️⃣ Install Dependencies
 ```bash
 npm install
 ```
 
-2. **Jalankan development server**
-
+### 3️⃣ Jalankan
 ```bash
 npm run dev
 ```
 
-3. **Buka browser**
-
-Akses `http://localhost:3000` di browser Anda.
-
-### Build untuk Production
-
-```bash
-npm run build
-npm start
+Buka:
+```
+http://localhost:3000
 ```
 
-## 📄 Halaman yang Tersedia
+---
 
-### 1. Home (`/`)
-- Hero section dengan nama dan tagline
-- CTA buttons (View Portfolio, Download CV)
-- Efek salju background
-
-### 2. About (`/about`)
-- Profil profesional lengkap
-- Status pendidikan di ITB STIKOM Bali
-- Minat utama (AI, IoT, Robotics, Theatre)
-- Tujuan pengembangan diri
-- Nilai dan cara kerja
-
-### 3. Resume (`/resume`)
-- Pendidikan formal
-- Technical skills (Hard skills)
-- Soft skills
-- Timeline pengalaman dan aktivitas
-
-### 4. Portfolio (`/portfolio`)
-- **Project Based**: SIGMA (Smart Traffic System)
-- **Case Based**: Penelitian Dangdut Classification
-- **Additional Artifacts**: 
-  - Teater & Puisi
-  - Leadership RADE
-  - VRU Thailand Exchange
-- Setiap karya memiliki refleksi What-So What-Now What
-
-### 5. Contact (`/contact`)
-- Form kontak (dummy - tidak terhubung backend)
-- Informasi kontak (Email, LinkedIn, GitHub)
-
-## 🎨 Customization
-
-### Mengubah Warna
-
-Edit di `tailwind.config.ts` atau gunakan class Tailwind:
-- Primary: `#22D3EE` (cyan)
-- Secondary: `#FACC15` (gold)
-- Background: `#050816` (navy dark)
-
-### Mengubah Data Portfolio
-
-Edit file `src/data/artifacts.ts` untuk mengubah atau menambah karya.
-
-### Menghilangkan Efek Salju
-
-Hapus atau comment `<SnowEffect />` di `src/app/layout.tsx`.
-
-## 📝 Catatan
-
-- Form contact saat ini adalah dummy (tidak ada backend integration)
-- Link CV perlu disesuaikan dengan file CV yang sebenarnya
-- Email dan social media links di Footer dan Contact perlu disesuaikan dengan data asli
-
-## 🔧 Troubleshooting
-
-Jika ada error saat instalasi:
-
+## 🌩️ Troubleshooting
+Jika error:
 ```bash
-# Hapus node_modules dan reinstall
-rm -rf node_modules
-npm install
-```
-
-Jika ada error TypeScript:
-
-```bash
-# Restart TypeScript server di editor Anda
-# Atau hapus .next folder
 rm -rf .next
 npm run dev
 ```
 
-## 📄 License
-
-© 2025 I Dewa Made Dharma Putra Santika. All rights reserved.
+Jika Tailwind tidak jalan:
+- Restart dev server
+- Pastikan `globals.css` aktif
+- Pastikan `tailwind.config.ts` benar
 
 ---
 
-**Dibuat dengan ❤️ menggunakan Next.js, TypeScript, dan Tailwind CSS**
+## 👑 Author
+
+**I Dewa Made Dharma Putra Santika**  
+Bali — Indonesia  
+AI | Robotics | IoT | Software Development
+
+---
+
+## 📜 License
+© 2026 — All Rights Reserved.

@@ -114,7 +114,7 @@ export const id = {
 
   // Footer
   footer: {
-    copyright: "© 2025 I Dewa Made Dharma Putra Santika. All rights reserved.",
+    copyright: "© 2026 I Dewa Made Dharma Putra Santika. All rights reserved.",
   },
 };
 
