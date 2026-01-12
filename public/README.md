@@ -95,29 +95,4 @@ href="https://drive.google.com/file/d/YOUR_FILE_ID"
 target="_blank"
 ```
 
----
-
-## 💡 Tips Pro
-
-1. **Kompres PDF**: Gunakan tools seperti SmallPDF untuk reduce ukuran
-2. **Multiple CV**: Bisa taruh 2 versi (Indonesia & English):
-   ```
-   public/
-   ├── cv-dharma-santika-id.pdf
-   └── cv-dharma-santika-en.pdf
-   ```
-   Lalu conditional render berdasarkan bahasa aktif!
-
-3. **Auto Open**: Ganti `download` jadi `target="_blank"` untuk open di tab baru
-
----
-
-## ✅ Checklist Final
-
-- [ ] File CV ada di `public/cv-dharma-santika.pdf`
-- [ ] Ukuran file < 3MB
-- [ ] Format PDF
-- [ ] Test download berhasil
-- [ ] Nama download sesuai keinginan
-
-**CV Anda siap didownload oleh visitor!** 🎉
+--
