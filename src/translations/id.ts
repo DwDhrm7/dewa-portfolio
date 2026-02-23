@@ -60,7 +60,7 @@ export const id = {
     experienceTitle: "Pengalaman & Aktivitas",
     exp1Title: "Ketua RADE",
     exp1Subtitle: "Robotics and Embedded Systems Research Group",
-    exp1Period: "2024 - Sekarang",
+    exp1Period: "2024 - 2025",
     exp1Desc: "Memimpin organisasi riset mahasiswa yang fokus pada IoT, robotika, dan AI. Mengkoordinasikan riset, pelatihan, seminar, dan kompetisi. Membawa RADE meraih prestasi di tingkat nasional.",
     exp2Title: "Asisten Peneliti",
     exp2Subtitle: "Hybrid K-NN for Dangdut Music Classification",
