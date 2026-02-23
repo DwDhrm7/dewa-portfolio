@@ -62,7 +62,7 @@ export const en: TranslationKeys = {
     experienceTitle: "Experience & Activities",
     exp1Title: "Leader of RADE",
     exp1Subtitle: "Robotics and Embedded Systems Research Group",
-    exp1Period: "2024 - 2025",
+    exp1Period: "2025 - 2026",
     exp1Desc: "Leading a student research organization focused on IoT, robotics, and AI. Coordinating research, training, seminars, and competitions. Led RADE to achieve recognition at national level.",
     exp2Title: "Research Assistant",
     exp2Subtitle: "Hybrid K-NN for Dangdut Music Classification",
