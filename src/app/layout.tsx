@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SnowEffect from "@/components/SnowEffect";
+import ParticleBackground from "@/components/ParticleBackground";
 import { LanguageProvider } from "@/contexts/LanguageContext";  // ← TAMBAH INI
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="id">
       <body className="antialiased">
         <LanguageProvider>  {/* ← WRAP DENGAN INI */}
-          <SnowEffect />
+          <ParticleBackground />
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>
           <Footer />
