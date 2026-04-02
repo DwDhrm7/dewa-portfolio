@@ -82,7 +82,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="px-8 pb-24 pt-32 md:px-14 md:pb-32 lg:px-20">
+    <div className="px-5 pb-24 pt-32 md:px-14 md:pb-32 lg:px-20">
       <div className="mx-auto max-w-[1440px]">
         <motion.header
           initial={{ opacity: 0, y: 24 }}
@@ -106,7 +106,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="rounded-[2rem] bg-white p-8 shadow-[0_24px_70px_rgba(0,0,0,0.05)] md:p-10"
+            className="rounded-[2rem] bg-white p-6 shadow-[0_24px_70px_rgba(0,0,0,0.05)] md:p-10"
           >
             <h2 className="mb-8 font-headline text-3xl font-bold tracking-[-0.03em] text-neutral-950">
               {t.contact.formTitle}
@@ -181,7 +181,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="space-y-6"
           >
-            <div className="rounded-[2rem] bg-neutral-950 p-8 text-white md:p-10">
+            <div className="rounded-[2rem] bg-neutral-950 p-6 text-white md:p-10">
               <p className="mb-4 text-[10px] uppercase tracking-[0.22em] text-white/60">
                 {t.contact.directLines}
               </p>
@@ -200,7 +200,7 @@ export default function ContactPage() {
                   href={item.href}
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="flex items-center justify-between rounded-2xl bg-white p-8 transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.05)]"
+                  className="flex items-center justify-between gap-4 rounded-2xl bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.05)] md:p-8"
                 >
                   <div className="flex items-center gap-4">
                     <div className="rounded-full bg-neutral-100 p-3 text-neutral-950">
@@ -210,7 +210,7 @@ export default function ContactPage() {
                       <p className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
                         {item.label}
                       </p>
-                      <p className="mt-1 font-headline text-xl font-bold tracking-[-0.03em] text-neutral-950">
+                      <p className="mt-1 break-all font-headline text-lg font-bold tracking-[-0.03em] text-neutral-950 sm:text-xl">
                         {item.value}
                       </p>
                     </div>
