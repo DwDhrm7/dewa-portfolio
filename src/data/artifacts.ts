@@ -70,6 +70,48 @@ export const artifacts: Artifact[] = [
       },
     },
   },
+  {
+    id: "agrisense-mob",
+    title: {
+      id: "AgriSense Mobile",
+      en: "AgriSense Mobile",
+    },
+    category: "Project Based",
+    role: {
+      id: "Mobile Developer",
+      en: "Mobile Developer",
+    },
+    description: {
+      id: "Aplikasi mobile React Native untuk monitoring pertanian dan greenhouse secara real-time. AgriSense Mobile menghadirkan pembacaan sensor langsung, kontrol aktuator jarak jauh, insight cuaca, rekomendasi AI, serta visualisasi data historis dalam antarmuka yang bersih dan modern.",
+      en: "A React Native mobile application for real-time agricultural and greenhouse monitoring. AgriSense Mobile combines live sensor readings, remote actuator control, weather insights, AI recommendations, and historical data visualization in a clean, modern interface.",
+    },
+    techStack: [
+      "React Native",
+      "TypeScript",
+      "MQTT",
+      "Open-Meteo",
+      "Gemini AI",
+      "Chart Kit",
+    ],
+    links: [
+      {
+        label: "GitHub Repository",
+        url: "https://github.com/DwDhrm7/agrisense-mob",
+      },
+    ],
+    reflection: {
+      id: {
+        what: "Proyek ini berfokus pada pengembangan aplikasi mobile untuk kebutuhan monitoring pertanian modern. Saya merancang pengalaman pengguna yang memudahkan pemantauan suhu, kelembapan, soil moisture, dan intensitas cahaya secara real-time, sekaligus menyediakan kontrol aktuator seperti pompa, kipas, dan grow light dari satu dashboard.",
+        soWhat: "Melalui proyek ini, saya memperdalam integrasi antara antarmuka mobile, komunikasi MQTT, layanan cuaca, dan rekomendasi AI dalam satu alur kerja yang konsisten. Tantangan utamanya adalah menjaga pengalaman tetap sederhana meskipun sistem membawa banyak informasi operasional dan data lingkungan secara bersamaan.",
+        nowWhat: "Ke depan, saya ingin mengembangkan AgriSense Mobile menjadi platform yang lebih matang dengan analitik yang lebih dalam, notifikasi yang lebih kontekstual, dan integrasi perangkat lapangan yang lebih luas untuk mendukung keputusan budidaya secara real-time.",
+      },
+      en: {
+        what: "This project focused on building a mobile application for modern agriculture monitoring. I designed a user experience that makes it easy to track temperature, humidity, soil moisture, and light intensity in real time, while also providing actuator controls such as pumps, fans, and grow lights from a single dashboard.",
+        soWhat: "Through this project, I deepened my understanding of combining mobile interfaces, MQTT communication, weather services, and AI recommendations into one consistent workflow. The main challenge was keeping the experience simple while the system surfaced dense operational and environmental data.",
+        nowWhat: "Moving forward, I want to evolve AgriSense Mobile into a more mature platform with deeper analytics, more contextual notifications, and broader field-device integrations to support real-time cultivation decisions.",
+      },
+    },
+  },
 
   // CASE BASED
   {

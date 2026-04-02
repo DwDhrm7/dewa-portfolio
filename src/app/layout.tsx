@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
-import { LanguageProvider } from "@/contexts/LanguageContext";  // ← TAMBAH INI
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 export const metadata: Metadata = {
   title: "Dewa Dharma",
@@ -21,13 +20,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="antialiased">
-        <LanguageProvider>  {/* ← WRAP DENGAN INI */}
-          <ParticleBackground />
+        <LanguageProvider>
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>
           <Footer />
-        </LanguageProvider>  {/* ← TUTUP DI SINI */}
+        </LanguageProvider>
       </body>
     </html>
   );

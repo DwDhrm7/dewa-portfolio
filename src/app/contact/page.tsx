@@ -1,297 +1,290 @@
 "use client";
 
-import { motion } from "framer-motion";
-import SectionTitle from "@/components/SectionTitle";
-import { Mail, Linkedin, Github, Send, CheckCircle, XCircle } from "lucide-react";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { ArrowUpRight, CheckCircle2, Github, Linkedin, Mail, Send, XCircle } from "lucide-react";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
-import emailjs from '@emailjs/browser';
 
 export default function ContactPage() {
   const { language } = useLanguage();
   const t = translations[language];
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const contactLinks = [
+    {
+      icon: Mail,
+      label: t.contact.emailInfo,
+      value: "madedharmaputrasantikaidewa@gmail.com",
+      href: "mailto:madedharmaputrasantikaidewa@gmail.com",
+    },
+    {
+      icon: Linkedin,
+      label: t.contact.linkedinInfo,
+      value: "idewamadedharmaputrasantika",
+      href: "https://www.linkedin.com/in/idewamadedharmaputrasantika/",
+    },
+    {
+      icon: Github,
+      label: t.contact.githubInfo,
+      value: "DwDhrm7",
+      href: "https://github.com/DwDhrm7",
+    },
+  ];
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('idle');
+    setSubmitStatus("idle");
 
     try {
-      // EmailJS Configuration
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';     
-
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message,
-        to_name: 'Dewa Dharma',
-      };
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
 
       const response = await emailjs.send(
         serviceId,
         templateId,
-        templateParams,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: "Dewa Dharma",
+        },
         publicKey
       );
 
       if (response.status === 200) {
-        setSubmitStatus('success');
+        setSubmitStatus("success");
         setFormData({ name: "", email: "", message: "" });
-        
-        // Auto-hide success message after 5 seconds
-        setTimeout(() => {
-          setSubmitStatus('idle');
-        }, 5000);
       } else {
-        setSubmitStatus('error');
+        setSubmitStatus("error");
       }
-    } catch (error) {
-      console.error('EmailJS Error:', error);
-      setSubmitStatus('error');
+    } catch {
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: t.contact.emailInfo,
-      value: "madedharmaputrasantikaidewa@gmail.com",
-      link: "mailto:madedharmaputrasantikaidewa@gmail.com",
-    },
-    {
-      icon: Linkedin,
-      label: t.contact.linkedinInfo,
-      value: "linkedin.com/in/idewamadedharmaputrasantika",
-      link: "https://www.linkedin.com/in/idewamadedharmaputrasantika/",
-    },
-    {
-      icon: Github,
-      label: t.contact.githubInfo,
-      value: "github.com/DewaDharma",
-      link: "https://github.com/DwDhrm7",
-    },
-  ];
-
   return (
-    <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-        <SectionTitle title={t.contact.title} subtitle={t.contact.subtitle} />
+    <div className="px-8 pb-24 pt-32 md:px-14 md:pb-32 lg:px-20">
+      <div className="mx-auto max-w-[1440px]">
+        <motion.header
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-20"
+        >
+          <p className="mb-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+            {t.contact.eyebrow}
+          </p>
+          <h1 className="mb-6 font-headline text-5xl font-extrabold tracking-[-0.05em] text-neutral-950 md:text-7xl">
+            {t.contact.title}
+          </h1>
+          <p className="max-w-3xl text-lg leading-8 text-neutral-600">
+            {t.contact.readyDesc}
+          </p>
+        </motion.header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <motion.section
+            initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
+            className="rounded-[2rem] bg-white p-8 shadow-[0_24px_70px_rgba(0,0,0,0.05)] md:p-10"
           >
-            <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-xl">
-              <h3 className="text-2xl font-bold text-[#F9FAFB] mb-6">
-                {t.contact.formTitle}
-              </h3>
+            <h2 className="mb-8 font-headline text-3xl font-bold tracking-[-0.03em] text-neutral-950">
+              {t.contact.formTitle}
+            </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-[#E5E7EB] font-medium mb-2"
-                  >
-                    {t.contact.nameLabel}
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    disabled={isSubmitting}
-                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    placeholder={t.contact.namePlaceholder}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-[#E5E7EB] font-medium mb-2"
-                  >
-                    {t.contact.emailLabel}
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    disabled={isSubmitting}
-                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    placeholder={t.contact.emailPlaceholder}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-[#E5E7EB] font-medium mb-2"
-                  >
-                    {t.contact.messageLabel}
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    disabled={isSubmitting}
-                    rows={6}
-                    className="w-full px-4 py-3 bg-[#050816] border border-white/10 rounded-lg text-[#E5E7EB] focus:border-[#22D3EE] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20 transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed"
-                    placeholder={t.contact.messagePlaceholder}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full px-6 py-3 bg-gradient-to-r from-[#22D3EE] to-[#0EA5E9] text-white rounded-xl font-medium hover:shadow-lg hover:shadow-[#22D3EE]/50 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2 ${
-                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <FormField
+                id="name"
+                label={t.contact.nameLabel}
+                placeholder={t.contact.namePlaceholder}
+                value={formData.name}
+                onChange={handleChange}
+                disabled={isSubmitting}
+              />
+              <FormField
+                id="email"
+                label={t.contact.emailLabel}
+                placeholder={t.contact.emailPlaceholder}
+                value={formData.email}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                type="email"
+              />
+              <div>
+                <label
+                  htmlFor="message"
+                  className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      {language === 'id' ? 'Mengirim...' : 'Sending...'}
-                    </>
-                  ) : (
-                    <>
-                      <Send size={18} />
-                      {t.contact.sendButton}
-                    </>
-                  )}
-                </button>
+                  {t.contact.messageLabel}
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  value={formData.message}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  required
+                  placeholder={t.contact.messagePlaceholder}
+                  className="w-full rounded-2xl border border-black/10 bg-[#faf9f6] px-5 py-4 text-neutral-950 outline-none transition focus:border-neutral-950"
+                />
+              </div>
 
-                {/* Success Message */}
-                {submitStatus === 'success' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400"
-                  >
-                    <CheckCircle size={20} />
-                    <span className="text-sm">
-                      {language === 'id'
-                        ? '✨ Pesan berhasil dikirim! Saya akan segera membalas ke email Anda.'
-                        : '✨ Message sent successfully! I will reply to your email soon.'}
-                    </span>
-                  </motion.div>
-                )}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="inline-flex w-full items-center justify-center gap-3 rounded-md bg-neutral-950 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <Send size={16} />
+                {isSubmitting ? t.contact.sending : t.contact.sendButton}
+              </button>
 
-                {/* Error Message */}
-                {submitStatus === 'error' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400"
-                  >
-                    <XCircle size={20} />
-                    <span className="text-sm">
-                      {language === 'id'
-                        ? '❌ Gagal mengirim pesan. Silakan coba lagi atau hubungi via email langsung.'
-                        : '❌ Failed to send message. Please try again or contact via email directly.'}
-                    </span>
-                  </motion.div>
-                )}
-              </form>
-            </div>
-          </motion.div>
+              {submitStatus === "success" && (
+                <StatusMessage
+                  variant="success"
+                  text={t.contact.successInline}
+                />
+              )}
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
+              {submitStatus === "error" && (
+                <StatusMessage
+                  variant="error"
+                  text={t.contact.errorInline}
+                />
+              )}
+            </form>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="space-y-6"
           >
-            <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-xl">
-              <h3 className="text-2xl font-bold text-[#F9FAFB] mb-6">
+            <div className="rounded-[2rem] bg-neutral-950 p-8 text-white md:p-10">
+              <p className="mb-4 text-[10px] uppercase tracking-[0.22em] text-white/60">
+                {t.contact.directLines}
+              </p>
+              <h2 className="font-headline text-3xl font-bold tracking-[-0.03em]">
                 {t.contact.infoTitle}
-              </h3>
-
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => {
-                  const Icon = info.icon;
-                  return (
-                    <motion.a
-                      key={info.label}
-                      href={info.link}
-                      target={info.label !== t.contact.emailInfo ? "_blank" : undefined}
-                      rel={
-                        info.label !== t.contact.emailInfo
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                      className="flex items-start gap-4 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300 group border border-white/10 hover:border-[#22D3EE]/50"
-                    >
-                      <div className="p-3 bg-[#22D3EE]/10 rounded-lg group-hover:bg-[#22D3EE]/20 transition-colors">
-                        <Icon className="w-6 h-6 text-[#22D3EE]" />
-                      </div>
-                      <div>
-                        <p className="text-[#E5E7EB] font-medium mb-1">
-                          {info.label}
-                        </p>
-                        <p className="text-[#D1D5DB] text-sm break-all">
-                          {info.value}
-                        </p>
-                      </div>
-                    </motion.a>
-                  );
-                })}
-              </div>
+              </h2>
+              <p className="mt-4 leading-8 text-white/70">{t.contact.readyDesc}</p>
             </div>
 
-            {/* Additional Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="bg-gradient-to-r from-[#22D3EE]/10 to-[#FACC15]/10 rounded-2xl p-8 border border-[#22D3EE]/30"
-            >
-              <h4 className="text-xl font-bold text-[#F9FAFB] mb-3">
-                {t.contact.readyTitle}
-              </h4>
-              <p className="text-[#D1D5DB] leading-relaxed">
-                {t.contact.readyDesc}
-              </p>
-            </motion.div>
-          </motion.div>
+            {contactLinks.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="flex items-center justify-between rounded-2xl bg-white p-8 transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.05)]"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-full bg-neutral-100 p-3 text-neutral-950">
+                      <Icon size={18} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
+                        {item.label}
+                      </p>
+                      <p className="mt-1 font-headline text-xl font-bold tracking-[-0.03em] text-neutral-950">
+                        {item.value}
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowUpRight size={18} className="text-neutral-950" />
+                </a>
+              );
+            })}
+          </motion.section>
         </div>
       </div>
+    </div>
+  );
+}
+
+function FormField({
+  id,
+  label,
+  placeholder,
+  value,
+  onChange,
+  disabled,
+  type = "text",
+}: {
+  id: string;
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled: boolean;
+  type?: string;
+}) {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500"
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        required
+        placeholder={placeholder}
+        className="w-full rounded-2xl border border-black/10 bg-[#faf9f6] px-5 py-4 text-neutral-950 outline-none transition focus:border-neutral-950"
+      />
+    </div>
+  );
+}
+
+function StatusMessage({
+  variant,
+  text,
+}: {
+  variant: "success" | "error";
+  text: string;
+}) {
+  const Icon = variant === "success" ? CheckCircle2 : XCircle;
+
+  return (
+    <div
+      className={`flex items-start gap-3 rounded-2xl border px-4 py-4 text-sm ${
+        variant === "success"
+          ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+          : "border-red-200 bg-red-50 text-red-700"
+      }`}
+    >
+      <Icon size={18} className="mt-0.5 shrink-0" />
+      <span>{text}</span>
     </div>
   );
 }

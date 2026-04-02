@@ -14,8 +14,21 @@ export const en: TranslationKeys = {
   hero: {
     role: "IT Student · AI & Robotics Enthusiast",
     tagline: "Combining AI, IoT, and art to build intelligent and meaningful solutions.",
+    eyebrow: "Personal Portfolio / 2026",
+    titleLine1: "Engineering Clarity",
+    titleLine2: "from Complexity.",
     viewPortfolio: "View Portfolio",
     downloadCV: "Download CV",
+    focusLabel: "Current Focus",
+    focusTitle: "AI, IoT, and Interface Systems",
+    focusDescription:
+      "Designing systems where machine intelligence, embedded hardware, and narrative thinking work as one.",
+    focusTags: ["Neural Networks", "Embedded Systems", "Human-Centered UX"],
+    profileLabel: "Profile",
+    profileDescription:
+      "Building intelligent products with a calm editorial language and a strong technical core.",
+    selectedWorkLabel: "Selected Work",
+    explore: "Explore",
   },
 
   // About
@@ -46,12 +59,38 @@ export const en: TranslationKeys = {
     value2Desc: "I believe the best innovations come from cross-disciplinary collaboration and exchange of ideas.",
     value3Title: "Cross-Disciplinary Exploration",
     value3Desc: "Combining technology with arts and humanities to create meaningful solutions.",
+    introLabel: "Introduction",
+    introHeading: "Combining AI, IoT, and art into intentional systems.",
+    biographyTitle: "Biography",
+    workingPrinciplesLabel: "Working Principles",
+    capabilitiesLabel: "Capabilities",
+    technicalFocusTitle: "Technical Focus",
+    philosophyLabel: "Philosophy",
+    philosophyTitle: "Technology that narrates.",
+    philosophyDescription:
+      "For me, code is not only a mechanism for computation. It is also a medium for expression, structure, and interpretation. I build systems that stay technically rigorous while still feeling human in how they communicate.",
+    philosophyPoints: [
+      "Art in every architecture",
+      "Narrative-driven intelligence",
+      "Human-centric automation",
+    ],
+    capabilitiesCards: [
+      "AI & Machine Learning",
+      "IoT & Embedded Systems",
+      "Creative Technology",
+      "Narrative Systems",
+    ],
   },
 
   // Resume
   resume: {
     title: "Resume",
     subtitle: "Journey & Competencies",
+    eyebrow: "Professional Curriculum Vitae",
+    summary:
+      "IT Student and AI & Robotics Enthusiast. Combining AI, IoT, and art to build intelligent systems with technical clarity and human-centered intent.",
+    downloadCv: "Download CV",
+    focusAreasTitle: "Key Focus Areas",
     educationTitle: "Education",
     university: "ITB STIKOM Bali",
     program: "Information Technology Study Program",
@@ -60,6 +99,68 @@ export const en: TranslationKeys = {
     technicalSkillsTitle: "Technical Skills",
     softSkillsTitle: "Soft Skills",
     experienceTitle: "Experience & Activities",
+    focusAreas: [
+      {
+        label: "Artificial Intelligence",
+        title: "Machine Learning & Computer Vision",
+        description:
+          "Developing intelligent systems for image understanding, edge inference, and data-driven decision support.",
+      },
+      {
+        label: "Software Engineering",
+        title: "Mobile & Web Product Development",
+        description:
+          "Building React Native and Next.js interfaces that turn complex data into clear, operational user experiences.",
+      },
+      {
+        label: "IoT & Hardware",
+        title: "Robotics & Embedded Systems",
+        description:
+          "Designing hardware-software pipelines that connect sensors, actuators, and real-time monitoring interfaces.",
+      },
+    ],
+    technicalSkills: [
+      "React Native",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Python",
+      "GitHub",
+      "Node-RED",
+      "YOLOv8",
+      "TensorFlow",
+      "OpenCV",
+      "MQTT",
+      "Firebase",
+      "MySQL",
+      "Arduino / ESP32",
+    ],
+    workflowTitle: "AI Workflow & Vibe Coding",
+    workflowDescription:
+      "I also work with a vibe coding approach, combining product intuition, rapid exploration, and AI-assisted iteration to move quickly from idea to implementation without losing technical quality.",
+    aiStackTitle: "AI and Tools I Use",
+    aiStack: [
+      {
+        name: "Claude",
+        role: "Primary AI for thinking, writing, and structuring solutions.",
+      },
+      {
+        name: "ChatGPT",
+        role: "Companion for idea exploration, concept validation, and copy or strategy iteration.",
+      },
+      {
+        name: "Codex",
+        role: "Implementation partner for generating, refactoring, and accelerating technical execution.",
+      },
+      {
+        name: "VS Code",
+        role: "Primary editor for orchestrating daily coding workflows and tooling integration.",
+      },
+      {
+        name: "Anti Gravity",
+        role: "Supporting tool for faster experimentation, exploration, and creative momentum while building products.",
+      },
+    ],
     exp1Title: "Leader of RADE",
     exp1Subtitle: "Robotics and Embedded Systems Research Group",
     exp1Period: "2025 - 2026",
@@ -76,18 +177,32 @@ export const en: TranslationKeys = {
     exp4Subtitle: "Teater Biner, PEKSIMIDA, PEKSIMINAS",
     exp4Period: "2023 - 2025",
     exp4Desc: "Writing and performing poetry and theater works addressing social issues. Active in Teater Biner and competing at provincial and national levels.",
+    ctaTitle: "Interested in collaborating?",
+    ctaDescription:
+      "Get in touch for work involving AI systems, smart devices, mobile interfaces, or research-oriented product development.",
   },
 
   // Portfolio
   portfolio: {
     title: "Portfolio",
     subtitle: "My Works & Contributions",
+    eyebrow: "Library / Index 001",
+    intro:
+      "A structured archive of research-driven builds, applied systems, and cross-disciplinary work.",
     projectBasedTitle: "Project Based",
     projectBasedDesc: "Main projects with complete development from ideation to implementation",
     caseBasedTitle: "Case Based",
     caseBasedDesc: "Contributions in research and academic case studies",
     additionalTitle: "Additional Artifacts",
     additionalDesc: "Artistic works, leadership, and cross-disciplinary collaborations",
+    archiveLabel: "Archive Segment",
+    entriesLabel: "entries",
+    categories: {
+      projectBased: "Project Based",
+      caseBased: "Case Based",
+      additional: "Additional",
+    },
+    roleLabel: "Role",
     ctaTitle: "Interested in collaborating?",
     ctaDesc: "I am always open to discussing new projects, research collaborations, or simply sharing ideas about technology and innovation.",
     ctaButton: "Contact Me",
@@ -97,6 +212,7 @@ export const en: TranslationKeys = {
   contact: {
     title: "Contact Me",
     subtitle: "Let's connect and collaborate",
+    eyebrow: "Contact / Open Channel",
     formTitle: "Send Message",
     nameLabel: "Name",
     namePlaceholder: "Your Name",
@@ -105,8 +221,12 @@ export const en: TranslationKeys = {
     messageLabel: "Message",
     messagePlaceholder: "Write your message here...",
     sendButton: "Send Message",
+    sending: "Sending",
+    successInline: "Message sent successfully. I will respond through email soon.",
+    errorInline: "Message failed to send. Please try again or contact me directly via email.",
     successMessage: "Thank you! Your message has been received. (Demo mode - form not connected to backend)",
     infoTitle: "Contact Information",
+    directLines: "Direct Lines",
     emailInfo: "Email",
     linkedinInfo: "LinkedIn",
     githubInfo: "GitHub",

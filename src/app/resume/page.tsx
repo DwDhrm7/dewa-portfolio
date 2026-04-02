@@ -1,9 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import SectionTitle from "@/components/SectionTitle";
-import TimelineItem from "@/components/TimelineItem";
-import { GraduationCap, Code, Users, Globe } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 
@@ -11,185 +8,208 @@ export default function ResumePage() {
   const { language } = useLanguage();
   const t = translations[language];
 
-  const hardSkills = [
-    "YOLOv8",
-    "Machine Learning",
-    "IoT & Embedded Systems",
-    "Python Programming",
-    "React Native & Front End Software Development",
-    "Next.js & Front End Web Development",
-    "PHP & MySQL",
-    "Google Colab",
-    "Audio Feature Extraction",
-    "Data Analysis & Visualization",
-  ];
-
-  const softSkills = [
-    "Leadership & Team Management",
-    "Public Speaking & Performance",
-    "Research & Analytical Thinking",
-    "Cross-cultural Communication",
-    "Project Management",
-    "Problem Solving",
-    "Creative Writing",
-    "Collaboration & Teamwork",
-  ];
-
   const experiences = [
     {
+      period: t.resume.exp1Period,
       title: t.resume.exp1Title,
       subtitle: t.resume.exp1Subtitle,
-      period: t.resume.exp1Period,
       description: t.resume.exp1Desc,
     },
     {
+      period: t.resume.exp2Period,
       title: t.resume.exp2Title,
       subtitle: t.resume.exp2Subtitle,
-      period: t.resume.exp2Period,
       description: t.resume.exp2Desc,
     },
     {
+      period: t.resume.exp3Period,
       title: t.resume.exp3Title,
       subtitle: t.resume.exp3Subtitle,
-      period: t.resume.exp3Period,
       description: t.resume.exp3Desc,
     },
     {
+      period: t.resume.exp4Period,
       title: t.resume.exp4Title,
       subtitle: t.resume.exp4Subtitle,
-      period: t.resume.exp4Period,
       description: t.resume.exp4Desc,
     },
   ];
 
   return (
-    <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <SectionTitle title={t.resume.title} subtitle={t.resume.subtitle} />
-
-        {/* Education */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+    <div className="px-8 pb-24 pt-32 md:px-14 md:pb-32 lg:px-20">
+      <div className="mx-auto max-w-[1440px]">
+        <motion.header
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-24 flex flex-col gap-10 md:flex-row md:items-end md:justify-between"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <GraduationCap className="w-8 h-8 text-[#22D3EE]" />
-            <h3 className="text-2xl font-bold text-[#F9FAFB]">
-              {t.resume.educationTitle}
-            </h3>
-          </div>
-
-          <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-lg">
-            <h4 className="text-xl font-bold text-[#F9FAFB] mb-2">
-              {t.resume.university}
-            </h4>
-            <p className="text-[#22D3EE] font-medium mb-2">
-              {t.resume.program}
+          <div className="max-w-4xl">
+            <p className="mb-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+              {t.resume.eyebrow}
             </p>
-            <p className="text-[#FACC15] text-sm font-medium mb-3">
-              {t.resume.period}
+            <h1 className="font-headline text-5xl font-extrabold tracking-[-0.05em] text-neutral-950 md:text-7xl">
+              I Dewa Made Dharma
+              <br />
+              Putra Santika
+            </h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-neutral-600">
+              {t.resume.summary}
             </p>
-            <p className="text-[#D1D5DB] mt-2">{t.resume.focus}</p>
-          </div>
-        </motion.div>
-
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {/* Hard Skills */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <Code className="w-8 h-8 text-[#22D3EE]" />
-              <h3 className="text-2xl font-bold text-[#F9FAFB]">
-                {t.resume.technicalSkillsTitle}
-              </h3>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-lg">
-              <div className="flex flex-wrap gap-3">
-                {hardSkills.map((skill, index) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="px-4 py-2 bg-[#22D3EE]/10 text-[#22D3EE] rounded-lg border border-[#22D3EE]/30 text-sm font-medium hover:bg-[#22D3EE]/20 transition-colors"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Soft Skills */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <Users className="w-8 h-8 text-[#FACC15]" />
-              <h3 className="text-2xl font-bold text-[#F9FAFB]">
-                {t.resume.softSkillsTitle}
-              </h3>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#0F172A] to-[#020617] rounded-2xl p-8 border border-white/10 shadow-lg">
-              <div className="flex flex-wrap gap-3">
-                {softSkills.map((skill, index) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="px-4 py-2 bg-[#FACC15]/10 text-[#FACC15] rounded-lg border border-[#FACC15]/30 text-sm font-medium hover:bg-[#FACC15]/20 transition-colors"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Experience Timeline */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <div className="flex items-center gap-3 mb-8">
-            <Globe className="w-8 h-8 text-[#22D3EE]" />
-            <h3 className="text-2xl font-bold text-[#F9FAFB]">
-              {t.resume.experienceTitle}
-            </h3>
           </div>
 
-          <div className="space-y-0">
-            {experiences.map((exp, index) => (
-              <TimelineItem
-                key={exp.title}
-                title={exp.title}
-                subtitle={exp.subtitle}
-                period={exp.period}
-                description={exp.description}
-                index={index}
-              />
+          <a
+            href={
+              language === "id"
+                ? "/cv-dharma-santika-id.pdf"
+                : "/cv-dharma-santika-en.pdf"
+            }
+            download
+            className="inline-flex items-center justify-center rounded-md bg-neutral-950 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-90"
+          >
+            {t.resume.downloadCv}
+          </a>
+        </motion.header>
+
+        <section className="mb-24 rounded-[2rem] bg-white p-10 shadow-[0_24px_70px_rgba(0,0,0,0.05)] md:p-14">
+          <div className="mb-10 flex items-center gap-4">
+            <h2 className="font-headline text-sm font-black uppercase tracking-[0.4em] text-neutral-950">
+              {t.resume.focusAreasTitle}
+            </h2>
+            <div className="h-px flex-1 bg-black/10" />
+          </div>
+
+          <div className="space-y-12">
+            {t.resume.focusAreas.map((area) => (
+              <div key={area.title} className="grid gap-6 md:grid-cols-4">
+                <div className="text-xs uppercase tracking-[0.22em] text-neutral-500">
+                  {area.label}
+                </div>
+                <div className="md:col-span-3">
+                  <h3 className="font-headline text-2xl font-bold tracking-[-0.03em] text-neutral-950">
+                    {area.title}
+                  </h3>
+                  <p className="mt-4 max-w-3xl leading-7 text-neutral-600">
+                    {area.description}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </section>
+
+        <div className="mb-24 grid gap-10 lg:grid-cols-2">
+          <section className="rounded-2xl bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
+            <div className="mb-10 flex items-center gap-4">
+              <h2 className="font-headline text-sm font-black uppercase tracking-[0.4em] text-neutral-950">
+                {t.resume.educationTitle}
+              </h2>
+              <div className="h-px flex-1 bg-black/10" />
+            </div>
+            <div className="border-l border-black/10 pl-6">
+              <p className="mb-2 text-[10px] uppercase tracking-[0.22em] text-neutral-500">
+                {t.resume.period}
+              </p>
+              <h3 className="font-headline text-2xl font-bold tracking-[-0.03em] text-neutral-950">
+                {t.resume.program}
+              </h3>
+              <p className="mt-2 text-neutral-600">{t.resume.university}</p>
+              <p className="mt-4 leading-7 text-neutral-600">{t.resume.focus}</p>
+            </div>
+          </section>
+
+          <section className="rounded-2xl bg-neutral-950 p-10 text-white">
+            <div className="mb-10 flex items-center gap-4">
+              <h2 className="font-headline text-sm font-black uppercase tracking-[0.4em] text-white">
+                {t.resume.technicalSkillsTitle}
+              </h2>
+              <div className="h-px flex-1 bg-white/10" />
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {t.resume.technicalSkills.map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-full bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <section className="mb-24 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="rounded-2xl bg-neutral-950 p-10 text-white">
+            <div className="mb-8 flex items-center gap-4">
+              <h2 className="font-headline text-sm font-black uppercase tracking-[0.4em] text-white">
+                {t.resume.workflowTitle}
+              </h2>
+              <div className="h-px flex-1 bg-white/10" />
+            </div>
+            <p className="leading-8 text-white/75">{t.resume.workflowDescription}</p>
+          </div>
+
+          <div className="rounded-2xl bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
+            <div className="mb-8 flex items-center gap-4">
+              <h2 className="font-headline text-sm font-black uppercase tracking-[0.4em] text-neutral-950">
+                {t.resume.aiStackTitle}
+              </h2>
+              <div className="h-px flex-1 bg-black/10" />
+            </div>
+            <div className="space-y-6">
+              {t.resume.aiStack.map((item) => (
+                <div
+                  key={item.name}
+                  className="grid gap-2 border-b border-black/5 pb-5 last:border-b-0 last:pb-0 md:grid-cols-[140px_1fr]"
+                >
+                  <div className="font-headline text-xl font-bold tracking-[-0.03em] text-neutral-950">
+                    {item.name}
+                  </div>
+                  <p className="leading-7 text-neutral-600">{item.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-24 rounded-[2rem] bg-white p-10 shadow-[0_24px_70px_rgba(0,0,0,0.05)] md:p-14">
+          <div className="mb-10 flex items-center gap-4">
+            <h2 className="font-headline text-sm font-black uppercase tracking-[0.4em] text-neutral-950">
+              {t.resume.experienceTitle}
+            </h2>
+            <div className="h-px flex-1 bg-black/10" />
+          </div>
+          <div className="space-y-10">
+            {experiences.map((item) => (
+              <div
+                key={`${item.title}-${item.period}`}
+                className="grid gap-4 border-b border-black/5 pb-8 last:border-b-0 last:pb-0 md:grid-cols-[140px_1fr]"
+              >
+                <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
+                  {item.period}
+                </div>
+                <div>
+                  <h3 className="font-headline text-2xl font-bold tracking-[-0.03em] text-neutral-950">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm uppercase tracking-[0.18em] text-neutral-500">
+                    {item.subtitle}
+                  </p>
+                  <p className="mt-4 leading-7 text-neutral-600">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-2xl bg-neutral-950 p-12 text-center text-white">
+          <h2 className="font-headline text-3xl font-bold tracking-[-0.03em]">
+            {t.resume.ctaTitle}
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl leading-8 text-white/70">
+            {t.resume.ctaDescription}
+          </p>
+        </section>
       </div>
     </div>
   );
