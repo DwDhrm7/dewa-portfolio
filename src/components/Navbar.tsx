@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Globe, Menu, X } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,59 +64,68 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3 md:hidden">
             <button
-              onClick={toggleLanguage}
-              className="rounded-full border border-black/10 bg-white/70 p-2 text-neutral-900 transition hover:bg-neutral-900 hover:text-white"
-              aria-label="Toggle language"
-            >
-              <Globe size={16} />
-            </button>
-            <button
               onClick={() => setIsOpen((prev) => !prev)}
-              className="rounded-full border border-black/10 bg-white/70 p-2 text-neutral-900"
+              className="rounded-full border border-black/10 bg-white/70 p-2 text-neutral-900 transition-all hover:bg-neutral-950 hover:text-white"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X size={18} /> : <Menu size={18} />}
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
 
-        {isOpen && (
-          <div className="border-t border-black/5 bg-[rgba(247,245,240,0.96)] px-6 py-4 md:hidden">
-            <div className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`rounded-md px-4 py-3 font-headline text-sm uppercase tracking-[0.18em] ${
-                    isActive(item.href)
-                      ? "bg-neutral-950 text-white"
-                      : "text-neutral-600 hover:bg-black/5 hover:text-neutral-950"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-black/5 bg-[rgba(255,255,255,0.92)] px-4 py-3 backdrop-blur-xl md:hidden">
-        <div className="mx-auto flex max-w-md items-center justify-between">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`font-headline text-[10px] uppercase tracking-[0.18em] ${
-                isActive(item.href) ? "font-bold text-neutral-950" : "text-neutral-500"
-              }`}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden border-b border-black/5 bg-[rgba(247,245,240,0.98)] backdrop-blur-3xl md:hidden"
             >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-      </div>
+              <div className="flex flex-col gap-6 px-8 py-10">
+                <div className="flex flex-col gap-4">
+                  {navItems.map((item, index) => (
+                    <motion.div
+                      key={item.href}
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`block font-headline text-3xl font-extrabold uppercase tracking-[0.2em] transition-all ${
+                          isActive(item.href) ? "text-neutral-950" : "text-neutral-400"
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-4 border-t border-black/5 pt-8"
+                >
+                  <button
+                    onClick={() => {
+                      toggleLanguage();
+                      setIsOpen(false);
+                    }}
+                    className="inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/70 px-6 py-3 text-sm font-bold uppercase tracking-[0.22em] text-neutral-900 transition hover:bg-neutral-900 hover:text-white"
+                  >
+                    <Globe size={18} />
+                    {language === "id" ? "Ganti ke English" : "Switch to Indonesia"}
+                  </button>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
     </>
   );
 }

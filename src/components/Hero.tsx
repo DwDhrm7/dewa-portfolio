@@ -26,9 +26,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-20"
+          className="mb-14"
         >
-          <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="mb-12 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-4xl">
               <p className="mb-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
                 {t.hero.eyebrow}
@@ -40,18 +40,18 @@ export default function Hero() {
               </h1>
             </div>
 
-            <p className="max-w-md text-base leading-7 text-neutral-600 md:text-lg">
+            <p className="max-w-xl text-xl font-medium leading-tight text-neutral-600 md:text-2xl lg:text-3xl">
               {t.hero.tagline}
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row">
+          <div className="mt-12 flex flex-col gap-4 sm:flex-row">
             <Link
               href="/portfolio"
-              className="inline-flex items-center justify-center gap-3 rounded-md bg-neutral-950 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-90"
+              className="inline-flex items-center justify-center gap-3 rounded-md bg-neutral-950 px-10 py-5 text-sm font-extrabold uppercase tracking-[0.24em] text-white transition hover:opacity-90"
             >
               {t.hero.viewPortfolio}
-              <ArrowUpRight size={16} />
+              <ArrowUpRight size={18} />
             </Link>
             <a
               href={
@@ -60,15 +60,15 @@ export default function Hero() {
                   : "/cv-dharma-santika-en.pdf"
               }
               download
-              className="inline-flex items-center justify-center gap-3 rounded-md border border-black/10 bg-white/70 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-950 transition hover:bg-black hover:text-white"
+              className="inline-flex items-center justify-center gap-3 rounded-md border-2 border-black/10 bg-white/70 px-10 py-5 text-sm font-extrabold uppercase tracking-[0.24em] text-neutral-950 transition hover:bg-black hover:text-white"
             >
-              <Download size={16} />
+              <Download size={18} />
               {t.hero.downloadCV}
             </a>
           </div>
         </motion.div>
 
-        <div className="mb-20 grid gap-6 md:grid-cols-3">
+        <div className="mb-14 grid gap-6 md:grid-cols-3">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
