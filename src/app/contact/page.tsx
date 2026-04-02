@@ -88,7 +88,7 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-20"
+          className="mb-20 flex flex-col items-center text-center md:items-start md:text-left"
         >
           <p className="mb-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             {t.contact.eyebrow}

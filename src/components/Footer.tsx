@@ -10,12 +10,12 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-black/5 bg-[rgba(255,255,255,0.72)] px-6 py-10 md:px-10">
-      <div className="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-6 px-2 md:flex-row md:items-center md:px-4 lg:px-6">
-        <p className="text-xs uppercase tracking-[0.22em] text-neutral-500">
+      <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-8 px-2 md:flex-row md:items-center md:px-4 lg:px-6">
+        <p className="text-center text-xs uppercase tracking-[0.22em] text-neutral-500 md:text-left">
           {t.footer.copyright}
         </p>
 
-        <div className="flex flex-wrap gap-8">
+        <div className="flex flex-wrap justify-center gap-8">
           <Link
             href="https://www.linkedin.com/in/idewamadedharmaputrasantika/"
             target="_blank"

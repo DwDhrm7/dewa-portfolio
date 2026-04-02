@@ -82,13 +82,13 @@ export default function Navbar() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="overflow-hidden border-b border-black/5 bg-[rgba(247,245,240,0.98)] backdrop-blur-3xl md:hidden"
             >
-              <div className="flex flex-col gap-6 px-8 py-10">
-                <div className="flex flex-col gap-4">
+              <div className="flex flex-col items-center gap-8 px-8 py-14 text-center">
+                <div className="flex flex-col gap-6">
                   {navItems.map((item, index) => (
                     <motion.div
                       key={item.href}
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: index * 0.05 }}
                     >
                       <Link
@@ -108,14 +108,14 @@ export default function Navbar() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="mt-4 border-t border-black/5 pt-8"
+                  className="mt-6 border-t border-black/5 pt-8"
                 >
                   <button
                     onClick={() => {
                       toggleLanguage();
                       setIsOpen(false);
                     }}
-                    className="inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/70 px-6 py-3 text-sm font-bold uppercase tracking-[0.22em] text-neutral-900 transition hover:bg-neutral-900 hover:text-white"
+                    className="inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/70 px-8 py-4 text-sm font-extrabold uppercase tracking-[0.22em] text-neutral-900 transition hover:bg-neutral-900 hover:text-white"
                   >
                     <Globe size={18} />
                     {language === "id" ? "Ganti ke English" : "Switch to Indonesia"}

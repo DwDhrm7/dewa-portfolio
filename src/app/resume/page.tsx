@@ -42,7 +42,7 @@ export default function ResumePage() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-24 flex flex-col gap-10 md:flex-row md:items-end md:justify-between"
+          className="mb-24 flex flex-col items-center gap-10 text-center md:flex-row md:items-end md:justify-between md:text-left"
         >
           <div className="max-w-4xl">
             <p className="mb-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
@@ -65,7 +65,7 @@ export default function ResumePage() {
                 : "/cv-dharma-santika-en.pdf"
             }
             download
-            className="inline-flex items-center justify-center rounded-md bg-neutral-950 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-90"
+            className="inline-flex w-full items-center justify-center rounded-md bg-neutral-950 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-90 sm:w-auto"
           >
             {t.resume.downloadCv}
           </a>

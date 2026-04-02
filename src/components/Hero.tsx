@@ -28,7 +28,7 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <div className="mb-12 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mb-12 flex flex-col items-center gap-10 text-center lg:flex-row lg:items-end lg:justify-between lg:text-left">
             <div className="max-w-4xl">
               <p className="mb-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
                 {t.hero.eyebrow}
@@ -45,10 +45,10 @@ export default function Hero() {
             </p>
           </div>
 
-          <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/portfolio"
-              className="inline-flex items-center justify-center gap-3 rounded-md bg-neutral-950 px-10 py-5 text-sm font-extrabold uppercase tracking-[0.24em] text-white transition hover:opacity-90"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-md bg-neutral-950 px-10 py-5 text-sm font-extrabold uppercase tracking-[0.24em] text-white transition hover:opacity-90 sm:w-auto"
             >
               {t.hero.viewPortfolio}
               <ArrowUpRight size={18} />
@@ -60,7 +60,7 @@ export default function Hero() {
                   : "/cv-dharma-santika-en.pdf"
               }
               download
-              className="inline-flex items-center justify-center gap-3 rounded-md border-2 border-black/10 bg-white/70 px-10 py-5 text-sm font-extrabold uppercase tracking-[0.24em] text-neutral-950 transition hover:bg-black hover:text-white"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-md border-2 border-black/10 bg-white/70 px-10 py-5 text-sm font-extrabold uppercase tracking-[0.24em] text-neutral-950 transition hover:bg-black hover:text-white sm:w-auto"
             >
               <Download size={18} />
               {t.hero.downloadCV}
@@ -73,11 +73,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="md:col-span-2 rounded-2xl bg-white p-8 shadow-[0_24px_70px_rgba(0,0,0,0.05)]"
+            className="rounded-2xl bg-white p-8 shadow-[0_24px_70px_rgba(0,0,0,0.05)] md:col-span-2"
           >
-            <div className="mb-8 flex items-start justify-between">
-              <Sparkles className="text-neutral-950" size={32} />
-              <div className="text-right">
+            <div className="mb-8 flex flex-col items-center justify-center text-center sm:flex-row sm:items-start sm:justify-between sm:text-left">
+              <Sparkles className="mb-4 text-neutral-950 sm:mb-0" size={32} />
+              <div className="sm:text-right">
                 <p className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
                   {t.hero.focusLabel}
                 </p>
@@ -86,10 +86,10 @@ export default function Hero() {
                 </p>
               </div>
             </div>
-            <h2 className="max-w-3xl font-headline text-3xl font-bold leading-tight tracking-[-0.03em] text-neutral-950 md:text-4xl">
+            <h2 className="mx-auto max-w-3xl text-center font-headline text-3xl font-bold leading-tight tracking-[-0.03em] text-neutral-950 sm:text-left md:text-4xl lg:mx-0">
               {t.hero.focusDescription}
             </h2>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap justify-center gap-3 sm:justify-start">
               {t.hero.focusTags.map((tag, index) => (
                 <span
                   key={tag}
@@ -109,7 +109,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="rounded-2xl bg-neutral-950 p-8 text-white"
+            className="flex flex-col items-center rounded-2xl bg-neutral-950 p-8 text-center text-white sm:items-start sm:text-left"
           >
             <p className="mb-6 text-[11px] uppercase tracking-[0.22em] text-white/60">
               {t.hero.profileLabel}
@@ -130,7 +130,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className={`rounded-2xl bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)] ${
+              className={`flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.04)] sm:items-start sm:text-left ${
                 index === 0 ? "md:col-span-6" : "md:col-span-3"
               }`}
             >
@@ -143,7 +143,7 @@ export default function Hero() {
               <p className="line-clamp-4 text-sm leading-7 text-neutral-600">
                 {item.description}
               </p>
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-6 flex flex-wrap justify-center gap-2 sm:justify-start">
                 {item.tags.map((tag) => (
                   <span
                     key={tag}

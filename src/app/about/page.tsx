@@ -39,7 +39,7 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-24 grid items-end gap-12 md:grid-cols-[1.15fr_0.85fr]"
+          className="mb-24 grid items-end gap-12 text-center md:grid-cols-[1.15fr_0.85fr] md:text-left"
         >
           <div>
             <p className="mb-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
