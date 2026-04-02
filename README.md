@@ -1,167 +1,150 @@
-# 🌐 Personal Portfolio — I Dewa Made Dharma Putra Santika
+# Dewa Portfolio
 
-Website portfolio profesional modern yang dibangun menggunakan **Next.js 15, TypeScript, dan Tailwind CSS**, dilengkapi animasi halus, struktur modular, sistem multi-bahasa, dan tampilan elegan yang responsif di semua perangkat.
+Portfolio website pribadi untuk **I Dewa Made Dharma Putra Santika**, dibangun dengan **Next.js 15**, **TypeScript**, dan **Tailwind CSS**. Project ini memakai pendekatan editorial minimal dengan layout monokrom, sistem bilingual, dan konten portofolio berbasis data.
 
----
+## Overview
 
-## 🌟 Fitur Utama
+Website ini menampilkan:
 
-### 🎨 Desain & UI/UX
-- Tema gelap elegan + glassmorphism + gradient halus
-- Navbar transparan dengan efek blur + sticky + shadow
-- Layout profesional & konsisten pada setiap halaman
-- Full responsive (Mobile, Tablet, Desktop)
-- Komponen UI reusable & modular
+- halaman `Home`, `About`, `Resume`, `Portfolio`, dan `Contact`
+- tampilan editorial monokrom dengan tipografi `Manrope` + `Inter`
+- sistem bahasa ganda Indonesia dan English
+- konten portofolio yang diambil dari `src/data/artifacts.ts`
+- form kontak berbasis `EmailJS`
 
----
+## Features
 
-### 🌍 Multi Bahasa (ID & EN)
-Website mendukung **dua bahasa**:
-- 🇮🇩 Bahasa Indonesia  
-- 🇺🇸 English  
+- **Editorial UI**
+  - visual minimal, bersih, dan fokus pada hirarki tipografi
+  - navbar sticky, layout responsif, dan kartu konten modular
 
-Dengan:
-- Sistem context: `/src/contexts/LanguageContext.tsx`
-- File translate: `/src/translations/en.ts` & `/src/translations/id.ts`
-- Toggle bahasa dari Navbar (Desktop & Mobile)
+- **Bilingual Content**
+  - mendukung Bahasa Indonesia dan English
+  - toggle bahasa tersedia di navbar
+  - teks dikelola lewat `src/translations/id.ts` dan `src/translations/en.ts`
 
-Semua teks halaman otomatis mengikuti bahasa aktif.
+- **Data-Driven Portfolio**
+  - semua item portofolio dikelola dari satu sumber data
+  - penambahan project baru cukup lewat `src/data/artifacts.ts`
 
----
+- **Resume & Workflow**
+  - menampilkan technical focus, skill stack, experience, serta AI workflow
+  - mencakup tools dan workflow seperti Claude, ChatGPT, Codex, VS Code, dan Anti Gravity
 
-### ❄️ Snow Effect Engine
-Efek salju ringan & halus:
-- Dibangun dengan `<canvas>`
-- Particle snow custom (gravity, drift, opacity)
-- Optimized — tidak memberatkan performa
+- **Contact Integration**
+  - form kontak terhubung ke EmailJS melalui environment variables
 
-File:
-```
-src/components/SnowEffect.tsx
-```
+## Tech Stack
 
----
-
-### ⚡ Performa & Teknologi Modern
-- Next.js **App Router**
-- TypeScript strict
-- Tailwind 100% utility
-- Framer Motion animasi halus
-- Lucide React icons
-- Struktur kode bersih & scalable
-
----
-
-## 📄 Halaman Utama
-
-| Halaman | Deskripsi |
-|--------|----------|
-| **Home** | Hero section profesional + CTA |
-| **About** | Profil & filosofi diri |
-| **Resume** | Timeline pengalaman + Hard & Soft Skills |
-| **Portfolio** | Data proyek otomatis dari `artifacts.ts` |
-| **Contact** | Halaman kontak stylish |
-
----
-
-## 🧠 Struktur Data Portfolio
-Project menggunakan _data-driven system_  
-Semua karya diambil dari:
-
-```
-src/data/artifacts.ts
-```
-
-Cukup tambah data → otomatis muncul di halaman Portfolio.
-
----
-
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 15
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Animation**: Framer Motion
 - **Icons**: Lucide React
+- **Email**: EmailJS
 
----
+## Project Structure
 
-## 📂 Struktur Folder
-
-```
+```text
 src/
 ├── app/
-│   ├── page.tsx
 │   ├── about/
-│   ├── resume/
+│   ├── contact/
 │   ├── portfolio/
-│   └── contact/
+│   ├── resume/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
 ├── components/
+│   ├── Footer.tsx
 │   ├── Hero.tsx
 │   ├── Navbar.tsx
-│   ├── Footer.tsx
+│   ├── ParticleBackground.tsx
 │   ├── ProjectCard.tsx
-│   ├── TimelineItem.tsx
 │   ├── SectionTitle.tsx
-│   └── SnowEffect.tsx
+│   ├── SnowEffect.tsx
+│   └── TimelineItem.tsx
 ├── contexts/
 │   └── LanguageContext.tsx
-├── translations/
-│   ├── id.ts
-│   ├── en.ts
-│   └── index.ts
-└── data/
-    └── artifacts.ts
+├── data/
+│   └── artifacts.ts
+└── translations/
+    ├── en.ts
+    ├── id.ts
+    └── index.ts
 ```
 
----
+## Getting Started
 
-## 🚀 Instalasi & Menjalankan Project
+### 1. Clone repository
 
-### 1️⃣ Clone Repo
 ```bash
-git clone https://github.com/USERNAME/REPO-NAME.git
-cd REPO-NAME
+git clone https://github.com/DwDhrm7/dewa-portfolio.git
+cd dewa-portfolio
 ```
 
-### 2️⃣ Install Dependencies
+### 2. Install dependencies
+
 ```bash
 npm install
 ```
 
-### 3️⃣ Jalankan
+### 3. Setup environment variables
+
+Buat file `.env.local` dan isi sesuai kredensial EmailJS:
+
+```bash
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+### 4. Run development server
+
 ```bash
 npm run dev
 ```
 
-Buka:
-```
-http://localhost:3000
-```
+Buka `http://localhost:3000`.
 
----
+## Available Scripts
 
-## 🌩️ Troubleshooting
-Jika error:
 ```bash
-rm -rf .next
 npm run dev
+npm run build
+npm run start
 ```
 
-Jika Tailwind tidak jalan:
-- Restart dev server
-- Pastikan `globals.css` aktif
-- Pastikan `tailwind.config.ts` benar
+## Content Management
 
----
+### Update portfolio items
 
-## 👑 Author
+Edit file:
+
+```text
+src/data/artifacts.ts
+```
+
+### Update translations
+
+Edit file:
+
+```text
+src/translations/id.ts
+src/translations/en.ts
+```
+
+## Deployment Notes
+
+- Pastikan environment variables EmailJS sudah tersedia di server/deployment target.
+- Jalankan `npm run build` sebelum deploy untuk validasi akhir.
+
+## Author
 
 **I Dewa Made Dharma Putra Santika**  
-Bali — Indonesia  
-AI | Robotics | IoT | Software Development
+Bali, Indonesia  
+AI, Robotics, IoT, Software Development
 
----
+## License
 
-## 📜 License
-© 2026 — All Rights Reserved.
+© 2026 I Dewa Made Dharma Putra Santika. All rights reserved.
