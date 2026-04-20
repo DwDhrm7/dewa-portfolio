@@ -127,12 +127,15 @@ export default function ResumePage() {
             </div>
             <div className="flex flex-wrap gap-3">
               {t.resume.technicalSkills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80"
+                <a
+                  key={skill.name}
+                  href={skill.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80 transition-colors hover:bg-white/20 hover:text-white"
                 >
-                  {skill}
-                </span>
+                  {skill.name}
+                </a>
               ))}
             </div>
           </section>
