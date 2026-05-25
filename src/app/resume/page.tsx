@@ -59,11 +59,7 @@ export default function ResumePage() {
           </div>
 
           <a
-            href={
-              language === "id"
-                ? "/cv-dharma-santika-id.pdf"
-                : "/cv-dharma-santika-en.pdf"
-            }
+            href="/CV-dewa-dharma-en.pdf"
             download
             className="inline-flex w-full items-center justify-center rounded-md bg-neutral-950 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-90 sm:w-auto"
           >

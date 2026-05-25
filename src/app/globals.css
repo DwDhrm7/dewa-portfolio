@@ -9,8 +9,6 @@
   --muted: #6b6b6b;
   --line: rgba(23, 23, 23, 0.12);
   --accent: #171717;
-  --font-body: "Inter", "Avenir Next", "Segoe UI", sans-serif;
-  --font-headline: "Manrope", "Avenir Next Condensed", "Arial Narrow", sans-serif;
 }
 
 * {

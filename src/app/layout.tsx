@@ -1,13 +1,48 @@
 import type { Metadata } from "next";
+import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-body",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-headline",
+});
+
 export const metadata: Metadata = {
-  title: "Dewa Dharma",
+  title: "Dewa Dharma | Portfolio",
   description:
     "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
+  openGraph: {
+    title: "Dewa Dharma | Portfolio",
+    description: "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
+    url: "https://dewa-portfolio.vercel.app", // Adjust with actual domain
+    siteName: "Dewa Dharma Portfolio",
+    images: [
+      {
+        url: "/og-image.jpg", // Please place an og-image.jpg in your public folder
+        width: 1200,
+        height: 630,
+        alt: "Dewa Dharma Portfolio",
+      },
+    ],
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dewa Dharma | Portfolio",
+    description: "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
+    images: ["/og-image.jpg"],
+  },
   icons: {
     icon: "/favicon.ico",
   },
@@ -20,15 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="antialiased">
+      <body className={`antialiased ${inter.variable} ${manrope.variable}`}>
         <LanguageProvider>
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>
