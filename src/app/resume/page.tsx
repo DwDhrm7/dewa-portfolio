@@ -8,7 +8,7 @@ export default function ResumePage() {
   const { language } = useLanguage();
   const t = translations[language];
   const downloadCvHref =
-    language === "en" ? "/CV-dewa-dharma-en.pdf" : "/CV-Dewa-Dharma.pdf";
+    language === "en" ? "/CV-dewa-dharma-en.pdf" : "/CV-dewa-dharma-id.pdf";
 
   const experiences = [
     {

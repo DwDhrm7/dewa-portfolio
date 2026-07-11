@@ -11,7 +11,7 @@ export default function Hero() {
   const { language } = useLanguage();
   const t = translations[language];
   const downloadCvHref =
-    language === "en" ? "/CV-dewa-dharma-en.pdf" : "/CV-Dewa-Dharma.pdf";
+    language === "en" ? "/CV-dewa-dharma-en.pdf" : "/CV-dewa-dharma-id.pdf";
 
   const featured = artifacts.slice(0, 3).map((artifact) => ({
     id: artifact.id,
