@@ -10,6 +10,8 @@ import { translations } from "@/translations";
 export default function Hero() {
   const { language } = useLanguage();
   const t = translations[language];
+  const downloadCvHref =
+    language === "en" ? "/CV-dewa-dharma-en.pdf" : "/CV-Dewa-Dharma.pdf";
 
   const featured = artifacts.slice(0, 3).map((artifact) => ({
     id: artifact.id,
@@ -54,7 +56,7 @@ export default function Hero() {
               <ArrowUpRight size={18} />
             </Link>
             <a
-              href="/CV-dewa-dharma-en.pdf"
+              href={downloadCvHref}
               download
               className="inline-flex w-full items-center justify-center gap-3 rounded-md border-2 border-black/10 bg-white/70 px-10 py-5 text-sm font-extrabold uppercase tracking-[0.24em] text-neutral-950 transition hover:bg-black hover:text-white sm:w-auto"
             >

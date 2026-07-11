@@ -7,6 +7,8 @@ import { translations } from "@/translations";
 export default function ResumePage() {
   const { language } = useLanguage();
   const t = translations[language];
+  const downloadCvHref =
+    language === "en" ? "/CV-dewa-dharma-en.pdf" : "/CV-Dewa-Dharma.pdf";
 
   const experiences = [
     {
@@ -59,7 +61,7 @@ export default function ResumePage() {
           </div>
 
           <a
-            href="/CV-dewa-dharma-en.pdf"
+            href={downloadCvHref}
             download
             className="inline-flex w-full items-center justify-center rounded-md bg-neutral-950 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-90 sm:w-auto"
           >
