@@ -32,11 +32,7 @@ export const en: TranslationKeys = {
     explore: "Explore",
   },
 
-  // Announcement
-  announcement: {
-    banner: "Dewa Studio: Premium website design services for restaurants & cafés in Bali. Live in 3 days.",
-    action: "View Designs",
-  },
+
   
   // Studio Teaser
   studioTeaser: {

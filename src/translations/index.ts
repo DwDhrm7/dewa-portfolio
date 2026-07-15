@@ -5,5 +5,3 @@ export const translations = {
   id,
   en,
 };
-
-export type Language = keyof typeof translations;

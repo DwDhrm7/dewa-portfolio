@@ -30,11 +30,7 @@ export const id = {
     explore: "Jelajahi",
   },
 
-  // Announcement
-  announcement: {
-    banner: "Dewa Studio: Layanan pembuatan website premium untuk restoran & kafe di Bali. Live dalam 3 hari.",
-    action: "Lihat Desain",
-  },
+
   
   // Studio Teaser
   studioTeaser: {

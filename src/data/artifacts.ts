@@ -1,4 +1,4 @@
-export type Reflection = {
+type Reflection = {
   what: string;
   soWhat: string;
   nowWhat: string;
