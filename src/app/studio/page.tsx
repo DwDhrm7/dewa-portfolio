@@ -207,13 +207,6 @@ function TemplateCard({
         />
         {/* bottom gradient */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/30 to-transparent" />
-        {/* style badge */}
-        <span
-          className="absolute left-4 top-4 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white"
-          style={{ background: tpl.badge }}
-        >
-          {tpl.style[lang]}
-        </span>
       </div>
 
       {/* ── Card body ── */}
