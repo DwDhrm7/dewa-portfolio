@@ -342,7 +342,7 @@ export default function StudioPage() {
         >
           {[
             { val: "9", label: isId ? "Desain siap pakai" : "Ready-made designs" },
-            { val: "3", label: isId ? "Hari sampai live" : "Days to go live" },
+            { val: "7", label: isId ? "Hari sampai live" : "Days to go live" },
             { val: "2", label: isId ? "Bahasa (ID/EN)" : "Languages (ID/EN)" },
             { val: "∞", label: isId ? "Kustomisasi brand" : "Brand customisations" },
           ].map((s) => (
