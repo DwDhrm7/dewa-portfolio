@@ -20,6 +20,7 @@ const templates = [
     },
     previewBg: "#F5EFE3",
     badge: "#B4451F",
+    colors: ["#F5EFE3", "#B4451F", "#1F1A17"],
   },
   {
     id: "teduh",
@@ -33,6 +34,7 @@ const templates = [
     },
     previewBg: "#101B14",
     badge: "#6B8F4A",
+    colors: ["#101B14", "#6B8F4A", "#D4AF37"],
   },
   {
     id: "luna",
@@ -46,6 +48,7 @@ const templates = [
     },
     previewBg: "#0A0A0A",
     badge: "#C9A96A",
+    colors: ["#0A0A0A", "#C9A96A", "#1C1C1C"],
   },
   {
     id: "hening",
@@ -59,6 +62,7 @@ const templates = [
     },
     previewBg: "#F8F5F0",
     badge: "#4A4238",
+    colors: ["#F8F5F0", "#4A4238", "#D1C9BE"],
   },
   {
     id: "tanah",
@@ -72,6 +76,7 @@ const templates = [
     },
     previewBg: "#1A0F08",
     badge: "#B87333",
+    colors: ["#1A0F08", "#B87333", "#F2EFE9"],
   },
   {
     id: "lartisan",
@@ -85,6 +90,7 @@ const templates = [
     },
     previewBg: "#0C0A05",
     badge: "#C9A96A",
+    colors: ["#0C0A05", "#C9A96A", "#EBEBEB"],
   },
   // ─── Fresh references ───
   {
@@ -99,6 +105,7 @@ const templates = [
     },
     previewBg: "#08221B",
     badge: "#D4AF37",
+    colors: ["#08221B", "#D4AF37", "#F5F2EA"],
   },
   {
     id: "nord",
@@ -112,6 +119,7 @@ const templates = [
     },
     previewBg: "#EAE6DB",
     badge: "#4A5240",
+    colors: ["#EAE6DB", "#4A5240", "#1E201E"],
   },
   {
     id: "mura",
@@ -125,6 +133,7 @@ const templates = [
     },
     previewBg: "#0A0A0A",
     badge: "#8C1C13",
+    colors: ["#0A0A0A", "#8C1C13", "#F5F5F5"],
   },
 ];
 
@@ -233,16 +242,28 @@ function TemplateCard({
           {tpl.desc[lang]}
         </p>
 
-        {/* Tags */}
-        <div className="mb-5 flex flex-wrap gap-1.5">
-          {tpl.tags[lang].map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-neutral-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600"
-            >
-              {tag}
-            </span>
-          ))}
+        {/* Colors & Tags */}
+        <div className="mb-5 flex flex-col gap-3">
+          <div className="flex gap-1.5">
+            {tpl.colors?.map((color) => (
+              <div
+                key={color}
+                className="h-4 w-4 rounded-full border border-black/10"
+                style={{ backgroundColor: color }}
+                title={color}
+              />
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {tpl.tags[lang].map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-neutral-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
 
         <a
