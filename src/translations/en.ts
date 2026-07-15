@@ -37,7 +37,7 @@ export const en: TranslationKeys = {
   // Studio Teaser
   studioTeaser: {
     title: "Need a Website for Your F&B Business?",
-    subtitle: "Dewa Studio provides premium website design exclusively for cafés and restaurants. Choose from 9 world-class design concepts, I tailor it to your brand, and your site goes live in 3 days.",
+    subtitle: "Dewa Studio provides premium website design exclusively for cafés and restaurants. Choose from 9 world-class design concepts, I tailor it to your brand, and your site goes live in 7 days.",
     cta: "Explore the Collection",
   },
 

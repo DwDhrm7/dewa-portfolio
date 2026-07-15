@@ -35,7 +35,7 @@ export const id = {
   // Studio Teaser
   studioTeaser: {
     title: "Butuh Website untuk Bisnis F&B Anda?",
-    subtitle: "Dewa Studio melayani pembuatan website premium khusus untuk kafe dan restoran. Pilih dari 9 konsep desain kelas dunia, saya sesuaikan dengan brand Anda, dan website siap live dalam 3 hari.",
+    subtitle: "Dewa Studio melayani pembuatan website premium khusus untuk kafe dan restoran. Pilih dari 9 konsep desain kelas dunia, saya sesuaikan dengan brand Anda, dan website siap live dalam 7 hari.",
     cta: "Jelajahi Koleksi Desain",
   },
 

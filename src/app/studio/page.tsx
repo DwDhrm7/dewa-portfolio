@@ -156,10 +156,10 @@ const steps = [
   },
   {
     num: "03",
-    title: { id: "Live dalam 3 hari", en: "Live in 3 days" },
+    title: { id: "Live dalam 7 hari", en: "Live in 7 days" },
     desc: {
-      id: "Website live dengan domain kamu. Update bulanan cukup lewat WhatsApp.",
-      en: "Live on your domain. Monthly updates? Just send a WhatsApp.",
+      id: "Website live dengan domain kamu. Update kapan saja cukup lewat WhatsApp.",
+      en: "Live on your domain. Update anytime? Just send a WhatsApp.",
     },
   },
 ];
@@ -300,7 +300,7 @@ export default function StudioPage() {
             {isId ? (
               <>
                 Website seindah <br />
-                <span className="text-neutral-400">tempat kamu.</span>
+                <span className="text-neutral-400">tempat anda.</span>
               </>
             ) : (
               <>
@@ -311,8 +311,8 @@ export default function StudioPage() {
           </h1>
           <p className="mb-10 max-w-xl text-lg leading-8 text-neutral-600">
             {isId
-              ? "Pilih dari koleksi desain, saya sesuaikan dengan brand kamu, menu, reservasi WhatsApp, Google Maps, dan dua bahasa. Live dalam 3 hari."
-              : "Pick from the collection, I tailor it to your brand menu, WhatsApp bookings, Google Maps, and two languages. Live in 3 days."}
+              ? "Pilih dari koleksi desain, saya sesuaikan dengan brand kamu, menu, reservasi WhatsApp, Google Maps, dan dua bahasa. Live dalam 7 hari."
+              : "Pick from the collection, I tailor it to your brand menu, WhatsApp bookings, Google Maps, and two languages. Live in 7 days."}
           </p>
           <div className="flex flex-wrap gap-4">
             <a
@@ -429,7 +429,7 @@ export default function StudioPage() {
                 : "From choosing a design to live:"}
               <br />
               <span className="text-neutral-400">
-                {isId ? "3 hari." : "3 days."}
+                {isId ? "7 hari." : "7 days."}
               </span>
             </h2>
           </motion.div>
@@ -471,13 +471,13 @@ export default function StudioPage() {
           </p>
           <h2 className="mx-auto mb-6 max-w-2xl font-headline text-3xl font-extrabold tracking-[-0.04em] text-white md:text-5xl">
             {isId
-              ? "Kirim nama kafe kamu, saya balas dengan konsepnya"
+              ? "Kirim nama cafe atau resto anda, saya balas dengan konsepnya"
               : "Send your café's name, I'll reply with a concept"}
           </h2>
           <p className="mx-auto mb-10 max-w-lg text-base leading-relaxed text-white/55">
             {isId
-              ? "Konsultasi gratis, tanpa komitmen. Ceritakan tempat kamu, saya akan tunjukkan desain mana yang paling cocok."
-              : "Free consultation, no commitment. Tell me about your place and I'll show you which design fits best."}
+              ? "Konsultasi gratis, tanpa komitmen. Ceritakan bisnis anda, saya akan tunjukkan desain mana yang paling cocok."
+              : "Free consultation, no commitment. Tell me about your business and I'll show you which design fits best."}
           </p>
           <a
             href="https://wa.me/6281234567890?text=Halo%20Dewa%20Studio%2C%20saya%20pemilik%20kafe%2Fresto%20dan%20tertarik%20dibuatkan%20website"
