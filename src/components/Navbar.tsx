@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Globe, Menu, X } from "lucide-react";
+import { Globe, Menu, X, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,7 +27,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 z-50 w-full border-b border-black/5 bg-[rgba(247,245,240,0.86)] backdrop-blur-2xl">
-        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-14 lg:px-20">
+          <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-14 lg:px-20">
           <Link
             href="/"
             className="font-headline text-lg font-extrabold uppercase tracking-[0.24em] text-neutral-950"
@@ -118,7 +118,7 @@ export default function Navbar() {
                     className="inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/70 px-8 py-4 text-sm font-extrabold uppercase tracking-[0.22em] text-neutral-900 transition hover:bg-neutral-900 hover:text-white"
                   >
                     <Globe size={18} />
-                    {language === "id" ? "Ganti ke English" : "Switch to Indonesia"}
+                    {language === "id" ? "English" : "Indonesia"}
                   </button>
                 </motion.div>
               </div>

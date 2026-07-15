@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HENING and Brew Bar, Uluwatu Bali</title>
+<meta name="description" content="Brew bar minimalis di tebing Uluwatu. Sedikit kursi, satu metode, kopi terbaik.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone:#191817; --smoke:#7A756D; --mist:rgba(25,24,23,.45);
+    --white:#FBFAF7; --sand:#F1EEE7; --line:rgba(25,24,23,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--white);color:var(--stone);font-family:'Inter',sans-serif;font-weight:300;font-size:15.5px;line-height:1.9;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:980px;margin:0 auto;padding-left:24px;padding-right:24px;}
+  .label{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--smoke)}
+
+  nav{position:fixed;inset:0 0 auto;z-index:100;background:rgba(251,250,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:box-shadow .3s,background .3s}
+  nav.scrolled{background:rgba(251,250,247,.98);box-shadow:0 1px 0 rgba(25,24,23,.14),0 10px 30px rgba(25,24,23,.07)}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:'EB Garamond',serif;font-size:20px;letter-spacing:.5em}
+  .nav-r{display:flex;align-items:center;gap:26px;font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+  .nav-r a{color:var(--smoke);transition:color .3s} .nav-r a:hover{color:var(--stone)}
+  .lang-toggle{background:none;border:1px solid var(--line);color:var(--stone);padding:6px 13px;font-size:10px;letter-spacing:.18em;cursor:pointer}
+
+  header{padding:190px 0 110px;text-align:center}
+  h1{font-family:'EB Garamond',serif;font-weight:400;font-size:clamp(44px,7vw,88px);line-height:1.12;letter-spacing:.01em;max-width:18ch;margin:26px auto 0}
+  h1 em{font-style:italic;color:var(--smoke)}
+  header p.sub{max-width:420px;margin:28px auto 0;color:var(--smoke)}
+  .hero-img{margin-top:80px;height:74vh;min-height:420px;position:relative;overflow:hidden}
+  .hero-img > div{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=2000&auto=format&fit=crop') center/cover}
+  .hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,250,247,0) 55%,var(--mist) 100%)}
+
+  section{padding:120px 0}
+  h2{font-family:'EB Garamond',serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.2;margin:16px 0 20px}
+  .rule{width:56px;height:1px;background:var(--stone);opacity:.3;margin:0 auto}
+
+  .belief{text-align:center;max-width:620px;margin:0 auto}
+  .belief p{color:var(--smoke)}
+
+  .menu{background:var(--sand)}
+  .menu-inner{max-width:660px;margin:0 auto;text-align:center}
+  .menu-item{padding:30px 0;border-bottom:1px solid var(--line)}
+  .menu-item:last-child{border-bottom:none}
+  .menu-item h3{font-family:'EB Garamond',serif;font-weight:500;font-size:24px;letter-spacing:.02em}
+  .menu-item small{display:block;color:var(--smoke);font-size:13.5px;margin:6px 0 10px}
+  .menu-item .price{font-family:'EB Garamond',serif;font-size:17px;letter-spacing:.14em}
+
+  .ritual{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line)}
+  .ritual figure{position:relative;aspect-ratio:3/4;overflow:hidden;background-size:cover;background-position:center}
+  .ritual figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(25,24,23,0) 50%,rgba(25,24,23,.55) 100%)}
+  .ritual figcaption{position:absolute;z-index:2;bottom:20px;left:0;right:0;text-align:center;color:var(--white);font-size:10px;letter-spacing:.34em;text-transform:uppercase}
+  .ritual figure:nth-child(1){background-image:url('https://images.unsplash.com/photo-1495774856032-8b90bbb32b32?q=80&w=900&auto=format&fit=crop')}
+  .ritual figure:nth-child(2){background-image:url('https://images.unsplash.com/photo-1522992319-0365e5f11656?q=80&w=900&auto=format&fit=crop')}
+  .ritual figure:nth-child(3){background-image:url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=900&auto=format&fit=crop')}
+
+  .visit{text-align:center}
+  .visit-list{max-width:520px;margin:44px auto 0;border-top:1px solid var(--line)}
+  .visit-row{display:flex;justify-content:space-between;gap:16px;padding:17px 4px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .visit-row span:first-child{color:var(--smoke)}
+  .btn{display:inline-block;border:1px solid var(--stone);color:var(--stone);padding:14px 38px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;transition:all .3s;margin-top:38px}
+  .btn:hover{background:var(--stone);color:var(--white)}
+  .map{max-width:820px;margin:60px auto 0;height:380px;overflow:hidden;border:1px solid var(--line)}
+  .map iframe{width:100%;height:100%;border:0;filter:grayscale(1) contrast(.92)}
+
+  footer{border-top:1px solid var(--line);padding:64px 0;text-align:center}
+  .foot-logo{font-family:'EB Garamond',serif;font-size:24px;letter-spacing:.5em;margin-bottom:22px}
+  footer small{color:var(--smoke);font-size:12.5px;letter-spacing:.06em}
+
+  .wa-float{position:fixed;right:22px;bottom:22px;z-index:99;background:rgba(251,250,247,.8);backdrop-filter:blur(8px);
+    border:1px solid var(--stone);color:var(--stone);padding:12px 22px;font-size:10px;letter-spacing:.26em;text-transform:uppercase;transition:all .3s}
+  .wa-float:hover{background:var(--stone);color:var(--white)}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+  @media (max-width:760px){
+    .nav-r a{display:none}
+    .ritual{grid-template-columns:1fr}
+    .ritual figure{aspect-ratio:16/10}
+    section{padding:80px 0}
+    header{padding:150px 0 70px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">HENING</a>
+    <div class="nav-r">
+      <a href="#menu">Menu</a>
+      <a href="#ritual" data-id="Ritual" data-en="Ritual">Ritual</a>
+      <a href="#visit" data-id="Kunjungi" data-en="Visit">Kunjungi</a>
+      <button class="lang-toggle" id="langBtn">EN</button>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap">
+  <p class="label reveal" data-id="Brew bar and Uluwatu, Bali" data-en="Brew bar and Uluwatu, Bali">Brew bar and Uluwatu, Bali</p>
+  <h1 class="reveal"><span data-id="Delapan kursi." data-en="Eight seats.">Delapan kursi.</span> <em data-id="Satu metode." data-en="One method.">Satu metode.</em><br><span data-id="Kopi yang layak ditunggu." data-en="Coffee worth waiting for.">Kopi yang layak ditunggu.</span></h1>
+  <p class="sub reveal" data-id="Kami hanya menyeduh dengan V60, hanya dari satu petani per musim, dan hanya untuk delapan tamu dalam satu waktu."
+     data-en="We brew only V60, from one farmer per season, for eight guests at a time.">
+     Kami hanya menyeduh dengan V60, hanya dari satu petani per musim, dan hanya untuk delapan tamu dalam satu waktu.</p>
+  <div class="hero-img reveal"><div role="img" aria-label="Barista menyeduh V60"></div></div>
+</header>
+
+<section class="belief wrap">
+  <div class="reveal">
+    <div class="rule"></div>
+    <h2 data-id="Lebih sedikit, tapi lebih baik." data-en="Less, but better.">Lebih sedikit, tapi lebih baik.</h2>
+    <p data-id="Tidak ada WiFi. Tidak ada susu oat lima rasa. Tidak ada menu dua halaman. Hanya kopi musim ini, diseduh dengan satu-satunya cara yang menurut kami paling jujur and dan waktu untuk benar-benar meminumnya."
+       data-en="No WiFi. No five kinds of oat milk. No two-page menu. Only this season's coffee, brewed the one way we believe is most honest and and the time to truly drink it.">
+       Tidak ada WiFi. Tidak ada susu oat lima rasa. Tidak ada menu dua halaman. Hanya kopi musim ini, diseduh dengan satu-satunya cara yang menurut kami paling jujur and dan waktu untuk benar-benar meminumnya.</p>
+  </div>
+</section>
+
+<section id="menu" class="menu">
+  <div class="menu-inner wrap">
+    <div class="reveal" style="margin-bottom:44px">
+      <p class="label" data-id="Musim ini" data-en="This season">Musim ini</p>
+      <h2 data-id="Kintamani and Pak Made Arta" data-en="Kintamani and Pak Made Arta">Kintamani and Pak Made Arta</h2>
+    </div>
+    <div class="reveal">
+      <div class="menu-item"><h3>V60 and Washed</h3><small data-id="Jeruk, teh putih, gula batu" data-en="Citrus, white tea, rock sugar">Jeruk, teh putih, gula batu</small><span class="price">IDR 55</span></div>
+      <div class="menu-item"><h3>V60 and Natural</h3><small data-id="Stroberi, cokelat susu, floral" data-en="Strawberry, milk chocolate, floral">Stroberi, cokelat susu, floral</small><span class="price">IDR 60</span></div>
+      <div class="menu-item"><h3 data-id="Perbandingan and dua cangkir" data-en="Comparison and two cups">Perbandingan and dua cangkir</h3><small data-id="Washed &amp; natural berdampingan, 30 menit" data-en="Washed &amp; natural side by side, 30 minutes">Washed &amp; natural berdampingan, 30 menit</small><span class="price">IDR 95</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="ritual" style="padding-bottom:0">
+  <div class="wrap reveal" style="text-align:center;margin-bottom:64px">
+    <p class="label" data-id="Ritual kami" data-en="The ritual">Ritual kami</p>
+    <h2 data-id="Tiga menit yang tidak kami percepat" data-en="Three minutes we refuse to rush">Tiga menit yang tidak kami percepat</h2>
+  </div>
+  <div class="ritual reveal">
+    <figure><figcaption data-id="Timbang" data-en="Weigh">Timbang</figcaption></figure>
+    <figure><figcaption data-id="Seduh" data-en="Brew">Seduh</figcaption></figure>
+    <figure><figcaption data-id="Sajikan" data-en="Serve">Sajikan</figcaption></figure>
+  </div>
+</section>
+
+<section id="visit" class="visit wrap">
+  <div class="reveal">
+    <p class="label" data-id="Kunjungi kami" data-en="Find us">Kunjungi kami</p>
+    <h2 data-id="Di jalan menuju Suluban" data-en="On the road to Suluban">Di jalan menuju Suluban</h2>
+    <div class="visit-list">
+      <div class="visit-row"><span data-id="Rabu - Senin" data-en="Wed - Mon">Rabu - Senin</span><span>08.00 - 15.00</span></div>
+      <div class="visit-row"><span data-id="Selasa" data-en="Tuesday">Selasa</span><span data-id="Tutup" data-en="Closed">Tutup</span></div>
+      <div class="visit-row"><span data-id="Alamat" data-en="Address">Alamat</span><span>Jl. Pantai Suluban No. 3, Uluwatu</span></div>
+      <div class="visit-row"><span>WhatsApp</span><span>+62 812-3456-7890</span></div>
+    </div>
+    <a class="btn" href="https://wa.me/6281234567890?text=Halo%20HENING%2C%20saya%20ingin%20memesan%20kursi" data-id="Pesan kursi via WhatsApp" data-en="Book a seat via WhatsApp">Pesan kursi via WhatsApp</a>
+  </div>
+  <div class="map reveal">
+    <iframe title="Peta lokasi" loading="lazy" src="https://www.google.com/maps?q=Suluban+Uluwatu+Bali&output=embed"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo">HENING</div>
+  <small data-id="© 2026 HENING Brew Bar and Uluwatu, Bali. Delapan kursi, satu metode." data-en="© 2026 HENING Brew Bar and Uluwatu, Bali. Eight seats, one method.">© 2026 HENING Brew Bar and Uluwatu, Bali. Delapan kursi, satu metode.</small>
+</footer>
+
+<a class="wa-float" href="https://wa.me/6281234567890?text=Halo%20HENING!" aria-label="Chat WhatsApp">
+  <span data-id="Pesan kursi" data-en="Book a seat">Pesan kursi</span>
+</a>
+
+<script>
+  const langBtn = document.getElementById('langBtn');
+  let lang = 'en';
+  document.querySelectorAll('[data-id]').forEach(el => { el.innerHTML = el.dataset['en'] || el.innerHTML; });
+  document.documentElement.lang = 'en';
+  langBtn.textContent = 'ID';
+  langBtn.addEventListener('click', () => {
+    lang = lang === 'id' ? 'en' : 'id';
+    langBtn.textContent = lang === 'en' ? 'ID' : 'EN';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-id]').forEach(el => { el.innerHTML = el.dataset[lang]; });
+  });
+  const navEl = document.querySelector('nav');
+  window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+  const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

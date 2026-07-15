@@ -1,5 +1,11 @@
 import Hero from "@/components/Hero";
+import StudioTeaser from "@/components/StudioTeaser";
 
 export default function Home() {
-  return <Hero />;
+  return (
+    <main>
+      <Hero />
+      <StudioTeaser />
+    </main>
+  );
 }

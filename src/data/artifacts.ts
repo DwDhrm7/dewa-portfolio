@@ -30,6 +30,46 @@ export type Artifact = {
 export const artifacts: Artifact[] = [
   // PROJECT BASED
   {
+    id: "toppi",
+    title: {
+      id: "Toppi (Redesign & API Integration)",
+      en: "Toppi (Redesign & API Integration)",
+    },
+    category: "Project Based",
+    role: {
+      id: "Frontend Developer",
+      en: "Frontend Developer",
+    },
+    description: {
+      id: "Proyek perombakan antarmuka (redesign) dan integrasi REST API untuk platform Toppi menggunakan Next.js. Fokus utamanya adalah pada peningkatan pengalaman pengguna (UX) yang modern, layout yang responsif, serta kelancaran komunikasi data dengan backend.",
+      en: "Frontend redesign and REST API integration project for the Toppi platform using Next.js. The main focus was on improving modern user experience (UX), responsive layouts, and seamless data communication with the backend.",
+    },
+    techStack: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "REST API",
+    ],
+    links: [
+      {
+        label: "GitHub Repository",
+        url: "https://github.com/DwDhrm7/toppi_next.git",
+      },
+    ],
+    reflection: {
+      id: {
+        what: "Proyek ini difokuskan pada perombakan total sisi frontend dari aplikasi Toppi dan merajut kembali fungsionalitasnya dengan layanan REST API yang sudah ada.",
+        soWhat: "Melalui proses redesign ini, saya mematangkan pemahaman tentang state management di Next.js, optimasi rendering komponen, serta best practice dalam menangani asinkronisasi data API secara efisien.",
+        nowWhat: "Ke depannya, pola-pola desain UI dan pola integrasi API yang saya kembangkan di proyek ini akan menjadi fondasi kuat saat saya membangun aplikasi web berskala besar yang menuntut performa tinggi.",
+      },
+      en: {
+        what: "This project focused on a complete overhaul of the frontend side of the Toppi application and wiring its functionality with existing REST API services.",
+        soWhat: "Through this redesign process, I solidified my understanding of state management in Next.js, component rendering optimization, and best practices in efficiently handling asynchronous API data.",
+        nowWhat: "Moving forward, the UI design patterns and API integration patterns I developed in this project will serve as a strong foundation when building large-scale web applications that demand high performance.",
+      },
+    },
+  },
+  {
     id: "sigma",
     title: {
       id: "SIGMA (Smart Intelligent Guidance for Mobility Automation)",

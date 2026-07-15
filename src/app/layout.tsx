@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope, Fraunces } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -15,6 +15,13 @@ const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-headline",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
+  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
@@ -55,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`antialiased ${inter.variable} ${manrope.variable}`}>
+      <body className={`antialiased ${inter.variable} ${manrope.variable} ${fraunces.variable}`}>
         <LanguageProvider>
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MURA - Premium Omakase</title>
+<meta name="description" content="An intimate, 8-seat omakase experience respecting the traditions of Edomae sushi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A0A0A;
+    --paper: #E6E2D8;
+    --bamboo: #403E38;
+    --crimson: #8C1C13;
+    --light-ink: #1F1F1F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background-color: var(--ink);
+    color: var(--paper);
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 400;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .sans { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; object-fit: cover; }
+  
+  /* Vertical Text */
+  .vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 0.3em;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+
+  /* Navigation */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 2.5rem 5vw; display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0) 100%);
+  }
+  .logo { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15em; }
+  .logo span { color: var(--crimson); }
+  .nav-links { display: flex; gap: 3rem; }
+  .nav-links a { position: relative; transition: opacity 0.4s; }
+  .nav-links a:hover { opacity: 0.6; }
+  
+  .lang-toggle {
+    background: none; border: 1px solid var(--bamboo); color: inherit; cursor: pointer;
+    padding: 0.5rem 1rem; transition: all 0.3s;
+  }
+  .lang-toggle:hover { background: var(--paper); color: var(--ink); }
+
+  /* Hero */
+  header { height: 100svh; position: relative; display: flex; align-items: center; justify-content: center; }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -1;
+    background: url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=2000&auto=format&fit=crop') center/cover;
+    filter: brightness(0.4) contrast(1.2) grayscale(0.2);
+  }
+  .hero-content { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  
+  .hero-kanji {
+    font-size: clamp(4rem, 12vw, 10rem); color: rgba(230,226,216,0.1);
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none; z-index: 0; letter-spacing: 0.5em; margin-left: 0.25em;
+  }
+  
+  h1 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; letter-spacing: 0.1em; z-index: 1; margin-bottom: 2rem; }
+  .hero-text { font-size: 1.1rem; max-width: 500px; color: rgba(230,226,216,0.7); z-index: 1; }
+
+
+  /* Section Intro */
+  .intro { padding: 20vh 0; display: flex; justify-content: space-between; align-items: center; gap: 8vw; }
+  .intro-text { flex: 1; }
+  .intro-text h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 400; margin-bottom: 2.5rem; letter-spacing: 0.05em; line-height: 1.6; }
+  .intro-text p { font-size: 1rem; color: #888; margin-bottom: 1.5rem; max-width: 450px; }
+  
+  .intro-img { flex: 1; position: relative; }
+  .intro-img::before {
+    content: ''; position: absolute; top: -2rem; left: -2rem; right: 2rem; bottom: 2rem;
+    border: 1px solid var(--bamboo); z-index: -1;
+  }
+  .intro-img img { width: 100%; filter: grayscale(0.5); transition: filter 1s; }
+  .intro-img:hover img { filter: grayscale(0); }
+
+  /* Philosophy */
+  .philosophy { background-color: var(--light-ink); padding: 20vh 0; text-align: center; position: relative; }
+  .vertical-tag {
+    position: absolute; left: 5vw; top: 10vh; color: var(--crimson); font-size: 0.9rem;
+  }
+  .philosophy blockquote {
+    font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 400; max-width: 800px; margin: 0 auto;
+    line-height: 2; letter-spacing: 0.05em; color: var(--paper);
+  }
+  .philosophy cite {
+    display: block; margin-top: 3rem; font-size: 1rem; color: var(--bamboo); font-style: normal;
+  }
+
+  /* Experience */
+  .experience { padding: 20vh 0; }
+  .exp-header { text-align: center; margin-bottom: 15vh; }
+  .exp-header h2 { font-size: 2.5rem; font-weight: 400; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .exp-header p { color: var(--crimson); }
+  
+  .course-list { max-width: 800px; margin: 0 auto; }
+  .course-item {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding: 2rem 0; border-bottom: 1px solid var(--bamboo);
+  }
+  .course-item h3 { font-size: 1.5rem; font-weight: 400; letter-spacing: 0.05em; }
+  .course-item p { color: #888; font-size: 0.9rem; max-width: 400px; text-align: right; }
+
+  /* Booking */
+  .booking { padding: 10vh 0 20vh; text-align: center; }
+  .btn-outline {
+    display: inline-block; padding: 1.2rem 3.5rem; border: 1px solid var(--paper); color: var(--paper);
+    transition: all 0.5s; cursor: pointer; background: transparent; letter-spacing: 0.15em;
+  }
+  .btn-outline:hover { background: var(--paper); color: var(--ink); }
+
+  /* Footer */
+  footer { padding: 8vh 5vw; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--bamboo); font-size: 0.8rem; color: #888; }
+  
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .intro { flex-direction: column; }
+    .intro-img::before { display: none; }
+    .course-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .course-item p { text-align: left; }
+    .vertical-tag { display: none; }
+    footer { flex-direction: column; gap: 2rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">MURA<span>.</span></div>
+  <div class="nav-links sans">
+    <a href="#omakase" data-id="Pengalaman" data-en="Experience">Experience</a>
+    <a href="#chef" data-id="Filosofi" data-en="Philosophy">Philosophy</a>
+  </div>
+  <button class="lang-toggle sans" id="langBtn">ID</button>
+</nav>
+
+<header>
+  <div class="hero-bg"></div>
+  <div class="hero-kanji">村</div>
+  <div class="container hero-content reveal">
+    <h1 data-id="Ketelitian dalam kesederhanaan." data-en="Precision in simplicity.">Precision in simplicity.</h1>
+    <p class="hero-text sans" data-id="SEBUAH PENGALAMAN OMAKASE INTIM DENGAN 8 KURSI." data-en="AN INTIMATE 8-SEAT OMAKASE EXPERIENCE.">AN INTIMATE 8-SEAT OMAKASE EXPERIENCE.</p>
+  </div>
+</header>
+
+<section id="omakase" class="container intro">
+  <div class="intro-img reveal">
+    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=1000&auto=format&fit=crop" alt="Sushi preparation">
+  </div>
+  <div class="intro-text reveal">
+    <h2 data-id="Seni Edomae, disempurnakan setiap harinya." data-en="The art of Edomae, refined daily.">The art of Edomae, refined daily.</h2>
+    <p data-id="Tidak ada menu cetak. Hidangan kami murni didikte oleh hasil tangkapan terbaik di pasar ikan pagi ini, dipadukan dengan nasi musiman dan cuka merah yang diistirahatkan." data-en="There is no printed menu. Our offerings are dictated entirely by the finest catch at the fish market this morning, paired with seasonal rice and rested red vinegar.">There is no printed menu. Our offerings are dictated entirely by the finest catch at the fish market this morning, paired with seasonal rice and rested red vinegar.</p>
+    <p data-id="Sebuah dedikasi pada waktu, suhu, dan sentuhan." data-en="A dedication to time, temperature, and touch.">A dedication to time, temperature, and touch.</p>
+  </div>
+</section>
+
+<section id="chef" class="philosophy">
+  <div class="vertical vertical-tag sans" data-id="Keahlian" data-en="Craftsmanship">Craftsmanship</div>
+  <div class="container reveal">
+    <blockquote data-id='"Dibutuhkan sepuluh tahun untuk menguasai nasi, dan seumur hidup untuk memahami ikan."' data-en='"It takes ten years to master the rice, and a lifetime to understand the fish."'>"It takes ten years to master the rice, and a lifetime to understand the fish."</blockquote>
+    <cite class="sans" data-id="- CHEF TAKASHI MURA" data-en="- CHEF TAKASHI MURA">- CHEF TAKASHI MURA</cite>
+  </div>
+</section>
+
+<section class="experience container">
+  <div class="exp-header reveal">
+    <h2 data-id="Makan Malam Omakase" data-en="The Omakase Dinner">The Omakase Dinner</h2>
+    <p class="sans" data-id="20 Menu Cicip - 2.5 Juta" data-en="20 Courses - 2.5 Million">20 Courses - 2.5 Million</p>
+  </div>
+  
+  <div class="course-list">
+    <div class="course-item reveal">
+      <h3 data-id="Sakizuke" data-en="Sakizuke">Sakizuke</h3>
+      <p data-id="Awal musiman. Tiram segar atau tahu wijen." data-en="The seasonal beginning. Fresh oyster or sesame tofu.">The seasonal beginning. Fresh oyster or sesame tofu.</p>
+    </div>
+    <div class="course-item reveal">
+      <h3 data-id="Sashimi & Otsumami" data-en="Sashimi & Otsumami">Sashimi & Otsumami</h3>
+      <p data-id="Tiga potong ikan sashimi, abalon kukus dengan saus hati." data-en="Three cuts of sashimi, steamed abalone with liver sauce.">Three cuts of sashimi, steamed abalone with liver sauce.</p>
+    </div>
+    <div class="course-item reveal">
+      <h3 data-id="Nigiri (12 Potong)" data-en="Nigiri (12 Pieces)">Nigiri (12 Pieces)</h3>
+      <p data-id="Puncak pengalaman. Disajikan satu per satu pada suhu ideal." data-en="The pinnacle. Served one by one at the precise ideal temperature.">The pinnacle. Served one by one at the precise ideal temperature.</p>
+    </div>
+    <div class="course-item reveal">
+      <h3 data-id="Owan & Tamago" data-en="Owan & Tamago">Owan & Tamago</h3>
+      <p data-id="Sup miso hangat dan telur dadar manis tradisional ala Edomae." data-en="Warm miso soup and traditional sweet Edomae omelet.">Warm miso soup and traditional sweet Edomae omelet.</p>
+    </div>
+  </div>
+</section>
+
+<section class="booking">
+  <div class="container reveal">
+    <button class="btn-outline sans" data-id="Amankan Kursi Anda" data-en="Secure Your Seat">Secure Your Seat</button>
+  </div>
+</section>
+
+<footer>
+  <div class="sans">
+    MURA OMAKASE - GINZA, TOKYO
+  </div>
+  <div>
+    <span data-id="Hanya melalui reservasi. Makan malam dimulai tepat pukul 18:00 dan 20:30." data-en="By reservation only. Dinner begins promptly at 18:00 and 20:30.">By reservation only. Dinner begins promptly at 18:00 and 20:30.</span>
+  </div>
+</footer>
+
+<script>
+  // Language Toggle
+  const langBtn = document.getElementById('langBtn');
+  let lang = 'en';
+  
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerHTML = el.dataset.en;
+  });
+
+  langBtn.addEventListener('click', () => {
+    lang = lang === 'id' ? 'en' : 'id';
+    langBtn.textContent = lang === 'en' ? 'ID' : 'EN';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-id]').forEach(el => {
+      el.innerHTML = el.dataset[lang];
+    });
+  });
+
+  // Reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

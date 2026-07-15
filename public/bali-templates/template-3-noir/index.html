@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUNA - Espresso &amp; Wine Bar, Seminyak Bali</title>
+<meta name="description" content="Espresso bar siang hari, wine bar setelah gelap. Seminyak, Bali.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#0C0A08; --noir-2:#141110; --gold:#C9A96A; --gold-dim:rgba(201,169,106,.55);
+    --ivory:#EDE7DC; --ivory-dim:rgba(237,231,220,.55); --line:rgba(201,169,106,.22); --glass:rgba(237,231,220,.04);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--noir);color:var(--ivory);font-family:'Inter',sans-serif;font-weight:300;font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding-left:24px;padding-right:24px;}
+  .serif{font-family:'Cormorant Garamond',serif}
+  .label{font-size:10px;letter-spacing:.44em;text-transform:uppercase;color:var(--gold)}
+
+  nav{position:fixed;inset:0 0 auto;z-index:100;background:linear-gradient(180deg,rgba(12,10,8,.85),rgba(12,10,8,0));transition:background .3s}
+  nav.scrolled{background:rgba(12,10,8,.94);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1240px;margin:0 auto;padding:26px 24px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:26px;letter-spacing:.5em;color:var(--ivory)}
+  .nav-r{display:flex;align-items:center;gap:28px;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  .nav-r a{color:var(--ivory-dim);transition:color .3s} .nav-r a:hover{color:var(--gold)}
+  .lang-toggle{background:none;border:1px solid var(--line);color:var(--gold);border-radius:0;padding:7px 15px;font-size:10px;letter-spacing:.2em;cursor:pointer}
+
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+    background:url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=2000&auto=format&fit=crop') center/cover fixed}
+  .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(12,10,8,.35) 0%,rgba(12,10,8,.88) 78%,rgba(12,10,8,.99) 100%)}
+  .hero-content{position:relative;z-index:2;padding:0 24px}
+  .hero-rule{width:1px;height:70px;background:var(--gold-dim);margin:26px auto}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(54px,9vw,120px);line-height:1.04;letter-spacing:.04em}
+  h1 em{font-style:italic;color:var(--gold)}
+  .hero-content p.sub{max-width:440px;margin:26px auto 0;color:var(--ivory-dim)}
+  .btn{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:15px 42px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;transition:all .35s;margin-top:40px}
+  .btn:hover{background:var(--gold);color:var(--noir)}
+
+  section{padding:140px 0}
+  h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(36px,5vw,64px);line-height:1.12;margin:16px 0 22px}
+  h2 em{font-style:italic;color:var(--gold)}
+  .head-center{text-align:center;max-width:600px;margin:0 auto 80px}
+  .head-center p{color:var(--ivory-dim)}
+
+  .menu-list{max-width:720px;margin:0 auto}
+  .menu-block{margin-bottom:64px}
+  .menu-block > .label{display:block;text-align:center;margin-bottom:34px}
+  .menu-item{display:flex;align-items:baseline;gap:14px;padding:15px 0}
+  .menu-item h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:23px;letter-spacing:.03em;white-space:nowrap}
+  .menu-item .dots{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-5px)}
+  .menu-item .price{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);white-space:nowrap}
+  .menu-item small{display:block;width:100%;color:var(--ivory-dim);font-size:13.5px;margin-top:-8px;padding-bottom:8px}
+  .menu-row{display:flex;flex-wrap:wrap}
+
+  .duo{position:relative;padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:78vh}
+  .duo-panel{position:relative;display:flex;align-items:flex-end;padding:64px 54px;background-size:cover;background-position:center}
+  .duo-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,10,8,.25) 0%,rgba(12,10,8,.92) 100%)}
+  .duo-panel:first-child{background-image:url('https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?q=80&w=1400&auto=format&fit=crop')}
+  .duo-panel:last-child{background-image:url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=1400&auto=format&fit=crop')}
+  .duo-inner{position:relative;z-index:2}
+  .duo-inner h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:38px;margin:10px 0 8px}
+  .duo-inner p{color:var(--ivory-dim);max-width:340px;font-size:15px}
+
+  .visit{background:var(--noir-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .visit-list{border-top:1px solid var(--line)}
+  .visit-row{display:flex;justify-content:space-between;gap:16px;padding:20px 2px;border-bottom:1px solid var(--line);font-size:15px}
+  .visit-row span:first-child{color:var(--ivory-dim);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+  .map{height:440px;overflow:hidden;border:1px solid var(--line)}
+  .map iframe{width:100%;height:100%;border:0;filter:grayscale(1) invert(.92) contrast(.86)}
+
+  footer{padding:80px 0 44px;text-align:center}
+  .foot-logo{font-family:'Cormorant Garamond',serif;font-size:36px;letter-spacing:.5em}
+  .foot-nav{display:flex;justify-content:center;gap:38px;margin:30px 0 46px;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  .foot-nav a{color:var(--ivory-dim)} .foot-nav a:hover{color:var(--gold)}
+  footer small{color:rgba(237,231,220,.35);font-size:12px;letter-spacing:.08em}
+
+  .wa-float{position:fixed;right:22px;bottom:22px;z-index:99;background:rgba(12,10,8,.65);backdrop-filter:blur(10px);
+    border:1px solid var(--gold);color:var(--gold);padding:13px 24px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;transition:all .3s}
+  .wa-float:hover{background:var(--gold);color:var(--noir)}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}.hero{background-attachment:scroll}}
+  @media (max-width:860px){
+    .nav-r a{display:none}
+    .duo{grid-template-columns:1fr}
+    .duo-panel{min-height:56vh}
+    .visit-grid{grid-template-columns:1fr;gap:40px}
+    section{padding:90px 0}
+    .hero{background-attachment:scroll}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">LUNA</a>
+    <div class="nav-r">
+      <a href="#menu">Menu</a>
+      <a href="#night" data-id="Malam" data-en="Night">Malam</a>
+      <a href="#visit" data-id="Kunjungi" data-en="Visit">Kunjungi</a>
+      <button class="lang-toggle" id="langBtn">EN</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <p class="label reveal" data-id="Seminyak - Bali" data-en="Seminyak - Bali">Seminyak - Bali</p>
+    <div class="hero-rule reveal"></div>
+    <h1 class="reveal"><span data-id="Espresso siang," data-en="Espresso by day,">Espresso siang,</span><br><em data-id="anggur setelah gelap." data-en="wine after dark.">anggur setelah gelap.</em></h1>
+    <p class="sub reveal" data-id="Bar kecil dengan dua kehidupan - kopi single origin sebelum pukul lima, natural wine dan piring kecil setelahnya."
+       data-en="A small bar with two lives - single origin coffee before five, natural wine and small plates after.">
+       Bar kecil dengan dua kehidupan - kopi single origin sebelum pukul lima, natural wine dan piring kecil setelahnya.</p>
+    <a class="btn reveal" href="https://wa.me/6281234567890?text=Halo%20LUNA%2C%20saya%20ingin%20reservasi" data-id="Reservasi" data-en="Reserve">Reservasi</a>
+  </div>
+</header>
+
+<section id="menu" class="wrap">
+  <div class="head-center reveal">
+    <p class="label">Menu</p>
+    <h2><span data-id="Pilihan" data-en="A study in">Pilihan</span> <em data-id="terbaik kami" data-en="restraint">terbaik kami</em></h2>
+  </div>
+  <div class="menu-list">
+    <div class="menu-block reveal">
+      <span class="label" data-id="Siang - kopi" data-en="Day - coffee">Siang - kopi</span>
+      <div class="menu-row"><div class="menu-item" style="flex:1 1 100%"><h3>Single Origin Espresso</h3><span class="dots"></span><span class="price">45</span></div><small data-id="Rotasi mingguan - tanyakan bean hari ini" data-en="Weekly rotation - ask for today's bean">Rotasi mingguan - tanyakan bean hari ini</small></div>
+      <div class="menu-row"><div class="menu-item" style="flex:1 1 100%"><h3>Luna Flat White</h3><span class="dots"></span><span class="price">50</span></div><small data-id="Double ristretto, susu, tanpa gula - biarkan bean-nya bicara" data-en="Double ristretto, milk, no sugar - let the bean speak">Double ristretto, susu, tanpa gula - biarkan bean-nya bicara</small></div>
+      <div class="menu-row"><div class="menu-item" style="flex:1 1 100%"><h3>Affogato Aren</h3><span class="dots"></span><span class="price">60</span></div><small data-id="Es krim vanila, espresso, karamel gula aren" data-en="Vanilla ice cream, espresso, palm sugar caramel">Es krim vanila, espresso, karamel gula aren</small></div>
+    </div>
+    <div class="menu-block reveal">
+      <span class="label" data-id="Malam - anggur &amp; piring kecil" data-en="Night - wine &amp; small plates">Malam - anggur &amp; piring kecil</span>
+      <div class="menu-row"><div class="menu-item" style="flex:1 1 100%"><h3>Natural Wine by Glass</h3><span class="dots"></span><span class="price">95+</span></div><small data-id="Daftar berganti - importir kecil, kebun kecil" data-en="Rotating list - small importers, small vineyards">Daftar berganti - importir kecil, kebun kecil</small></div>
+      <div class="menu-row"><div class="menu-item" style="flex:1 1 100%"><h3>Burrata &amp; Tomat Bedugul</h3><span class="dots"></span><span class="price">110</span></div><small data-id="Tomat petani Bedugul, basil, olive oil" data-en="Bedugul farm tomatoes, basil, olive oil">Tomat petani Bedugul, basil, olive oil</small></div>
+      <div class="menu-row"><div class="menu-item" style="flex:1 1 100%"><h3>Gnocchi Malam</h3><span class="dots"></span><span class="price">125</span></div><small data-id="Brown butter, sage, parmesan 24 bulan" data-en="Brown butter, sage, 24-month parmesan">Brown butter, sage, parmesan 24 bulan</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="night" class="duo">
+  <div class="duo-panel">
+    <div class="duo-inner reveal">
+      <p class="label" data-id="07.00 - 17.00" data-en="07.00 - 17.00">07.00 - 17.00</p>
+      <h3 data-id="Siang" data-en="Day">Siang</h3>
+      <p data-id="Cahaya alami, mesin dua grup, dan bean Indonesia yang berganti tiap minggu." data-en="Natural light, a two-group machine, Indonesian beans rotating weekly.">Cahaya alami, mesin dua grup, dan bean Indonesia yang berganti tiap minggu.</p>
+    </div>
+  </div>
+  <div class="duo-panel">
+    <div class="duo-inner reveal">
+      <p class="label" data-id="17.00 - 23.00" data-en="17.00 - 23.00">17.00 - 23.00</p>
+      <h3 data-id="Malam" data-en="Night">Malam</h3>
+      <p data-id="Lampu redup, vinyl pelan, natural wine, dan piring kecil dari dapur terbuka." data-en="Dim lights, slow vinyl, natural wine, small plates from the open kitchen.">Lampu redup, vinyl pelan, natural wine, dan piring kecil dari dapur terbuka.</p>
+    </div>
+  </div>
+</section>
+
+<section id="visit" class="visit">
+  <div class="wrap visit-grid">
+    <div class="reveal">
+      <p class="label" data-id="Kunjungi kami" data-en="Find us">Kunjungi kami</p>
+      <h2 data-id="Di gang kecil dari Jl. Kayu Aya" data-en="Down a small lane off Jl. Kayu Aya">Di gang kecil dari Jl. Kayu Aya</h2>
+      <div class="visit-list">
+        <div class="visit-row"><span data-id="Setiap hari" data-en="Daily">Setiap hari</span><span>07.00 - 23.00</span></div>
+        <div class="visit-row"><span data-id="Alamat" data-en="Address">Alamat</span><span>Jl. Kayu Aya Gg. III No. 5, Seminyak</span></div>
+        <div class="visit-row"><span>WhatsApp</span><span>+62 812-3456-7890</span></div>
+        <div class="visit-row"><span>Instagram</span><span>@luna.seminyak</span></div>
+      </div>
+      <a class="btn" href="https://wa.me/6281234567890?text=Halo%20LUNA%2C%20saya%20ingin%20reservasi" data-id="Reservasi via WhatsApp" data-en="Reserve via WhatsApp">Reservasi via WhatsApp</a>
+    </div>
+    <div class="map reveal">
+      <iframe title="Peta lokasi" loading="lazy" src="https://www.google.com/maps?q=Kayu+Aya+Seminyak+Bali&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo">LUNA</div>
+  <div class="foot-nav">
+    <a href="#menu">Menu</a>
+    <a href="#night" data-id="Malam" data-en="Night">Malam</a>
+    <a href="#visit" data-id="Kunjungi" data-en="Visit">Kunjungi</a>
+    <a href="https://instagram.com">Instagram</a>
+  </div>
+  <small data-id="© 2026 LUNA Seminyak - espresso siang, anggur setelah gelap." data-en="© 2026 LUNA Seminyak - espresso by day, wine after dark.">© 2026 LUNA Seminyak - espresso siang, anggur setelah gelap.</small>
+</footer>
+
+<a class="wa-float" href="https://wa.me/6281234567890?text=Halo%20LUNA!" aria-label="Chat WhatsApp">
+  <span data-id="Reservasi" data-en="Reserve">Reservasi</span>
+</a>
+
+<script>
+  const langBtn = document.getElementById('langBtn');
+  let lang = 'en';
+  document.querySelectorAll('[data-id]').forEach(el => { el.innerHTML = el.dataset['en'] || el.innerHTML; });
+  document.documentElement.lang = 'en';
+  langBtn.textContent = 'ID';
+  langBtn.addEventListener('click', () => {
+    lang = lang === 'id' ? 'en' : 'id';
+    langBtn.textContent = lang === 'en' ? 'ID' : 'EN';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-id]').forEach(el => { el.innerHTML = el.dataset[lang]; });
+  });
+  const navEl = document.querySelector('nav');
+  window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+  const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

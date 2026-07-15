@@ -5,6 +5,7 @@ export const id = {
     about: "Tentang",
     resume: "Resume",
     portfolio: "Portofolio",
+    studio: "Studio",
     contact: "Kontak",
   },
 
@@ -15,7 +16,7 @@ export const id = {
     eyebrow: "Portofolio Personal / 2026",
     titleLine1: "Engineering Clarity",
     titleLine2: "from Complexity.",
-    viewPortfolio: "Lihat Portfolio",
+    viewPortfolio: "Pesan Website F&B →",
     downloadCV: "Download CV",
     focusLabel: "Fokus Saat Ini",
     focusTitle: "AI, IoT, dan Sistem Antarmuka",
@@ -29,13 +30,26 @@ export const id = {
     explore: "Jelajahi",
   },
 
+  // Announcement
+  announcement: {
+    banner: "Dewa Studio: Layanan pembuatan website premium untuk restoran & kafe di Bali. Live dalam 3 hari.",
+    action: "Lihat Desain",
+  },
+  
+  // Studio Teaser
+  studioTeaser: {
+    title: "Butuh Website untuk Bisnis F&B Anda?",
+    subtitle: "Dewa Studio melayani pembuatan website premium khusus untuk kafe dan restoran. Pilih dari 9 konsep desain kelas dunia, saya sesuaikan dengan brand Anda, dan website siap live dalam 3 hari.",
+    cta: "Jelajahi Koleksi Desain",
+  },
+
   // About
   about: {
     title: "Tentang Saya",
     subtitle: "Mengenal lebih dekat",
     greeting: "Halo! Saya Dewa Dharma 👋",
-    intro1: "Saya adalah mahasiswa ITB STIKOM Bali, yang memiliki passion mendalam di bidang teknologi dan seni. Perjalanan saya di dunia IT dimulai dari ketertarikan terhadap bagaimana teknologi dapat mengubah kehidupan manusia menjadi lebih baik.",
-    intro2: "Fokus utama saya adalah pengembangan sistem cerdas yang menggabungkan Artificial Intelligence, Internet of Things, dan Robotika. Saya percaya bahwa teknologi terbaik adalah yang dapat diakses dan memberikan dampak nyata kepada masyarakat.",
+    intro1: "Saya adalah mahasiswa ITB STIKOM Bali yang memiliki passion mendalam di bidang teknologi dan seni. Saya baru saja menyelesaikan program magang sebagai IoT Development Intern di PT Bima Sakti Sanjaya, di mana saya turut membangun platform smart farming AgriSense.",
+    intro2: "Fokus utama saya adalah pengembangan sistem cerdas yang menggabungkan AI, IoT, dan Robotika. Selama magang, saya merancang dashboard Next.js real-time dan mengintegrasikan telemetri sensor lapangan menggunakan Node-RED dan MQTT.",
     intro3: "Selain dunia teknis, saya juga aktif dalam seni teater dan puisi. Bagi saya, seni adalah cara untuk memahami perspektif manusia yang lebih dalam, yang kemudian dapat saya terapkan dalam merancang teknologi yang lebih human-centered dan bermakna.",
     interestsTitle: "Minat & Keahlian Utama",
     interests: [
@@ -120,6 +134,7 @@ export const id = {
     technicalSkills: [
       { name: "React Native", url: "https://reactnative.dev/" },
       { name: "Next.js", url: "https://nextjs.org/" },
+      { name: "REST API", url: "https://restfulapi.net/" },
       { name: "TypeScript", url: "https://www.typescriptlang.org/" },
       { name: "Tailwind CSS", url: "https://tailwindcss.com/" },
       { name: "Python", url: "https://www.python.org/" },
@@ -175,6 +190,10 @@ export const id = {
     exp4Subtitle: "Teater Biner, PEKSIMIDA, PEKSIMINAS",
     exp4Period: "2023 - 2025",
     exp4Desc: "Menulis dan menampilkan karya puisi dan teater yang mengangkat isu sosial. Aktif di Teater Biner dan berkompetisi di tingkat provinsi dan nasional.",
+    exp5Title: "Web & IoT Development Intern",
+    exp5Subtitle: "PT Bima Sakti Sanjaya",
+    exp5Period: "Mar 2026 - Jul 2026",
+    exp5Desc: "Berperan dalam dua proyek utama perusahaan. Pertama, membangun dashboard real-time Next.js dan integrasi Node-RED/MQTT untuk platform smart farming AgriSense. Kedua, merombak antarmuka (redesign) aplikasi web Toppi menggunakan Next.js dan Tailwind CSS, sekaligus mengintegrasikannya dengan layanan REST API yang sudah ada.",
     ctaTitle: "Tertarik untuk berkolaborasi?",
     ctaDescription:
       "Silakan hubungi saya untuk pekerjaan yang melibatkan sistem AI, perangkat cerdas, antarmuka mobile, atau pengembangan produk berbasis riset.",

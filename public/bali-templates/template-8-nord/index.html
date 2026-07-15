@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NORD - Modern Nordic Dining</title>
+<meta name="description" content="A dining experience shaped by the seasons and the landscape.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --stone: #EAE6DB;
+    --sand: #D5CFC1;
+    --charcoal: #2A2825;
+    --moss: #4A5240;
+    --earth: #8C7561;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background-color: var(--stone);
+    color: var(--charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; }
+  
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; object-fit: cover; }
+  
+  .container { max-width: 1600px; margin: 0 auto; padding: 0 5vw; }
+
+  /* Navigation */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 2rem 5vw; display: flex; justify-content: space-between; align-items: flex-start;
+    color: var(--stone); transition: all 0.3s ease;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+  }
+  nav.scrolled {
+    background: var(--stone);
+    color: var(--charcoal);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 1.5rem 5vw;
+  }
+  .logo { font-size: 2.5rem; font-weight: 500; letter-spacing: 0.05em; line-height: 0.8; }
+  .nav-links { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+  .nav-links a { position: relative; transition: opacity 0.3s; }
+  .nav-links a:hover { opacity: 0.6; }
+  
+  .lang-toggle {
+    background: none; border: none; color: inherit; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 4px; margin-top: 1rem;
+  }
+
+  /* Hero */
+  header { height: 100svh; position: relative; display: flex; align-items: flex-end; padding-bottom: 5vh; }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -1;
+    background: url('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2000&auto=format&fit=crop') center/cover;
+    filter: brightness(0.85) sepia(0.2);
+  }
+  .hero-content { color: var(--stone); max-width: 800px; }
+  h1 { font-size: clamp(3rem, 8vw, 7rem); font-weight: 300; line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  .hero-text { font-size: 1.5rem; font-weight: 300; max-width: 500px; line-height: 1.4; opacity: 0.9; }
+
+  /* Section Intro */
+  .intro { padding: 15vh 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10vw; align-items: center; }
+  .intro-text h2 { font-size: clamp(2rem, 4vw, 4rem); font-weight: 400; margin-bottom: 2rem; }
+  .intro-text p { font-size: 1.25rem; color: var(--moss); margin-bottom: 2rem; max-width: 400px; }
+  .btn-outline {
+    display: inline-block; padding: 1rem 2rem; border: 1px solid var(--charcoal);
+    transition: all 0.4s;
+  }
+  .btn-outline:hover { background: var(--charcoal); color: var(--stone); }
+  
+  .intro-img { height: 80vh; position: relative; }
+  .intro-img img { width: 100%; height: 100%; }
+  
+  /* Menu Grid (Asymmetric) */
+  .menu-section { background: var(--charcoal); color: var(--stone); padding: 15vh 0; }
+  .menu-grid { display: grid; grid-template-columns: 4fr 5fr 3fr; gap: 2rem; margin-top: 5rem; }
+  
+  .menu-header h2 { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; margin-bottom: 1rem; color: var(--sand); }
+  .menu-header p { font-size: 1.25rem; max-width: 300px; opacity: 0.7; }
+  
+  .dish-card { position: relative; margin-top: 10vh; }
+  .dish-card:nth-child(2) { margin-top: 0; }
+  .dish-card:nth-child(3) { margin-top: 20vh; }
+  
+  .dish-img { height: 60vh; margin-bottom: 1.5rem; overflow: hidden; }
+  .dish-img img { transition: transform 1.2s ease; }
+  .dish-card:hover .dish-img img { transform: scale(1.05); }
+  
+  .dish-title { font-size: 2rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .dish-desc { font-size: 1.1rem; opacity: 0.7; font-style: italic; }
+
+  /* Booking */
+  .booking { padding: 20vh 0; text-align: center; background: var(--sand); }
+  .booking h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; margin-bottom: 2rem; }
+  .booking p { font-size: 1.5rem; max-width: 600px; margin: 0 auto 3rem; color: var(--moss); }
+  .btn-solid {
+    display: inline-block; padding: 1.25rem 3rem; background: var(--charcoal); color: var(--stone);
+    transition: background 0.3s; border: none; cursor: pointer;
+  }
+  .btn-solid:hover { background: var(--earth); }
+
+  /* Footer */
+  footer { padding: 5vh 5vw; display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--sand); }
+  .foot-col { display: flex; flex-direction: column; gap: 0.5rem; }
+  .foot-col.right { text-align: right; }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .intro { grid-template-columns: 1fr; gap: 5vh; }
+    .intro-img { height: 50vh; }
+    .menu-grid { grid-template-columns: 1fr; gap: 4rem; }
+    .dish-card, .dish-card:nth-child(2), .dish-card:nth-child(3) { margin-top: 0; }
+    .dish-img { height: 50vh; }
+  }
+  @media (max-width: 768px) {
+    footer { flex-direction: column; align-items: flex-start; gap: 2rem; }
+    .foot-col.right { text-align: left; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">NORD</div>
+  <div class="nav-links mono">
+    <a href="#about" data-id="Filosofi" data-en="Philosophy">Philosophy</a>
+    <a href="#menu" data-id="Musim Ini" data-en="This Season">This Season</a>
+    <a href="#booking" data-id="Reservasi" data-en="Reservations">Reservations</a>
+    <button class="lang-toggle mono" id="langBtn">ID</button>
+  </div>
+</nav>
+
+<header>
+  <div class="hero-bg"></div>
+  <div class="container hero-content reveal">
+    <h1 data-id="Alam liar,<br>di atas piring." data-en="The wild,<br>on a plate.">The wild,<br>on a plate.</h1>
+    <p class="hero-text" data-id="Sebuah eksplorasi lanskap Nordik melalui bahan-bahan yang mencari makan (foraged) dan ditangkap liar." data-en="An exploration of the Nordic landscape through foraged and wild-caught ingredients.">An exploration of the Nordic landscape through foraged and wild-caught ingredients.</p>
+  </div>
+</header>
+
+<section id="about" class="container intro">
+  <div class="intro-text reveal">
+    <div class="mono" style="margin-bottom: 2rem; color: var(--earth);" data-id="Pendekatan kami" data-en="Our approach">Our approach</div>
+    <h2 data-id="Dipandu oleh musim dan cuaca mikro." data-en="Dictated by the seasons and the micro-weather.">Dictated by the seasons and the micro-weather.</h2>
+    <p data-id="Kami tidak merancang menu, kami mengamati hutan dan pantai. Apa yang tumbuh hari ini, disajikan malam ini." data-en="We do not design a menu, we observe the forest and the shore. What grows today, is served tonight.">We do not design a menu, we observe the forest and the shore. What grows today, is served tonight.</p>
+    <a href="#menu" class="btn-outline mono" data-id="Lihat menu saat ini" data-en="View current menu">View current menu</a>
+  </div>
+  <div class="intro-img reveal">
+    <img src="https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?q=80&w=1200&auto=format&fit=crop" alt="Foraging in the forest">
+  </div>
+</section>
+
+<section id="menu" class="menu-section">
+  <div class="container">
+    <div class="menu-header reveal">
+      <div class="mono" style="margin-bottom: 1rem; color: var(--earth);" data-id="Tasting Menu Musim Gugur" data-en="Autumn Tasting Menu">Autumn Tasting Menu</div>
+      <h2 data-id="Menu Hutan & Bumi" data-en="Forest & Earth Menu">Forest & Earth Menu</h2>
+      <p data-id="Berfokus pada jamur, buah beri liar, dan permainan dari hutan utara." data-en="Focusing on fungi, wild berries, and game from the northern woods.">Focusing on fungi, wild berries, and game from the northern woods.</p>
+    </div>
+    
+    <div class="menu-grid">
+      <div class="dish-card reveal">
+        <div class="dish-img">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=1000&auto=format&fit=crop" alt="Reindeer Moss">
+        </div>
+        <div class="mono" style="color: var(--earth); margin-bottom: 0.5rem;">01</div>
+        <h3 class="dish-title" data-id="Lumut Rusa & Jamur Truffle" data-en="Reindeer Moss & Truffle">Reindeer Moss & Truffle</h3>
+        <p class="dish-desc" data-id="Lumut goreng renyah, emulsi jamur porcini putih." data-en="Crisp fried moss, white cep emulsion.">Crisp fried moss, white cep emulsion.</p>
+      </div>
+      
+      <div class="dish-card reveal">
+        <div class="dish-img">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1000&auto=format&fit=crop" alt="Wild Duck">
+        </div>
+        <div class="mono" style="color: var(--earth); margin-bottom: 0.5rem;">02</div>
+        <h3 class="dish-title" data-id="Bebek Liar & Juniper" data-en="Wild Duck & Juniper">Wild Duck & Juniper</h3>
+        <p class="dish-desc" data-id="Daging bebek berumur kering, pinus, jus blackcurrant." data-en="Dry-aged duck breast, pine, blackcurrant jus.">Dry-aged duck breast, pine, blackcurrant jus.</p>
+      </div>
+      
+      <div class="dish-card reveal">
+        <div class="dish-img">
+          <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=1000&auto=format&fit=crop" alt="Cloudberry">
+        </div>
+        <div class="mono" style="color: var(--earth); margin-bottom: 0.5rem;">03</div>
+        <h3 class="dish-title" data-id="Cloudberry & Susu Domba" data-en="Cloudberry & Sheep's Milk">Cloudberry & Sheep's Milk</h3>
+        <p class="dish-desc" data-id="Krim domba yang difermentasi ringan, cloudberry beku dari utara." data-en="Lightly fermented sheep's cream, frosted cloudberries from the north.">Lightly fermented sheep's cream, frosted cloudberries from the north.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="booking" class="booking">
+  <div class="container reveal">
+    <div class="mono" style="margin-bottom: 2rem; color: var(--earth);" data-id="Reservasi" data-en="Reservations">Reservations</div>
+    <h2 data-id="Bergabunglah di meja kami" data-en="Join our table">Join our table</h2>
+    <p data-id="Kami menerima reservasi hingga tiga bulan ke depan. Ruang makan kami hanya melayani 20 tamu per malam." data-en="We accept reservations up to three months in advance. Our dining room serves only 20 guests per night.">We accept reservations up to three months in advance. Our dining room serves only 20 guests per night.</p>
+    <button class="btn-solid mono" data-id="Pesan Meja (Via WhatsApp)" data-en="Book a Table (Via WhatsApp)">Book a Table (Via WhatsApp)</button>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-col mono">
+    <span>NORD RESTAURANT</span>
+    <span data-id="Strandvägen 1, Stockholm" data-en="Strandvägen 1, Stockholm">Strandvägen 1, Stockholm</span>
+  </div>
+  <div class="foot-col right mono">
+    <a href="#" data-id="Instagram" data-en="Instagram">Instagram</a>
+    <a href="#" data-id="Hubungi Kami" data-en="Contact Us">Contact Us</a>
+    <span style="color: var(--earth); margin-top: 1rem;">© 2026 NORD</span>
+  </div>
+</footer>
+
+<script>
+  // Language Toggle
+  const langBtn = document.getElementById('langBtn');
+  let lang = 'en';
+  
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerHTML = el.dataset.en;
+  });
+
+  langBtn.addEventListener('click', () => {
+    lang = lang === 'id' ? 'en' : 'id';
+    langBtn.textContent = lang === 'en' ? 'ID' : 'EN';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-id]').forEach(el => {
+      el.innerHTML = el.dataset[lang];
+    });
+  });
+
+  // Reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight - 100) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+</script>
+</body>
+</html>

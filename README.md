@@ -1,49 +1,47 @@
 # Dewa Portfolio
 
-Portfolio website pribadi untuk **I Dewa Made Dharma Putra Santika**, dibangun dengan **Next.js 15**, **TypeScript**, dan **Tailwind CSS**. Project ini memakai pendekatan editorial minimal dengan layout monokrom, sistem bilingual, dan konten portofolio berbasis data.
+> Portfolio website pribadi untuk **I Dewa Made Dharma Putra Santika**, dibangun dengan **Next.js 15**, **TypeScript**, dan **Tailwind CSS**. Project ini memakai pendekatan editorial minimal dengan layout monokrom, sistem bilingual, dan konten portofolio berbasis data.
 
-## Overview
+![Next.js](https://img.shields.io/badge/Next.js_15-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 
-Website ini menampilkan:
+## 📖 Overview
 
-- halaman `Home`, `About`, `Resume`, `Portfolio`, dan `Contact`
-- tampilan editorial monokrom dengan tipografi `Manrope` + `Inter`
-- sistem bahasa ganda Indonesia dan English
-- konten portofolio yang diambil dari `src/data/artifacts.ts`
-- form kontak berbasis `EmailJS`
+Website ini dirancang untuk menampilkan profil profesional, pengalaman kerja, serta proyek-proyek yang telah dikerjakan dengan tampilan yang bersih dan elegan. 
 
-## Features
+Fitur utama yang tersedia:
+- **Halaman Lengkap**: `Home`, `About`, `Resume`, `Portfolio`, dan `Contact`
+- **Desain Editorial Monokrom**: Menggunakan tipografi modern (`Manrope` + `Inter`) untuk memberikan kesan premium.
+- **Bilingual (Dua Bahasa)**: Mendukung Bahasa Indonesia dan English dengan fitur toggle yang mudah diakses di navbar.
+- **Data-Driven Portfolio**: Semua konten proyek dan artefak ditarik dari satu sumber data terpusat (`src/data/artifacts.ts`).
+- **Integrasi Kontak**: Form kontak fungsional yang terhubung langsung melalui `EmailJS`.
+
+## ✨ Features
 
 - **Editorial UI**
-  - visual minimal, bersih, dan fokus pada hirarki tipografi
-  - navbar sticky, layout responsif, dan kartu konten modular
+  - Visual minimalis, bersih, dan fokus pada hierarki tipografi.
+  - Navbar *sticky*, layout responsif untuk berbagai ukuran layar, dan kartu konten modular.
 
 - **Bilingual Content**
-  - mendukung Bahasa Indonesia dan English
-  - toggle bahasa tersedia di navbar
-  - teks dikelola lewat `src/translations/id.ts` dan `src/translations/en.ts`
-
-- **Data-Driven Portfolio**
-  - semua item portofolio dikelola dari satu sumber data
-  - penambahan project baru cukup lewat `src/data/artifacts.ts`
+  - Toggle bahasa terintegrasi mulus tanpa reload halaman penuh.
+  - Manajemen teks tersentralisasi melalui `src/translations/id.ts` dan `src/translations/en.ts`.
 
 - **Resume & Workflow**
-  - menampilkan technical focus, skill stack, experience, serta AI workflow
-  - mencakup tools dan workflow seperti Claude, ChatGPT, Codex, VS Code, dan Anti Gravity
+  - Menampilkan fokus teknis, *skill stack*, pengalaman kerja, serta alur kerja (*workflow*) AI terkini.
+  - Mencakup *tools* modern seperti Claude, ChatGPT, Codex, VS Code, dan AI agents.
 
-- **Contact Integration**
-  - form kontak terhubung ke EmailJS melalui environment variables
+## 🛠️ Tech Stack
 
-## Tech Stack
-
-- **Framework**: Next.js 15
+- **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Animation**: Framer Motion
 - **Icons**: Lucide React
-- **Email**: EmailJS
+- **Email Service**: EmailJS
 
-## Project Structure
+## 📂 Project Structure
 
 ```text
 src/
@@ -58,12 +56,7 @@ src/
 ├── components/
 │   ├── Footer.tsx
 │   ├── Hero.tsx
-│   ├── Navbar.tsx
-│   ├── ParticleBackground.tsx
-│   ├── ProjectCard.tsx
-│   ├── SectionTitle.tsx
-│   ├── SnowEffect.tsx
-│   └── TimelineItem.tsx
+│   └── Navbar.tsx
 ├── contexts/
 │   └── LanguageContext.tsx
 ├── data/
@@ -74,7 +67,7 @@ src/
     └── index.ts
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
 ### 1. Clone repository
 
@@ -87,11 +80,15 @@ cd dewa-portfolio
 
 ```bash
 npm install
+# atau
+yarn install
+# atau
+pnpm install
 ```
 
 ### 3. Setup environment variables
 
-Buat file `.env.local` dan isi sesuai kredensial EmailJS:
+Buat file `.env.local` di direktori root dan isi dengan kredensial EmailJS Anda:
 
 ```bash
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
@@ -105,46 +102,36 @@ NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
 npm run dev
 ```
 
-Buka `http://localhost:3000`.
+Buka [http://localhost:3000](http://localhost:3000) di browser untuk melihat hasilnya.
 
-## Available Scripts
+## 📝 Content Management
 
-```bash
-npm run dev
-npm run build
-npm run start
-```
-
-## Content Management
-
-### Update portfolio items
-
-Edit file:
-
+### Update Portfolio Items
+Untuk menambah atau mengubah item portofolio, edit file berikut:
 ```text
 src/data/artifacts.ts
 ```
 
-### Update translations
-
-Edit file:
-
+### Update Translations
+Untuk mengubah teks bahasa Indonesia atau Inggris, edit file:
 ```text
 src/translations/id.ts
 src/translations/en.ts
 ```
 
-## Deployment Notes
+## ☁️ Deployment Notes
 
-- Pastikan environment variables EmailJS sudah tersedia di server/deployment target.
-- Jalankan `npm run build` sebelum deploy untuk validasi akhir.
+- Pastikan environment variables EmailJS (`NEXT_PUBLIC_EMAILJS_*`) sudah ditambahkan di dashboard server/deployment target (misalnya Vercel atau Netlify).
+- Jalankan `npm run build` secara lokal sebelum *deploy* untuk memastikan tidak ada *error* saat *build process*.
 
-## Author
+## 👨‍💻 Author
 
 **I Dewa Made Dharma Putra Santika**  
-Bali, Indonesia  
-AI, Robotics, IoT, Software Development
+📍 Bali, Indonesia  
+💼 AI, Robotics, IoT, Software Development  
 
-## License
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DwDhrm7)
+
+## 📄 License
 
 © 2026 I Dewa Made Dharma Putra Santika. All rights reserved.

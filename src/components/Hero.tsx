@@ -49,11 +49,10 @@ export default function Hero() {
 
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
-              href="/portfolio"
+              href="/studio"
               className="inline-flex w-full items-center justify-center gap-3 rounded-md bg-neutral-950 px-10 py-5 text-sm font-extrabold uppercase tracking-[0.24em] text-white transition hover:opacity-90 sm:w-auto"
             >
               {t.hero.viewPortfolio}
-              <ArrowUpRight size={18} />
             </Link>
             <a
               href={downloadCvHref}

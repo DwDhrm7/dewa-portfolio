@@ -12,6 +12,12 @@ export default function ResumePage() {
 
   const experiences = [
     {
+      period: t.resume.exp5Period,
+      title: t.resume.exp5Title,
+      subtitle: t.resume.exp5Subtitle,
+      description: t.resume.exp5Desc,
+    },
+    {
       period: t.resume.exp1Period,
       title: t.resume.exp1Title,
       subtitle: t.resume.exp1Subtitle,

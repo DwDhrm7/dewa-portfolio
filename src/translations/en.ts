@@ -7,6 +7,7 @@ export const en: TranslationKeys = {
     about: "About",
     resume: "Resume",
     portfolio: "Portfolio",
+    studio: "Studio",
     contact: "Contact",
   },
 
@@ -17,7 +18,7 @@ export const en: TranslationKeys = {
     eyebrow: "Personal Portfolio / 2026",
     titleLine1: "Engineering Clarity",
     titleLine2: "from Complexity.",
-    viewPortfolio: "View Portfolio",
+    viewPortfolio: "Order F&B Website →",
     downloadCV: "Download CV",
     focusLabel: "Current Focus",
     focusTitle: "AI, IoT, and Interface Systems",
@@ -31,13 +32,26 @@ export const en: TranslationKeys = {
     explore: "Explore",
   },
 
+  // Announcement
+  announcement: {
+    banner: "Dewa Studio: Premium website design services for restaurants & cafés in Bali. Live in 3 days.",
+    action: "View Designs",
+  },
+  
+  // Studio Teaser
+  studioTeaser: {
+    title: "Need a Website for Your F&B Business?",
+    subtitle: "Dewa Studio provides premium website design exclusively for cafés and restaurants. Choose from 9 world-class design concepts, I tailor it to your brand, and your site goes live in 3 days.",
+    cta: "Explore the Collection",
+  },
+
   // About
   about: {
     title: "About Me",
     subtitle: "Get to know me better",
     greeting: "Hello! I'm Dewa Dharma 👋",
-    intro1: "I am a student at ITB STIKOM Bali, who has a deep passion for technology and art. My journey in the IT world began with an interest in how technology can transform human life for the better.",
-    intro2: "My main focus is developing intelligent systems that combine Artificial Intelligence, Internet of Things, and Robotics. I believe that the best technology is one that is accessible and provides real impact to society.",
+    intro1: "I am a student at ITB STIKOM Bali with a deep passion for technology and art. I recently completed my internship as an IoT Development Intern at PT Bima Sakti Sanjaya, where I helped build the AgriSense smart farming platform.",
+    intro2: "My main focus is developing intelligent systems that combine AI, IoT, and Robotics. During my internship, I designed a real-time Next.js dashboard and integrated field sensor telemetry using Node-RED and MQTT.",
     intro3: "Besides the technical world, I am also active in theater and poetry arts. For me, art is a way to understand deeper human perspectives, which I can then apply in designing more human-centered and meaningful technology.",
     interestsTitle: "Main Interests & Expertise",
     interests: [
@@ -122,6 +136,7 @@ export const en: TranslationKeys = {
     technicalSkills: [
       { name: "React Native", url: "https://reactnative.dev/" },
       { name: "Next.js", url: "https://nextjs.org/" },
+      { name: "REST API", url: "https://restfulapi.net/" },
       { name: "TypeScript", url: "https://www.typescriptlang.org/" },
       { name: "Tailwind CSS", url: "https://tailwindcss.com/" },
       { name: "Python", url: "https://www.python.org/" },
@@ -177,6 +192,10 @@ export const en: TranslationKeys = {
     exp4Subtitle: "Teater Biner, PEKSIMIDA, PEKSIMINAS",
     exp4Period: "2023 - 2025",
     exp4Desc: "Writing and performing poetry and theater works addressing social issues. Active in Teater Biner and competing at provincial and national levels.",
+    exp5Title: "Web & IoT Development Intern",
+    exp5Subtitle: "PT Bima Sakti Sanjaya",
+    exp5Period: "Mar 2026 - Jul 2026",
+    exp5Desc: "Contributed to two major company projects. First, built a real-time Next.js dashboard and integrated Node-RED/MQTT for the AgriSense smart farming platform. Second, redesigned the Toppi web application interface using Next.js and Tailwind CSS, while integrating it with existing REST API services.",
     ctaTitle: "Interested in collaborating?",
     ctaDescription:
       "Get in touch for work involving AI systems, smart devices, mobile interfaces, or research-oriented product development.",
