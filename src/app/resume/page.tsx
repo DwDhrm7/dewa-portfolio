@@ -18,6 +18,12 @@ export default function ResumePage() {
       description: t.resume.exp5Desc,
     },
     {
+      period: t.resume.exp6Period,
+      title: t.resume.exp6Title,
+      subtitle: t.resume.exp6Subtitle,
+      description: t.resume.exp6Desc,
+    },
+    {
       period: t.resume.exp1Period,
       title: t.resume.exp1Title,
       subtitle: t.resume.exp1Subtitle,

@@ -1,231 +1,18 @@
-<!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>L'Artisan Boutique</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-tertiary-fixed-variant": "#27438a",
-                      "surface-tint": "#e9c349",
-                      "primary-fixed-dim": "#e9c349",
-                      "on-secondary-fixed-variant": "#454744",
-                      "surface-container-high": "#2d2a21",
-                      "on-tertiary-container": "#254188",
-                      "outline": "#99907c",
-                      "error": "#ffb4ab",
-                      "on-error-container": "#ffdad6",
-                      "background": "#16130b",
-                      "inverse-primary": "#735c00",
-                      "on-background": "#eae1d4",
-                      "inverse-on-surface": "#343027",
-                      "surface-container": "#231f17",
-                      "primary-container": "#d4af37",
-                      "on-primary": "#3c2f00",
-                      "surface": "#16130b",
-                      "tertiary-fixed": "#dbe1ff",
-                      "on-error": "#690005",
-                      "surface-container-low": "#1f1b13",
-                      "primary-fixed": "#ffe088",
-                      "on-primary-container": "#554300",
-                      "secondary-container": "#484a46",
-                      "secondary": "#c6c7c2",
-                      "error-container": "#93000a",
-                      "tertiary-fixed-dim": "#b4c5ff",
-                      "surface-dim": "#16130b",
-                      "on-secondary-fixed": "#1a1c19",
-                      "surface-container-highest": "#38342b",
-                      "on-surface": "#eae1d4",
-                      "on-tertiary-fixed": "#00174b",
-                      "on-secondary": "#2f312e",
-                      "on-primary-fixed-variant": "#574500",
-                      "on-tertiary": "#082b72",
-                      "surface-variant": "#38342b",
-                      "tertiary-container": "#97b0ff",
-                      "secondary-fixed": "#e3e3de",
-                      "outline-variant": "#4d4635",
-                      "tertiary": "#bfcdff",
-                      "primary": "#f2ca50",
-                      "inverse-surface": "#eae1d4",
-                      "on-primary-fixed": "#241a00",
-                      "surface-bright": "#3d392f",
-                      "surface-container-lowest": "#110e07",
-                      "secondary-fixed-dim": "#c6c7c2",
-                      "on-surface-variant": "#d0c5af",
-                      "on-secondary-container": "#b8b9b4"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "margin-mobile": "20px",
-                      "stack-lg": "80px",
-                      "container-max": "1280px",
-                      "gutter": "24px",
-                      "stack-xl": "120px",
-                      "margin-desktop": "64px",
-                      "stack-md": "40px"
-              },
-              "fontFamily": {
-                      "display-lg-mobile": [
-                              "Playfair Display"
-                      ],
-                      "headline-md": [
-                              "Playfair Display"
-                      ],
-                      "body-md": [
-                              "Inter"
-                      ],
-                      "label-sm": [
-                              "Inter"
-                      ],
-                      "headline-lg-mobile": [
-                              "Playfair Display"
-                      ],
-                      "headline-lg": [
-                              "Playfair Display"
-                      ],
-                      "display-lg": [
-                              "Playfair Display"
-                      ],
-                      "body-lg": [
-                              "Inter"
-                      ]
-              },
-              "fontSize": {
-                      "display-lg-mobile": [
-                              "44px",
-                              {
-                                      "lineHeight": "48px",
-                                      "letterSpacing": "0.02em",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "headline-md": [
-                              "32px",
-                              {
-                                      "lineHeight": "40px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "body-md": [
-                              "16px",
-                              {
-                                      "lineHeight": "24px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "label-sm": [
-                              "12px",
-                              {
-                                      "lineHeight": "16px",
-                                      "letterSpacing": "0.1em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "headline-lg-mobile": [
-                              "32px",
-                              {
-                                      "lineHeight": "38px",
-                                      "letterSpacing": "0.01em",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "headline-lg": [
-                              "48px",
-                              {
-                                      "lineHeight": "56px",
-                                      "letterSpacing": "0.01em",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "display-lg": [
-                              "72px",
-                              {
-                                      "lineHeight": "80px",
-                                      "letterSpacing": "0.02em",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "body-lg": [
-                              "18px",
-                              {
-                                      "lineHeight": "28px",
-                                      "letterSpacing": "-0.01em",
-                                      "fontWeight": "300"
-                              }
-                      ]
-              }
-      },
-          },
-        }
-    </script>
-<style>
-        body {
-            background-color: #0B0B0B;
-            color: #eae1d4;
-            overflow-x: hidden;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 0.5px solid rgba(255, 255, 255, 0.1);
-        }
-        .glass-card-hover:hover {
-            background: rgba(255, 255, 255, 0.06);
-        }
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .btn-primary {
-            background-color: #D4AF37;
-            color: #000;
-            transition: opacity 0.3s ease;
-        }
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-        .btn-secondary {
-            border: 0.5px solid rgba(255, 255, 255, 0.5);
-            color: #eae1d4;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-        .nav-link-active {
-            color: #f2ca50;
-            font-weight: 500;
-            border-bottom: 2px solid #f2ca50;
-            padding-bottom: 0.25rem;
-        }
-        .ease-out-expo {
-            transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script>tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { display: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] } } } }</script>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl dark:bg-surface-container-lowest/60 border-b border-white/10 shadow-sm transition-all duration-500 ease-out-expo hidden md:block">
-<div class="flex justify-between items-center px-margin-desktop py-6 max-w-container-max mx-auto">
+<div class="flex justify-between items-center px-margin-desktop py-6 max-w-[1100px] mx-auto">
 <a class="font-display-lg text-display-lg text-primary tracking-tight" href="#" style="font-size: 2rem; line-height: 2.5rem;">L'Artisan Café</a>
 <div class="flex space-x-8 items-center">
 <a class="nav-link-active font-body-lg text-body-lg hover:bg-white/5 transition-all duration-300 px-2 rounded-sm" href="#">Our Story</a>
@@ -247,11 +34,11 @@
 <!-- Hero Section -->
 <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
 <div class="absolute inset-0 z-0">
-<img alt="Cinematic coffee brewing" class="w-full h-full object-cover opacity-70" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=2000&auto=format&fit=crop"/>
+<img alt="Cinematic coffee brewing" class="w-full h-full object-cover opacity-70" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&amp;w=2000&amp;auto=format&amp;fit=crop">
 <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
 <div class="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-transparent"></div>
 </div>
-<div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop fade-up">
+<div class="relative z-10 text-center px-6 md:px-12 fade-up">
 <h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary mb-6 drop-shadow-lg">L'Artisan Boutique</h1>
 <p class="font-body-lg text-body-lg text-on-surface max-w-2xl mx-auto mb-10 tracking-wide font-light">The Art of Slow Living. Born in Bali.</p>
 <button onclick="window.open('https://wa.me/6281234567890?text=Hello%20L%27Artisan%2C%20I%20would%20like%20to%20reserve%20a%20table','_blank')" class="btn-primary font-label-sm text-label-sm px-8 py-4 rounded-full tracking-widest uppercase hover:scale-105 transition-transform duration-500 ease-out">
@@ -259,30 +46,137 @@
             </button>
 </div>
 </section>
-<!-- Brand Story -->
-<section class="py-stack-xl px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
-<div class="md:col-span-5 fade-up">
-<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface mb-8">Canggu Heritage &amp;<br/>Exceptional Sourcing</h2>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">
-                    Rooted in the lush landscapes of Bali, L'Artisan Boutique is a sanctuary for those who appreciate the meticulous craft of coffee. We believe in the slow drip of time, the warmth of the sun on concrete, and the unparalleled taste of single-origin beans sourced directly from independent farmers.
-                </p>
-<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                    Every cup tells a story of volcanic soil, careful roasting, and the quiet dedication of our artisans. Step into our world and experience the luxury of pause.
-                </p>
-</div>
-<div class="md:col-span-6 md:col-start-7 fade-up mt-10 md:mt-0 relative">
-<div class="glass-card p-4 rounded-2xl">
-<img alt="Sunlit concrete interior of a minimalist coffee shop with plants" class="w-full h-auto rounded-xl object-cover hover:scale-[1.02] transition-transform duration-700 ease-out-expo" src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1400&auto=format&fit=crop"/>
-</div>
-<!-- Decorative Element -->
-<div class="absolute -bottom-6 -left-6 w-32 h-32 border border-white/10 rounded-full mix-blend-overlay hidden md:block"></div>
-</div>
-</div>
+<!-- Full Menu Landscape Carousels -->
+<style>
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .pop-out { transform: translateZ(50px); }
+  .pop-out-btn { transform: translateZ(30px); }
+</style>
+
+<section id="full-menu" class="py-stack-xl relative w-full overflow-hidden">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-12 mb-10 flex justify-between items-end">
+    <div>
+      <span class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2 block">Discover</span>
+      <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Explore Menu</h2>
+      <p class="text-on-surface-variant font-body-md mt-2">Swipe to discover our curated selections</p>
+    </div>
+  </div>
+
+  <!-- Category: Beverages -->
+  <div class="max-w-[1100px] mx-auto px-6 md:px-12 mb-6">
+    <h3 class="font-headline-md text-headline-md text-on-surface border-b border-white/20 pb-2">Beverages</h3>
+  </div>
+  <div class="flex overflow-x-auto gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar px-6 md:px-12 md:max-w-[1100px] md:mx-auto">
+    <!-- Card 1 -->
+    <div class="min-w-[280px] md:min-w-[320px] snap-center shrink-0">
+      <div class="glass-card p-6 px-8 rounded-[50px] flex flex-col h-full preserve-3d relative group" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="w-full h-56 mb-6 rounded-[40px] overflow-hidden relative shadow-2xl transition-transform duration-300 group-hover:pop-out">
+          <img alt="Artisan Coffee" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800&auto=format&fit=crop">
+        </div>
+        <div class="flex-grow flex flex-col transition-transform duration-300 group-hover:pop-out-btn">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-headline-sm text-headline-sm text-on-surface">Artisan Pour Over</h4>
+            <span class="font-label-md text-primary">$8</span>
+          </div>
+          <p class="text-on-surface-variant text-body-sm font-light mb-6 flex-grow">Single-origin beans expertly brewed for a clean, nuanced flavor profile.</p>
+          <button class="w-full py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-label-sm text-on-surface uppercase tracking-wider">Add to Order</button>
+        </div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="min-w-[280px] md:min-w-[320px] snap-center shrink-0">
+      <div class="glass-card p-6 px-8 rounded-[50px] flex flex-col h-full preserve-3d relative group" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="w-full h-56 mb-6 rounded-[40px] overflow-hidden relative shadow-2xl transition-transform duration-300 group-hover:pop-out">
+          <img alt="Matcha Latte" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1515823662972-da6a2b4d3002?q=80&w=800&auto=format&fit=crop">
+        </div>
+        <div class="flex-grow flex flex-col transition-transform duration-300 group-hover:pop-out-btn">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-headline-sm text-headline-sm text-on-surface">Kyoto Matcha Latte</h4>
+            <span class="font-label-md text-primary">$7</span>
+          </div>
+          <p class="text-on-surface-variant text-body-sm font-light mb-6 flex-grow">Ceremonial grade matcha whisked with perfectly steamed oat milk.</p>
+          <button class="w-full py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-label-sm text-on-surface uppercase tracking-wider">Add to Order</button>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="min-w-[280px] md:min-w-[320px] snap-center shrink-0">
+      <div class="glass-card p-6 px-8 rounded-[50px] flex flex-col h-full preserve-3d relative group" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="w-full h-56 mb-6 rounded-[40px] overflow-hidden relative shadow-2xl transition-transform duration-300 group-hover:pop-out">
+          <img alt="Cold Brew" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=800&auto=format&fit=crop">
+        </div>
+        <div class="flex-grow flex flex-col transition-transform duration-300 group-hover:pop-out-btn">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-headline-sm text-headline-sm text-on-surface">Nitro Cold Brew</h4>
+            <span class="font-label-md text-primary">$6</span>
+          </div>
+          <p class="text-on-surface-variant text-body-sm font-light mb-6 flex-grow">24-hour steeped cold brew infused with nitrogen for a creamy stout-like texture.</p>
+          <button class="w-full py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-label-sm text-on-surface uppercase tracking-wider">Add to Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category: Breakfast & Pastries -->
+  <div class="max-w-[1100px] mx-auto px-6 md:px-12 mb-6 mt-4">
+    <h3 class="font-headline-md text-headline-md text-on-surface border-b border-white/20 pb-2">Breakfast & Pastries</h3>
+  </div>
+  <div class="flex overflow-x-auto gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar px-6 md:px-12 md:max-w-[1100px] md:mx-auto">
+    <!-- Card 1 -->
+    <div class="min-w-[280px] md:min-w-[320px] snap-center shrink-0">
+      <div class="glass-card p-6 px-8 rounded-[50px] flex flex-col h-full preserve-3d relative group" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="w-full h-56 mb-6 rounded-[40px] overflow-hidden relative shadow-2xl transition-transform duration-300 group-hover:pop-out">
+          <img alt="Croissant" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1509365465994-3e54b6807eb8?q=80&w=800&auto=format&fit=crop">
+        </div>
+        <div class="flex-grow flex flex-col transition-transform duration-300 group-hover:pop-out-btn">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-headline-sm text-headline-sm text-on-surface">Butter Croissant</h4>
+            <span class="font-label-md text-primary">$5</span>
+          </div>
+          <p class="text-on-surface-variant text-body-sm font-light mb-6 flex-grow">Flaky, golden layers baked fresh every morning with French butter.</p>
+          <button class="w-full py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-label-sm text-on-surface uppercase tracking-wider">Add to Order</button>
+        </div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="min-w-[280px] md:min-w-[320px] snap-center shrink-0">
+      <div class="glass-card p-6 px-8 rounded-[50px] flex flex-col h-full preserve-3d relative group" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="w-full h-56 mb-6 rounded-[40px] overflow-hidden relative shadow-2xl transition-transform duration-300 group-hover:pop-out">
+          <img alt="Avocado Toast" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?q=80&w=800&auto=format&fit=crop">
+        </div>
+        <div class="flex-grow flex flex-col transition-transform duration-300 group-hover:pop-out-btn">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-headline-sm text-headline-sm text-on-surface">Smashed Avocado</h4>
+            <span class="font-label-md text-primary">$12</span>
+          </div>
+          <p class="text-on-surface-variant text-body-sm font-light mb-6 flex-grow">Served on sourdough with feta, pomegranate seeds, and a drizzle of chili oil.</p>
+          <button class="w-full py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-label-sm text-on-surface uppercase tracking-wider">Add to Order</button>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="min-w-[280px] md:min-w-[320px] snap-center shrink-0">
+      <div class="glass-card p-6 px-8 rounded-[50px] flex flex-col h-full preserve-3d relative group" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="w-full h-56 mb-6 rounded-[40px] overflow-hidden relative shadow-2xl transition-transform duration-300 group-hover:pop-out">
+          <img alt="Pancakes" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1528207776546-32248a4f1073?q=80&w=800&auto=format&fit=crop">
+        </div>
+        <div class="flex-grow flex flex-col transition-transform duration-300 group-hover:pop-out-btn">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-headline-sm text-headline-sm text-on-surface">Ricotta Hotcakes</h4>
+            <span class="font-label-md text-primary">$14</span>
+          </div>
+          <p class="text-on-surface-variant text-body-sm font-light mb-6 flex-grow">Fluffy ricotta hotcakes topped with honeycomb butter and fresh berries.</p>
+          <button class="w-full py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-label-sm text-on-surface uppercase tracking-wider">Add to Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 <!-- Signature Coffee Menu -->
-<section class="py-stack-xl px-margin-mobile md:px-margin-desktop bg-surface-container-lowest relative">
-<div class="max-w-container-max mx-auto">
+<section class="py-stack-xl px-6 md:px-12 bg-surface-container-lowest relative">
+<div class="max-w-[1100px] mx-auto">
 <div class="text-center mb-16 fade-up">
 <span class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-4 block">The Collection</span>
 <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Signature Pours</h2>
@@ -291,7 +185,7 @@
 <!-- Item 1 -->
 <div class="glass-card glass-card-hover rounded-2xl p-8 flex flex-col items-center text-center fade-up group cursor-pointer transition-all duration-500">
 <div class="w-40 h-40 mb-8 rounded-full overflow-hidden border border-white/10 relative">
-<img alt="Detailed pour-over coffee ritual" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=800&auto=format&fit=crop"/>
+<img alt="Detailed pour-over coffee ritual" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&amp;w=800&amp;auto=format&amp;fit=crop">
 </div>
 <h3 class="font-headline-md text-headline-md text-on-surface mb-3">The Ritual Pour-Over</h3>
 <p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">A meditative extraction process highlighting the nuanced floral notes of Ethiopian Yirgacheffe.</p>
@@ -300,7 +194,7 @@
 <!-- Item 2 -->
 <div class="glass-card glass-card-hover rounded-2xl p-8 flex flex-col items-center text-center fade-up group cursor-pointer transition-all duration-500" style="transition-delay: 100ms;">
 <div class="w-40 h-40 mb-8 rounded-full overflow-hidden border border-white/10 relative">
-<img alt="Latte art in a dark ceramic cup on a marble table" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop"/>
+<img alt="Latte art in a dark ceramic cup on a marble table" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&amp;w=800&amp;auto=format&amp;fit=crop">
 </div>
 <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Gold-Flaked Latte</h3>
 <p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Our velvet-textured espresso blend, delicately finished with edible 24k gold leaf.</p>
@@ -319,27 +213,27 @@
 </div>
 </section>
 <!-- Gallery (Masonry-ish) -->
-<section class="py-stack-xl px-margin-mobile md:px-margin-desktop">
-<div class="max-w-container-max mx-auto fade-up">
+<section class="py-stack-xl px-6 md:px-12">
+<div class="max-w-[1100px] mx-auto fade-up">
 <h2 class="font-headline-md text-headline-md text-on-surface mb-12 border-b border-white/10 pb-4 inline-block">The Atmosphere</h2>
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
 <div class="col-span-2 row-span-2 rounded-2xl overflow-hidden glass-card p-2">
-<img class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-700" data-alt="A cinematic, wide-angle shot of a luxurious, minimalist coffee shop interior in Bali. Sunbeams cut through the dusty air, illuminating textured concrete walls, lush tropical monsteras, and sleek dark wood furniture. The lighting is high-contrast, dramatic, and warm, evoking a sense of slow, refined editorial luxury." src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1600&auto=format&fit=crop"/>
+<img class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-700" data-alt="A cinematic, wide-angle shot of a luxurious, minimalist coffee shop interior in Bali. Sunbeams cut through the dusty air, illuminating textured concrete walls, lush tropical monsteras, and sleek dark wood furniture. The lighting is high-contrast, dramatic, and warm, evoking a sense of slow, refined editorial luxury." src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&amp;w=1600&amp;auto=format&amp;fit=crop">
 </div>
 <div class="rounded-2xl overflow-hidden glass-card p-2 h-48 md:h-auto">
-<img class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-700" data-alt="Close-up of a barista's hands, wearing a black linen apron, expertly tamping espresso into a portafilter. The background is a beautifully blurred dark marble counter. Lighting is focused and moody, highlighting the metallic texture of the espresso machine and the rich brown of the coffee grounds. Premium editorial style." src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?q=80&w=800&auto=format&fit=crop"/>
+<img class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-700" data-alt="Close-up of a barista's hands, wearing a black linen apron, expertly tamping espresso into a portafilter. The background is a beautifully blurred dark marble counter. Lighting is focused and moody, highlighting the metallic texture of the espresso machine and the rich brown of the coffee grounds. Premium editorial style." src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?q=80&amp;w=800&amp;auto=format&amp;fit=crop">
 </div>
 <div class="rounded-2xl overflow-hidden glass-card p-2 h-48 md:h-auto">
-<img class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-700" data-alt="A beautifully crafted ceramic cup resting on a minimalist wooden tray, next to an open art magazine. The setting is a sunlit cafe table near a large window. Soft, diffused natural light creates a calm, inviting atmosphere. The color palette features warm ivories, deep blacks, and natural wood tones." src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=800&auto=format&fit=crop"/>
+<img class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-700" data-alt="A beautifully crafted ceramic cup resting on a minimalist wooden tray, next to an open art magazine. The setting is a sunlit cafe table near a large window. Soft, diffused natural light creates a calm, inviting atmosphere. The color palette features warm ivories, deep blacks, and natural wood tones." src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&amp;w=800&amp;auto=format&amp;fit=crop">
 </div>
 <div class="col-span-2 rounded-2xl overflow-hidden glass-card p-2 h-64">
-<img class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-700" data-alt="A slow-shutter speed photo of a busy yet serene cafe environment. Patrons are softly blurred in the background, enjoying their luxury coffee experience. The foreground features a sharp, clear focus on a pristine glass pour-over carafe catching the golden hour light. Editorial, glassmorphic aesthetic with deep shadows." src="https://images.unsplash.com/photo-1495774856032-8b90bbb32b32?q=80&w=1400&auto=format&fit=crop" style="object-position: center 30%;"/>
+<img class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-700" data-alt="A slow-shutter speed photo of a busy yet serene cafe environment. Patrons are softly blurred in the background, enjoying their luxury coffee experience. The foreground features a sharp, clear focus on a pristine glass pour-over carafe catching the golden hour light. Editorial, glassmorphic aesthetic with deep shadows." src="https://images.unsplash.com/photo-1495774856032-8b90bbb32b32?q=80&amp;w=1400&amp;auto=format&amp;fit=crop" style="object-position: center 30%;">
 </div>
 </div>
 </div>
 </section>
 <!-- Reservation Form -->
-<section class="py-stack-xl px-margin-mobile md:px-margin-desktop bg-surface-container-lowest relative overflow-hidden">
+<section class="py-stack-xl px-6 md:px-12 bg-surface-container-lowest relative overflow-hidden">
 <!-- Abstract blur background -->
 <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 <div class="max-w-3xl mx-auto glass-card rounded-3xl p-8 md:p-16 fade-up">
@@ -351,17 +245,17 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Name</label>
-<input class="w-full bg-transparent border-0 border-b border-white/20 focus:border-primary focus:ring-0 px-0 py-3 text-on-surface font-body-md transition-colors" placeholder="Jane Doe" type="text" id="resName"/>
+<input class="w-full bg-transparent border-0 border-b border-white/20 focus:border-primary focus:ring-0 px-0 py-3 text-on-surface font-body-md transition-colors" placeholder="Jane Doe" type="text" id="resName">
 </div>
 <div>
 <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Email</label>
-<input class="w-full bg-transparent border-0 border-b border-white/20 focus:border-primary focus:ring-0 px-0 py-3 text-on-surface font-body-md transition-colors" placeholder="jane@example.com" type="email" id="resEmail"/>
+<input class="w-full bg-transparent border-0 border-b border-white/20 focus:border-primary focus:ring-0 px-0 py-3 text-on-surface font-body-md transition-colors" placeholder="jane@example.com" type="email" id="resEmail">
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Date</label>
-<input class="w-full bg-transparent border-0 border-b border-white/20 focus:border-primary focus:ring-0 px-0 py-3 text-on-surface font-body-md transition-colors custom-date-input" type="date" id="resDate"/>
+<input class="w-full bg-transparent border-0 border-b border-white/20 focus:border-primary focus:ring-0 px-0 py-3 text-on-surface font-body-md transition-colors custom-date-input" type="date" id="resDate">
 </div>
 <div>
 <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Guests</label>
@@ -383,7 +277,7 @@
 </section>
 <!-- Footer Component (From JSON) -->
 <footer class="w-full relative bg-background dark:bg-surface-container-lowest border-t border-white/5 pt-stack-xl fade-up transition-all duration-700">
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-desktop py-stack-xl max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-desktop py-stack-xl max-w-[1100px] mx-auto">
 <div class="col-span-1 md:col-span-4 mb-8 md:mb-0">
 <h2 class="font-display-lg text-display-lg text-primary mb-stack-md" style="font-size: 2.5rem; line-height: 3rem;">L'Artisan Boutique</h2>
 <p class="font-label-sm text-label-sm text-on-surface-variant mb-4">© 2026 L'Artisan Boutique. Designed for the slow life.</p>
@@ -402,35 +296,7 @@
 </div>
 </div>
 </footer>
-<script>
-        // Simple Intersection Observer for fade-up animations
-        document.addEventListener("DOMContentLoaded", () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            });
-
-            document.querySelectorAll('.fade-up').forEach((el) => {
-                observer.observe(el);
-            });
-        });
-    </script>
 <a href="https://wa.me/6281234567890?text=Hello%20L%27Artisan!" aria-label="Chat WhatsApp" style="position:fixed;right:22px;bottom:22px;z-index:99;background:rgba(11,11,11,.65);backdrop-filter:blur(10px);border:0.5px solid #D4AF37;color:#D4AF37;border-radius:9999px;padding:13px 24px;font-family:Inter,sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none">Reserve</a>
-<script>
-    // Form reservasi -> kirim ke WhatsApp
-    document.getElementById('resBtn').addEventListener('click', () => {
-        const n = document.getElementById('resName').value || '-';
-        const e = document.getElementById('resEmail').value || '-';
-        const d = document.getElementById('resDate').value || '-';
-        const g = document.getElementById('resGuests').value || '2';
-        const msg = encodeURIComponent(`Hello L'Artisan, I would like to reserve a table.\nName: ${n}\nEmail: ${e}\nDate: ${d}\nGuests: ${g}`);
-        window.open(`https://wa.me/6281234567890?text=${msg}`, '_blank');
-    });
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+<script src="js/script.js"></script>
 </body></html>

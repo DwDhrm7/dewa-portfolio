@@ -30,42 +30,77 @@ export type Artifact = {
 export const artifacts: Artifact[] = [
   // PROJECT BASED
   {
-    id: "toppi",
+    id: "nadi",
     title: {
-      id: "Toppi (Redesign & API Integration)",
-      en: "Toppi (Redesign & API Integration)",
+      id: "NADI: Navigasi Adaptif Distribusi Intelijen",
+      en: "NADI: Adaptive Intelligent Distribution Navigation",
     },
     category: "Project Based",
     role: {
-      id: "Frontend Developer",
-      en: "Frontend Developer",
+      id: "Ketua Tim",
+      en: "Team Lead",
     },
     description: {
-      id: "Proyek perombakan antarmuka (redesign) dan integrasi REST API untuk platform Toppi menggunakan Next.js. Fokus utamanya adalah pada peningkatan pengalaman pengguna (UX) yang modern, layout yang responsif, serta kelancaran komunikasi data dengan backend.",
-      en: "Frontend redesign and REST API integration project for the Toppi platform using Next.js. The main focus was on improving modern user experience (UX), responsive layouts, and seamless data communication with the backend.",
+      id: "Proposal Kompetisi GEMASTIK XIX 2026. Merancang sistem smart tourism yang membantu wisatawan Bali mengambil keputusan perjalanan berdasarkan kondisi aktual dan prediksi saat tiba (arrival time context intelligence), menjawab ketimpangan distribusi kunjungan dan overtourism di destinasi populer melalui mekanisme adaptive itinerary (keep, reroute, reschedule, reorder, replace) yang terintegrasi dengan Google Maps Platform, OpenWeather, dan Gemini API.",
+      en: "GEMASTIK XIX 2026 Competition Proposal. Designed a smart tourism system that helps travelers in Bali make travel decisions based on actual and predicted arrival-time conditions, addressing uneven tourist distribution and overtourism at popular destinations through a tiered adaptive itinerary mechanism (keep, reroute, reschedule, reorder, replace) integrated with Google Maps Platform, OpenWeather, and the Gemini API.",
     },
     techStack: [
+      "YOLO",
+      "Computer Vision",
+      "Google Maps Platform",
+      "Gemini API",
+      "OpenWeather",
       "Next.js",
-      "React",
-      "Tailwind CSS",
-      "REST API",
     ],
-    links: [
-      {
-        label: "GitHub Repository",
-        url: "https://github.com/DwDhrm7/toppi_next.git",
-      },
-    ],
+    links: [],
     reflection: {
       id: {
-        what: "Proyek ini difokuskan pada perombakan total sisi frontend dari aplikasi Toppi dan merajut kembali fungsionalitasnya dengan layanan REST API yang sudah ada.",
-        soWhat: "Melalui proses redesign ini, saya mematangkan pemahaman tentang state management di Next.js, optimasi rendering komponen, serta best practice dalam menangani asinkronisasi data API secara efisien.",
-        nowWhat: "Ke depannya, pola-pola desain UI dan pola integrasi API yang saya kembangkan di proyek ini akan menjadi fondasi kuat saat saya membangun aplikasi web berskala besar yang menuntut performa tinggi.",
+        what: "Sebagai ketua tim beranggotakan 3 orang, saya merancang arsitektur intelligence layer meliputi computer vision berbasis YOLO untuk data CCTV/ATCS, peramalan kepadatan destinasi, dan sistem rekomendasi tourism flow distribution, sekaligus membangun purwarupa NADI Control Center sebagai dashboard operator kota untuk pemantauan langsung, verifikasi insiden, dan evaluasi kebijakan.",
+        soWhat: "Proyek ini mengasah kemampuan saya merancang sistem multi-layer yang menggabungkan computer vision, data cuaca, dan geospasial dalam satu alur pengambilan keputusan, sambil tetap menjaga keputusan akhir di tangan pengguna. Saya juga belajar menerjemahkan masalah kebijakan publik yang kompleks (overtourism) menjadi arsitektur teknis yang dapat diimplementasikan.",
+        nowWhat: "Ke depan, saya ingin mengembangkan NADI lebih jauh dengan data lalu lintas real-time dari lebih banyak sumber dan menguji sistem ini bersama stakeholder pariwisata di Bali untuk validasi dampak nyata.",
       },
       en: {
-        what: "This project focused on a complete overhaul of the frontend side of the Toppi application and wiring its functionality with existing REST API services.",
-        soWhat: "Through this redesign process, I solidified my understanding of state management in Next.js, component rendering optimization, and best practices in efficiently handling asynchronous API data.",
-        nowWhat: "Moving forward, the UI design patterns and API integration patterns I developed in this project will serve as a strong foundation when building large-scale web applications that demand high performance.",
+        what: "As lead of a 3-person team, I designed the intelligence layer architecture including YOLO-based computer vision for CCTV/ATCS data, destination crowd forecasting, and a tourism flow distribution recommendation system, and built a working prototype of the NADI Control Center, a city operator dashboard for live monitoring, incident verification, and policy evaluation.",
+        soWhat: "This project sharpened my ability to design multi-layer systems that combine computer vision, weather data, and geospatial context into one decision-making flow, while keeping the final decision with the user. I also learned to translate a complex public-policy problem (overtourism) into an implementable technical architecture.",
+        nowWhat: "Moving forward, I want to further develop NADI with real-time traffic data from more sources and test the system with Bali tourism stakeholders to validate its real-world impact.",
+      },
+    },
+  },
+  {
+    id: "coasther",
+    title: {
+      id: "COASTHER: Smart Boarding House IoT System",
+      en: "COASTHER: Smart Boarding House IoT System",
+    },
+    category: "Project Based",
+    role: {
+      id: "IoT & Web Developer",
+      en: "IoT & Web Developer",
+    },
+    description: {
+      id: "Sistem IoT untuk kos-kosan pintar yang memonitor konsumsi daya listrik (ESP32, PZEM-004T) dan penggunaan air (YF-S201) secara real-time melalui komunikasi MQTT/HiveMQ. Membangun dashboard monitoring berbasis Next.js dan mendukung aplikasi companion berbasis React Native.",
+      en: "An IoT system for smart boarding houses that monitors electricity consumption (ESP32, PZEM-004T) and water usage (YF-S201) in real time over MQTT/HiveMQ. Built the monitoring dashboard in Next.js and supported a companion React Native app.",
+    },
+    techStack: [
+      "ESP32",
+      "PZEM-004T",
+      "YF-S201",
+      "MQTT",
+      "HiveMQ",
+      "Next.js",
+      "React Native",
+    ],
+    links: [],
+    reflection: {
+      id: {
+        what: "Saya merancang alur data dari sensor daya listrik dan sensor debit air menuju broker MQTT (HiveMQ), lalu menampilkannya secara real-time di dashboard Next.js dan aplikasi companion React Native untuk pemilik dan penghuni kos.",
+        soWhat: "Proyek ini memperdalam pemahaman saya tentang pengukuran daya listrik (ESP32 + PZEM-004T) dan debit air (YF-S201) di level hardware, serta cara menjaga konsistensi data antara edge device, broker MQTT, dan dua antarmuka klien yang berbeda.",
+        nowWhat: "Ke depan, saya ingin menambahkan notifikasi konsumsi berlebih dan estimasi biaya otomatis agar COASTHER lebih siap digunakan di kos-kosan nyata.",
+      },
+      en: {
+        what: "I designed the data flow from electricity and water-flow sensors to an MQTT broker (HiveMQ), then surfaced it in real time on a Next.js dashboard and a companion React Native app for boarding house owners and tenants.",
+        soWhat: "This project deepened my understanding of electricity metering (ESP32 + PZEM-004T) and water-flow sensing (YF-S201) at the hardware level, and how to keep data consistent across the edge device, the MQTT broker, and two different client interfaces.",
+        nowWhat: "Moving forward, I want to add overconsumption alerts and automatic cost estimation to make COASTHER more ready for real boarding house deployments.",
       },
     },
   },
@@ -196,6 +231,49 @@ export const artifacts: Artifact[] = [
     },
   },
 
+  {
+    id: "mfcc-research",
+    title: {
+      id: "Analisis Performa Fitur MFCC pada Klasifikasi Sub-Genre Musik Dangdut",
+      en: "MFCC Feature Performance Analysis for Dangdut Sub-Genre Classification",
+    },
+    category: "Case Based",
+    role: {
+      id: "Peneliti / Student Researcher",
+      en: "Researcher / Student Researcher",
+    },
+    description: {
+      id: "Studi lanjutan dari riset Hybrid K-NN sebelumnya, menerapkan 13 koefisien Mel-Frequency Cepstral Coefficient (MFCC) pada 730 sampel audio dan membandingkan performa K-NN konvensional, Hybrid K-NN yang dioptimasi GA, SVM, dan Decision Tree. Model Hybrid K-NN dengan GA mencapai akurasi terbaik 98,90%.",
+      en: "A follow-up study to the earlier Hybrid K-NN research, applying 13 Mel-Frequency Cepstral Coefficient (MFCC) features across 730 audio samples and comparing conventional K-NN, GA-optimized Hybrid K-NN, SVM, and Decision Tree. The GA-optimized Hybrid K-NN model achieved the best accuracy of 98.90%.",
+    },
+    techStack: [
+      "MFCC",
+      "Audio Processing",
+      "PCA",
+      "K-Nearest Neighbour",
+      "Genetic Algorithm",
+      "Machine Learning",
+    ],
+    links: [
+      {
+        label: "DOI Jurnal",
+        url: "https://doi.org/10.30871/jaic.v10i3.12760",
+      },
+    ],
+    reflection: {
+      id: {
+        what: "Saya memperluas dataset penelitian sebelumnya menjadi 730 sampel audio, mengekstraksi 13 koefisien MFCC, melakukan normalisasi data dan analisis PCA untuk memvalidasi keterpisahan antar kelas, lalu membandingkan empat algoritma klasifikasi menggunakan skema split data 70:30 dan cross-validation.",
+        soWhat: "Riset ini mengajarkan saya pentingnya pemilihan fitur (feature engineering) dalam meningkatkan performa model secara drastis — akurasi naik dari 74,31% pada studi pertama menjadi 98,90% setelah beralih ke fitur MFCC. Saya juga belajar memvalidasi generalisasi model melalui cross-validation dan standar deviasi yang rendah, bukan hanya mengejar angka akurasi tertinggi.",
+        nowWhat: "Ke depan, saya ingin menguji fitur MFCC ini pada dataset musik daerah lain dan mengeksplorasi arsitektur deep learning untuk audio classification sebagai kelanjutan dari riset ini.",
+      },
+      en: {
+        what: "I extended the earlier dataset to 730 audio samples, extracted 13 MFCC coefficients, performed data normalization and PCA analysis to validate class separability, then compared four classification algorithms using a 70:30 train-test split and cross-validation.",
+        soWhat: "This research taught me how much feature engineering can drive model performance — accuracy jumped from 74.31% in the first study to 98.90% after switching to MFCC features. I also learned to validate model generalization through cross-validation and low standard deviation, rather than chasing the highest raw accuracy alone.",
+        nowWhat: "Moving forward, I want to test these MFCC features on other regional music datasets and explore deep learning architectures for audio classification as a continuation of this research.",
+      },
+    },
+  },
+
   // ADDITIONAL ARTIFACTS
   {
     id: "theater-poetry",
@@ -240,13 +318,13 @@ export const artifacts: Artifact[] = [
   {
     id: "rade-leadership",
     title: {
-      id: "Leadership - Ketua RADE (Robotics and Embedded Systems Research Group)",
-      en: "Leadership - Leader of RADE (Robotics and Embedded Systems Research Group)",
+      id: "Leadership - Ketua Umum RADE (Robotics and Embedded Systems Research Group)",
+      en: "Leadership - General Chair of RADE (Robotics and Embedded Systems Research Group)",
     },
     category: "Additional",
     role: {
-      id: "Ketua RADE",
-      en: "Leader of RADE",
+      id: "Ketua Umum RADE",
+      en: "General Chair of RADE",
     },
     description: {
       id: "Memimpin organisasi riset mahasiswa yang fokus pada IoT, robotika, dan AI. Mengkoordinasikan berbagai kegiatan riset, pelatihan teknis, seminar, dan kompetisi nasional. Membangun kultur inovasi dan kolaborasi di kampus serta membawa RADE meraih prestasi di ajang tingkat nasional.",

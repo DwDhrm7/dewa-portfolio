@@ -44,6 +44,16 @@ Fitur utama yang tersedia:
 ## 📂 Project Structure
 
 ```text
+public/
+├── bali-templates/
+│   ├── template-1-editorial/
+│   │   ├── css/
+│   │   │   └── styles.css
+│   │   ├── js/
+│   │   │   └── script.js
+│   │   └── index.html
+│   ├── template-2-tropic-luxe/
+│   └── ... (up to template-9)
 src/
 ├── app/
 │   ├── about/

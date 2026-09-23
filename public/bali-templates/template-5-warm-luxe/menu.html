@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TANAH - Menu Lengkap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .menu-page-header {
+    padding: 180px 0 60px 0;
+    text-align: center;
+    background: var(--paper);
+  }
+  .menu-segment {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+  }
+  .menu-segment:nth-child(even) {
+    background: var(--mocha-2);
+  }
+  .menu-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+  }
+  .menu-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .menu-item-row h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  .menu-item-row span {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--copper);
+    font-weight: 500;
+  }
+  .menu-item-desc {
+    color: var(--milk-dim);
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">TANAH<i>.</i></a>
+    <div class="nav-r">
+      <a href="index.html#brunch">Brunch</a>
+      <a href="index.html#roastery">Roastery</a>
+      <a href="index.html#visit" data-id="Kunjungi" data-en="Visit">Kunjungi</a>
+      <button class="lang-toggle" id="langBtn">EN</button>
+    </div>
+  </div>
+</nav>
+
+<header class="menu-page-header">
+  <div class="wrap reveal">
+    <h1 data-id="Menu Lengkap" data-en="Full Menu">Menu Lengkap</h1>
+    <p style="margin-top:20px; color:var(--milk-dim);" data-id="Semua menu tersedia mulai pukul 07.00 hingga 15.00." data-en="All items available from 07:00 to 15:00.">Semua menu tersedia mulai pukul 07.00 hingga 15.00.</p>
+  </div>
+</header>
+
+<section class="menu-segment">
+  <div class="wrap reveal">
+    <h2>Brunch & <em>Mains</em></h2>
+    <div class="menu-list">
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Sourdough Avo Smash" data-en="Sourdough Avo Smash">Sourdough Avo Smash</h4>
+          <span>75k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Sourdough buatan sendiri, alpukat, tomat ceri, feta" data-en="House sourdough, avocado, cherry tomato, feta">Sourdough buatan sendiri, alpukat, tomat ceri, feta</div>
+      </div>
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Classic Eggs Benedict" data-en="Classic Eggs Benedict">Classic Eggs Benedict</h4>
+          <span>85k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Poached egg, hollandaise, english muffin, bayam" data-en="Poached egg, hollandaise, english muffin, spinach">Poached egg, hollandaise, english muffin, bayam</div>
+      </div>
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Tropical Smoothie Bowl" data-en="Tropical Smoothie Bowl">Tropical Smoothie Bowl</h4>
+          <span>65k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Buah naga, mangga, pisang, chia seed, kelapa" data-en="Dragon fruit, mango, banana, chia seeds, coconut">Buah naga, mangga, pisang, chia seed, kelapa</div>
+      </div>
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Truffle Mushroom Toast" data-en="Truffle Mushroom Toast">Truffle Mushroom Toast</h4>
+          <span>90k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Jamur liar, minyak truffle, telur rebus, parmesan" data-en="Wild mushrooms, truffle oil, poached egg, parmesan">Jamur liar, minyak truffle, telur rebus, parmesan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-segment">
+  <div class="wrap reveal">
+    <h2>Roastery & <em>Coffee</em></h2>
+    <div class="menu-list">
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Single Origin Espresso" data-en="Single Origin Espresso">Single Origin Espresso</h4>
+          <span>35k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Tanya barista kami untuk biji kopi hari ini" data-en="Ask our barista for today's beans">Tanya barista kami untuk biji kopi hari ini</div>
+      </div>
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Flat White / Latte / Cappuccino" data-en="Flat White / Latte / Cappuccino">Flat White / Latte / Cappuccino</h4>
+          <span>45k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Campuran rumah kami dengan susu segar" data-en="Our house blend with fresh milk">Campuran rumah kami dengan susu segar</div>
+      </div>
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Manual Brew (V60)" data-en="Manual Brew (V60)">Manual Brew (V60)</h4>
+          <span>55k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Disangrai khusus untuk metode filter" data-en="Specially roasted for filter method">Disangrai khusus untuk metode filter</div>
+      </div>
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Cold Brew" data-en="Cold Brew">Cold Brew</h4>
+          <span>50k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Diseduh selama 18 jam, disajikan dingin" data-en="Brewed for 18 hours, served over ice">Diseduh selama 18 jam, disajikan dingin</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-segment">
+  <div class="wrap reveal">
+    <h2>Bakery & <em>Pastries</em></h2>
+    <div class="menu-list">
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Butter Croissant" data-en="Butter Croissant">Butter Croissant</h4>
+          <span>35k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Renyah di luar, lembut di dalam" data-en="Crispy outside, soft inside">Renyah di luar, lembut di dalam</div>
+      </div>
+      <div>
+        <div class="menu-item-row">
+          <h4 data-id="Almond Pain au Chocolat" data-en="Almond Pain au Chocolat">Almond Pain au Chocolat</h4>
+          <span>45k</span>
+        </div>
+        <div class="menu-item-desc" data-id="Cokelat hitam dan krim almond" data-en="Dark chocolate and almond cream">Cokelat hitam dan krim almond</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-logo">TANAH<span style="color:var(--copper)">.</span></div>
+      <div class="nav-r" style="display:flex">
+        <a href="index.html#brunch">Brunch</a>
+        <a href="index.html#roastery">Roastery</a>
+        <a href="index.html#visit" data-id="Kunjungi" data-en="Visit">Kunjungi</a>
+        <a href="https://instagram.com">Instagram</a>
+      </div>
+    </div>
+    <small data-id="© 2026 TANAH Roastery & Brunch - Sanur, Bali. Disangrai tiap Selasa." data-en="© 2026 TANAH Roastery & Brunch - Sanur, Bali. Roasted on Tuesdays.">© 2026 TANAH Roastery & Brunch - Sanur, Bali. Disangrai tiap Selasa.</small>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

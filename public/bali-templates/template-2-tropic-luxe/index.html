@@ -1,97 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TEDUH - Coffee &amp; Garden, Ubud Bali</title>
 <meta name="description" content="Specialty coffee di tengah kebun Ubud. Manual brew, brunch, dan ketenangan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --forest:#101B14; --forest-2:#16241B; --cream:#EFE9DC; --cream-dim:rgba(239,233,220,.62);
-    --brass:#C8A16B; --line:rgba(239,233,220,.14); --glass:rgba(239,233,220,.05);
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--forest);color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1180px;margin:0 auto;padding-left:24px;padding-right:24px;}
-  .serif{font-family:'Marcellus',serif;font-weight:400}
-  .label{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--brass)}
-
-  nav{position:fixed;inset:0 0 auto;z-index:100;border-bottom:1px solid var(--line);background:rgba(16,27,20,.55);backdrop-filter:blur(14px);transition:background .3s,box-shadow .3s}
-  nav.scrolled{background:rgba(16,27,20,.92);box-shadow:0 10px 30px rgba(0,0,0,.25)}
-  .nav-inner{max-width:1180px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
-  .logo{font-family:'Marcellus',serif;font-size:21px;letter-spacing:.42em}
-  .nav-r{display:flex;align-items:center;gap:26px;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
-  .nav-r a{color:var(--cream-dim);transition:color .25s} .nav-r a:hover{color:var(--cream)}
-  .lang-toggle{background:none;border:1px solid var(--line);color:var(--cream);border-radius:99px;padding:6px 14px;font-size:11px;letter-spacing:.14em;cursor:pointer}
-
-  .hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;
-    background:url('https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2000&auto=format&fit=crop') center/cover fixed}
-  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,27,20,.55) 0%,rgba(16,27,20,.25) 40%,rgba(16,27,20,.96) 100%)}
-  .hero-content{position:relative;z-index:2;width:100%;padding:0 0 9vh}
-  h1{font-family:'Marcellus',serif;font-size:clamp(46px,7.5vw,96px);line-height:1.08;letter-spacing:.02em;max-width:14ch}
-  .hero-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px;margin-top:34px}
-  .hero-row p{max-width:400px;color:var(--cream-dim)}
-  .btn{display:inline-block;border:1px solid var(--brass);color:var(--brass);padding:14px 34px;border-radius:99px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;transition:all .3s}
-  .btn:hover{background:var(--brass);color:var(--forest)}
-  .btn-solid{background:var(--brass);color:var(--forest)} .btn-solid:hover{background:var(--cream);border-color:var(--cream)}
-
-  section{padding:130px 0}
-  h2{font-family:'Marcellus',serif;font-size:clamp(34px,4.6vw,58px);line-height:1.15;margin:14px 0 20px}
-  .head-center{text-align:center;max-width:640px;margin:0 auto 70px}
-  .head-center p{color:var(--cream-dim)}
-
-  .menu-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
-  .card{position:relative;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(6px);border-radius:2px;padding:36px 30px;transition:border-color .3s,transform .3s}
-  .card:hover{border-color:rgba(200,161,107,.55);transform:translateY(-4px)}
-  .card .num{font-family:'Marcellus',serif;font-size:13px;color:var(--brass);letter-spacing:.3em}
-  .card h3{font-family:'Marcellus',serif;font-size:24px;margin:16px 0 8px}
-  .card small{color:var(--cream-dim);font-size:14px;display:block;margin-bottom:22px}
-  .card .price{font-family:'Marcellus',serif;color:var(--brass);font-size:18px;letter-spacing:.08em}
-
-  .garden{position:relative;padding:0}
-  .garden-bg{position:relative;min-height:88vh;display:flex;align-items:center;
-    background:url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop') center/cover fixed}
-  .garden-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,27,20,.94) 0%,rgba(16,27,20,.55) 55%,rgba(16,27,20,.25) 100%)}
-  .garden-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:110px 24px;width:100%}
-  .garden-panel{max-width:520px;border:1px solid var(--line);background:rgba(16,27,20,.5);backdrop-filter:blur(14px);padding:52px 46px}
-  .garden-panel p{color:var(--cream-dim);margin-bottom:14px}
-  .stats{display:flex;gap:44px;margin-top:36px;padding-top:30px;border-top:1px solid var(--line)}
-  .stats b{display:block;font-family:'Marcellus',serif;font-weight:400;font-size:34px;color:var(--brass)}
-  .stats span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim)}
-
-  .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
-  .visit-list{border-top:1px solid var(--line)}
-  .visit-row{display:flex;justify-content:space-between;gap:16px;padding:19px 2px;border-bottom:1px solid var(--line);font-size:15px}
-  .visit-row span:first-child{color:var(--cream-dim)}
-  .map{height:430px;overflow:hidden;border:1px solid var(--line)}
-  .map iframe{width:100%;height:100%;border:0;filter:grayscale(1) invert(.88) contrast(.9)}
-
-  footer{border-top:1px solid var(--line);padding:70px 0 40px}
-  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;align-items:center}
-  .foot-logo{font-family:'Marcellus',serif;font-size:30px;letter-spacing:.42em}
-  .foot small{display:block;margin-top:40px;color:var(--cream-dim);font-size:13px;text-align:center}
-
-  .wa-float{position:fixed;right:22px;bottom:22px;z-index:99;display:flex;align-items:center;gap:10px;
-    background:rgba(16,27,20,.6);backdrop-filter:blur(10px);border:1px solid var(--brass);color:var(--brass);
-    border-radius:99px;padding:13px 22px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;transition:all .3s}
-  .wa-float:hover{background:var(--brass);color:var(--forest)}
-
-  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
-  .reveal.in{opacity:1;transform:none}
-  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}.hero,.garden-bg{background-attachment:scroll}}
-  @media (max-width:860px){
-    .nav-r a{display:none}
-    .visit-grid{grid-template-columns:1fr;gap:36px}
-    section{padding:84px 0}
-    .hero,.garden-bg{background-attachment:scroll}
-    .garden-panel{padding:36px 26px}
-  }
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -112,26 +27,177 @@
     <p class="label reveal" data-id="Coffee &amp; garden - Ubud, Bali" data-en="Coffee &amp; garden - Ubud, Bali">Coffee &amp; garden - Ubud, Bali</p>
     <h1 class="reveal" style="margin-top:18px" data-id="Secangkir tenang di tengah kebun." data-en="A quiet cup, deep in the garden.">Secangkir tenang di tengah kebun.</h1>
     <div class="hero-row reveal">
-      <p data-id="Kopi single origin Indonesia, disajikan perlahan di paviliun terbuka and dikelilingi pisang, pakis, dan suara air."
-         data-en="Indonesian single origins, served slowly in an open pavilion and among banana palms, ferns and running water.">
+      <p data-id="Kopi single origin Indonesia, disajikan perlahan di paviliun terbuka and dikelilingi pisang, pakis, dan suara air." data-en="Indonesian single origins, served slowly in an open pavilion and among banana palms, ferns and running water.">
          Kopi single origin Indonesia, disajikan perlahan di paviliun terbuka and dikelilingi pisang, pakis, dan suara air.</p>
-      <a class="btn btn-solid" href="https://wa.me/6281234567890?text=Halo%20TEDUH%2C%20saya%20ingin%20reservasi" data-id="Reservasi meja" data-en="Reserve a table">Reservasi meja</a>
+      <div class="res-segment"><a class="btn btn-solid" href="https://wa.me/6281234567890?text=Halo%20TEDUH%2C%20saya%20ingin%20reservasi%20cafe" data-id="Reservasi Cafe" data-en="Reserve Cafe">Reservasi Cafe</a><a class="btn btn-solid" href="https://wa.me/6281234567890?text=Halo%20TEDUH%2C%20saya%20ingin%20reservasi%20resto" data-id="Reservasi Resto" data-en="Reserve Resto">Reservasi Resto</a></div>
     </div>
   </div>
 </header>
 
+<style>
+  .menu-landscape-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1.5rem;
+    padding: 1rem 0 2.5rem 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .menu-landscape-container::-webkit-scrollbar { display: none; }
+  
+  .menu-carousel-card {
+    min-width: 300px;
+    background: var(--glass);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 1.5rem;
+    border-radius: 150px 150px 12px 12px;
+    border: 1px solid var(--line);
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.4s ease, transform 0.4s ease;
+  }
+  .menu-carousel-card:hover {
+    border-color: rgba(200,161,107,.55);
+    transform: translateY(-4px);
+  }
+  
+  .menu-carousel-img-wrapper {
+    width: 100%;
+    height: 180px;
+    margin-bottom: 1.5rem;
+    border-radius: 150px 150px 4px 4px;
+    overflow: hidden;
+  }
+  .menu-carousel-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .menu-carousel-card:hover .menu-carousel-img-wrapper img {
+    transform: scale(1.05);
+  }
+  .menu-carousel-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .menu-carousel-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-family: 'Marcellus', serif;
+    color: var(--cream);
+  }
+  .menu-carousel-content small {
+    font-family: 'Inter', sans-serif;
+    color: var(--cream-dim);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    line-height: 1.5;
+  }
+  .menu-carousel-price {
+    font-family: 'Marcellus', serif;
+    font-size: 1.1rem;
+    color: var(--brass);
+    letter-spacing: .08em;
+  }
+  .explore-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.8rem;
+    background: #2a3a30;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border-radius: 40px;
+    transition: all 0.3s;
+  }
+  .explore-btn:hover {
+    background: #1e2a22;
+  }
+  .section-head-flex {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-end; 
+    flex-wrap: wrap; 
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+</style>
+
 <section id="menu" class="wrap">
-  <div class="head-center reveal">
-    <p class="label" data-id="Menu andalan" data-en="Signatures">Menu andalan</p>
-    <h2 data-id="Diseduh perlahan, disajikan dengan hormat" data-en="Slowly brewed, served with care">Diseduh perlahan, disajikan dengan hormat</h2>
+  <div class="section-head-flex reveal">
+    <div>
+      <p class="label" data-id="Menu andalan" data-en="Signatures" style="margin-bottom: 0.5rem;">Menu andalan</p>
+      <h2 data-id="Diseduh perlahan, disajikan dengan hormat" data-en="Slowly brewed, served with care" style="margin: 0;">Diseduh perlahan, disajikan dengan hormat</h2>
+    </div>
+    <a href="#full-menu" class="explore-btn" data-id="Eksplor Menu" data-en="Explore Menu">Explore Menu</a>
   </div>
-  <div class="menu-cards">
-    <div class="card reveal"><span class="num">01</span><h3>Kintamani Honey V60</h3><small data-id="Jeruk bali, madu, teh melati" data-en="Pomelo, honey, jasmine tea">Jeruk bali, madu, teh melati</small><span class="price">IDR 50</span></div>
-    <div class="card reveal"><span class="num">02</span><h3>Teduh Signature Latte</h3><small data-id="Espresso, susu, kelapa muda bakar" data-en="Espresso, milk, roasted young coconut">Espresso, susu, kelapa muda bakar</small><span class="price">IDR 55</span></div>
-    <div class="card reveal"><span class="num">03</span><h3>Gayo Cold Brew Tonic</h3><small data-id="Cold brew 18 jam, tonic, jeruk nipis" data-en="18-hour cold brew, tonic, lime">Cold brew 18 jam, tonic, jeruk nipis</small><span class="price">IDR 58</span></div>
-    <div class="card reveal"><span class="num">04</span><h3>Nasi Campur Kebun</h3><small data-id="Sayur kebun sendiri, sambal matah, ayam sisit" data-en="Garden vegetables, sambal matah, shredded chicken">Sayur kebun sendiri, sambal matah, ayam sisit</small><span class="price">IDR 85</span></div>
-    <div class="card reveal"><span class="num">05</span><h3>Sourdough &amp; Aren Butter</h3><small data-id="Roti bakar, butter gula aren, garam laut" data-en="Toasted sourdough, palm sugar butter, sea salt">Roti bakar, butter gula aren, garam laut</small><span class="price">IDR 45</span></div>
-    <div class="card reveal"><span class="num">06</span><h3>Seasonal Fruit Bowl</h3><small data-id="Buah pasar pagi, yogurt, granola madu" data-en="Morning market fruit, yogurt, honey granola">Buah pasar pagi, yogurt, granola madu</small><span class="price">IDR 65</span></div>
+
+  <div class="reveal">
+    <h3 style="font-family: 'Marcellus', serif; font-size: 1.5rem; margin-top: 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">Coffee & Beverages</h3>
+    <div class="menu-landscape-container">
+      <div class="menu-carousel-card">
+        <div class="menu-carousel-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800&auto=format&fit=crop" alt="Pour Over">
+        </div>
+        <div class="menu-carousel-content">
+          <h3>Kintamani Pour Over</h3>
+          <small data-id="Jeruk bali, madu, teh melati" data-en="Pomelo, honey, jasmine tea">Pomelo, honey, jasmine tea</small>
+          <span class="menu-carousel-price">IDR 45k</span>
+        </div>
+      </div>
+      <div class="menu-carousel-card">
+        <div class="menu-carousel-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=800&auto=format&fit=crop" alt="Latte">
+        </div>
+        <div class="menu-carousel-content">
+          <h3>Coconut Iced Latte</h3>
+          <small data-id="Espresso, santan organik, gula aren" data-en="Espresso, organic coconut milk, palm sugar">Espresso, organic coconut milk, palm sugar</small>
+          <span class="menu-carousel-price">IDR 55k</span>
+        </div>
+      </div>
+      <div class="menu-carousel-card">
+        <div class="menu-carousel-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=800&auto=format&fit=crop" alt="Matcha">
+        </div>
+        <div class="menu-carousel-content">
+          <h3>Uji Matcha Blend</h3>
+          <small data-id="Matcha premium Uji dengan susu kedelai" data-en="Premium Uji matcha with soy milk">Premium Uji matcha with soy milk</small>
+          <span class="menu-carousel-price">IDR 60k</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family: 'Marcellus', serif; font-size: 1.5rem; margin-top: 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">Brunch & Light Bites</h3>
+    <div class="menu-landscape-container">
+      <div class="menu-carousel-card">
+        <div class="menu-carousel-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop" alt="Smoothie Bowl">
+        </div>
+        <div class="menu-carousel-content">
+          <h3>Tropical Smoothie Bowl</h3>
+          <small data-id="Buah naga, mangga, granola panggang madu" data-en="Dragonfruit, mango, honey-roasted granola">Dragonfruit, mango, honey-roasted granola</small>
+          <span class="menu-carousel-price">IDR 75k</span>
+        </div>
+      </div>
+      <div class="menu-carousel-card">
+        <div class="menu-carousel-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=800&auto=format&fit=crop" alt="Avocado Toast">
+        </div>
+        <div class="menu-carousel-content">
+          <h3>Sourdough Avo Mash</h3>
+          <small data-id="Alpukat, tomat ceri, biji labu" data-en="Avocado, cherry tomatoes, pumpkin seeds">Avocado, cherry tomatoes, pumpkin seeds</small>
+          <span class="menu-carousel-price">IDR 85k</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -141,8 +207,7 @@
       <div class="garden-panel reveal">
         <p class="label" data-id="Kebun kami" data-en="Our garden">Kebun kami</p>
         <h2 data-id="Dibangun di antara pepohonan, bukan di atasnya." data-en="Built among the trees, not over them.">Dibangun di antara pepohonan, bukan di atasnya.</h2>
-        <p data-id="Paviliun kami berdiri tanpa menebang satu pohon pun. Sayur untuk dapur dipetik dari kebun sendiri setiap pagi, dan ampas kopi kembali ke tanah sebagai kompos."
-           data-en="Our pavilion was raised without felling a single tree. Kitchen greens are picked from our own beds each morning, and spent coffee returns to the soil as compost.">
+        <p data-id="Paviliun kami berdiri tanpa menebang satu pohon pun. Sayur untuk dapur dipetik dari kebun sendiri setiap pagi, dan ampas kopi kembali ke tanah sebagai kompos." data-en="Our pavilion was raised without felling a single tree. Kitchen greens are picked from our own beds each morning, and spent coffee returns to the soil as compost.">
            Paviliun kami berdiri tanpa menebang satu pohon pun. Sayur untuk dapur dipetik dari kebun sendiri setiap pagi, dan ampas kopi kembali ke tanah sebagai kompos.</p>
         <div class="stats">
           <div><b>0</b><span data-id="Pohon ditebang" data-en="Trees felled">Pohon ditebang</span></div>
@@ -170,7 +235,7 @@
       <p style="margin-top:30px"><a class="btn" href="https://wa.me/6281234567890?text=Halo%20TEDUH!" data-id="Chat WhatsApp" data-en="Chat on WhatsApp">Chat WhatsApp</a></p>
     </div>
     <div class="map reveal">
-      <iframe title="Peta lokasi" loading="lazy" src="https://www.google.com/maps?q=Sanggingan+Ubud+Bali&output=embed"></iframe>
+      <iframe title="Peta lokasi" loading="lazy" src="https://www.google.com/maps?q=Sanggingan+Ubud+Bali&amp;output=embed"></iframe>
     </div>
   </div>
 </section>
@@ -194,22 +259,5 @@
   <span data-id="Reservasi" data-en="Reserve">Reservasi</span>
 </a>
 
-<script>
-  const langBtn = document.getElementById('langBtn');
-  let lang = 'en';
-  document.querySelectorAll('[data-id]').forEach(el => { el.innerHTML = el.dataset['en'] || el.innerHTML; });
-  document.documentElement.lang = 'en';
-  langBtn.textContent = 'ID';
-  langBtn.addEventListener('click', () => {
-    lang = lang === 'id' ? 'en' : 'id';
-    langBtn.textContent = lang === 'en' ? 'ID' : 'EN';
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-id]').forEach(el => { el.innerHTML = el.dataset[lang]; });
-  });
-  const navEl = document.querySelector('nav');
-  window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
-  const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-</script>
-</body>
-</html>
+<script src="js/script.js"></script>
+</body></html>

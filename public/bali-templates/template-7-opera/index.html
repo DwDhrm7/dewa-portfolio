@@ -1,172 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OPÉRA - Pâtisserie & Salon de Thé</title>
+<title>OPÉRA - Pâtisserie &amp; Salon de Thé</title>
 <meta name="description" content="Classic French patisserie and tea salon. Elegance in every bite.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --emerald: #0A2A22;
-    --cream: #FDFBF7;
-    --gold: #C5A059;
-    --dark-gold: #9E7D42;
-    --charcoal: #1A1A1A;
-    --border: rgba(197, 160, 89, 0.3);
-  }
-  
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; font-size: 16px; }
-  
-  body {
-    background-color: var(--cream);
-    color: var(--charcoal);
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  
-  .sans { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75rem; }
-  
-  a { color: inherit; text-decoration: none; transition: color 0.3s; }
-  a:hover { color: var(--gold); }
-  img { max-width: 100%; display: block; object-fit: cover; }
-  
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
-  
-  /* Decorative elements */
-  .divider { 
-    display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 3rem 0;
-  }
-  .divider::before, .divider::after {
-    content: ''; height: 1px; width: 60px; background-color: var(--border);
-  }
-  .divider-diamond {
-    width: 6px; height: 6px; background-color: var(--gold); transform: rotate(45deg);
-  }
-
-  /* Navigation */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background-color: var(--emerald); color: var(--cream);
-    border-bottom: 2px solid var(--gold);
-    transition: padding 0.4s ease;
-  }
-  .nav-inner {
-    max-width: 1400px; margin: 0 auto; padding: 1.5rem 5vw;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  nav.scrolled .nav-inner { padding: 1rem 5vw; }
-  
-  .logo { font-size: 2rem; font-weight: 600; letter-spacing: 0.1em; color: var(--gold); text-align: center; }
-  .logo-sub { display: block; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--cream); font-family: 'Montserrat', sans-serif; margin-top: 0.2rem; }
-  
-  .nav-links { display: flex; gap: 3rem; align-items: center; }
-  .lang-toggle {
-    background: transparent; border: 1px solid var(--gold); color: var(--gold);
-    padding: 0.4rem 1rem; cursor: pointer; transition: all 0.3s;
-  }
-  .lang-toggle:hover { background: var(--gold); color: var(--emerald); }
-
-  /* Hero */
-  header {
-    margin-top: 100px;
-    height: calc(100svh - 100px);
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    background-color: var(--emerald); color: var(--cream);
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0; opacity: 0.4;
-    background: url('https://images.unsplash.com/photo-1579372786545-d24232daf58c?q=80&w=2000&auto=format&fit=crop') center/cover;
-  }
-  .hero-content {
-    position: relative; z-index: 1; text-align: center;
-    border: 1px solid var(--gold); padding: 4rem 3rem;
-    background: rgba(10, 42, 34, 0.85); backdrop-filter: blur(4px);
-    max-width: 700px; margin: 0 5vw;
-  }
-  
-  h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 500; font-style: italic; line-height: 1.2; margin-bottom: 1rem; color: var(--gold); }
-  .hero-text { font-size: 1.1rem; line-height: 1.8; color: var(--cream); }
-
-  /* Intro */
-  .intro { padding: 15vh 0; text-align: center; }
-  .intro h2 { font-size: 2.5rem; font-weight: 500; color: var(--emerald); margin-bottom: 2rem; }
-  .intro p { max-width: 700px; margin: 0 auto 2rem; font-size: 1.2rem; color: #444; }
-  
-  /* Menu Grid */
-  .menu-section { background-color: #F5F2EA; padding: 15vh 0; }
-  .section-title { text-align: center; font-size: 3rem; color: var(--emerald); margin-bottom: 4rem; font-style: italic; }
-  
-  .menu-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 4rem 6rem;
-  }
-  .menu-item { display: flex; flex-direction: column; text-align: center; }
-  .menu-img {
-    width: 100%; aspect-ratio: 4/5; margin-bottom: 1.5rem;
-    border: 1px solid var(--border); padding: 0.5rem;
-    background-color: var(--cream);
-  }
-  .menu-img img { width: 100%; height: 100%; }
-  
-  .menu-name { font-size: 1.5rem; font-weight: 600; color: var(--emerald); margin-bottom: 0.5rem; }
-  .menu-desc { font-size: 1rem; color: #555; margin-bottom: 1rem; font-style: italic; }
-  .menu-price { font-size: 1.1rem; color: var(--dark-gold); font-weight: 500; }
-
-  /* Experience / Banner */
-  .banner {
-    padding: 15vh 0; background-color: var(--emerald); color: var(--cream); text-align: center;
-    position: relative;
-  }
-  .banner::after {
-    content: ''; position: absolute; inset: 1rem; border: 1px solid var(--gold); pointer-events: none;
-  }
-  .banner h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-style: italic; color: var(--gold); margin-bottom: 1.5rem; }
-  .banner p { max-width: 600px; margin: 0 auto 3rem; font-size: 1.2rem; }
-  .btn-gold {
-    display: inline-block; padding: 1rem 3rem; border: 1px solid var(--gold);
-    color: var(--gold); background: transparent; transition: all 0.4s;
-  }
-  .btn-gold:hover { background: var(--gold); color: var(--emerald); }
-
-  /* Footer */
-  footer {
-    background-color: var(--charcoal); color: var(--cream);
-    padding: 10vh 5vw 5vh; text-align: center; border-top: 4px solid var(--gold);
-  }
-  .footer-logo { font-size: 2rem; color: var(--gold); margin-bottom: 2rem; }
-  .footer-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto 4rem;
-  }
-  .footer-col h4 { color: var(--gold); margin-bottom: 1.5rem; }
-  .footer-col p, .footer-col a { color: #AAA; font-size: 0.9rem; line-height: 2; display: block; }
-  
-  .copyright { color: #666; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
-
-  /* Animations */
-  .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .reveal.in { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 900px) {
-    .nav-links { display: none; }
-    .menu-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .footer-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .hero-content { padding: 3rem 1.5rem; }
-  }
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Montserrat:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
 <nav id="nav">
   <div class="nav-inner">
     <div class="nav-links sans">
-      <a href="#patisserie" data-id="Kue & Roti" data-en="Patisserie">Patisserie</a>
+      <a href="#patisserie" data-id="Kue &amp; Roti" data-en="Patisserie">Patisserie</a>
       <a href="#salon" data-id="Salon Teh" data-en="Tea Salon">Tea Salon</a>
     </div>
     <a href="#" class="logo">OPÉRA<span class="logo-sub">PARIS</span></a>
@@ -199,41 +46,178 @@
   <div class="container">
     <h2 class="section-title reveal" data-id="Koleksi Unggulan" data-en="Signature Collection">Signature Collection</h2>
     
-    <div class="menu-grid">
-      <div class="menu-item reveal">
-        <div class="menu-img">
-          <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?q=80&w=800&auto=format&fit=crop" alt="Macarons">
-        </div>
-        <h3 class="menu-name">Les Macarons</h3>
-        <p class="menu-desc" data-id="Koleksi 12 rasa klasik, renyah di luar, lembut di dalam." data-en="Collection of 12 classic flavors, crisp on the outside, tender on the inside.">Collection of 12 classic flavors, crisp on the outside, tender on the inside.</p>
-        <div class="menu-price">350k</div>
+    <style>
+      .menu-landscape-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 2rem;
+        padding-bottom: 2rem;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .menu-landscape-container::-webkit-scrollbar {
+        display: none;
+      }
+      .menu-landscape-container .menu-item {
+        min-width: 300px;
+        scroll-snap-align: center;
+        flex-shrink: 0;
+        background: #fff;
+        padding: 2rem 1.5rem;
+        border-radius: 0;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        border: 1px solid var(--gold, #d4af37);
+        position: relative;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      }
+      .menu-landscape-container .menu-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        border-color: var(--gold, #d4af37);
+      }
+      .menu-landscape-container .menu-item::before {
+        content: '';
+        position: absolute;
+        top: 8px; left: 8px; right: 8px; bottom: 8px;
+        border: 1px solid var(--gold, #d4af37);
+        pointer-events: none;
+        opacity: 0.6;
+      }
+      .menu-landscape-container .menu-img {
+        border-radius: 0;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        height: 260px;
+      }
+      .menu-landscape-container .menu-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+      .menu-landscape-container .menu-item:hover .menu-img img {
+        transform: scale(1.05);
+      }
+      .menu-landscape-container .menu-text {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .menu-landscape-container .menu-desc {
+        flex-grow: 1;
+      }
+      .explore-btn {
+        display: inline-block;
+        margin: 2rem auto 0;
+        padding: 1rem 2.5rem;
+        background: transparent;
+        color: var(--gold, #d4af37);
+        border: 1px solid var(--gold, #d4af37);
+        text-decoration: none;
+        border-radius: 40px;
+        font-family: 'Montserrat', sans-serif;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        transition: background 0.4s, color 0.4s;
+        text-align: center;
+      }
+      .explore-btn:hover {
+        background: var(--gold, #d4af37);
+        color: #fff;
+      }
+      .explore-btn-wrapper {
+        text-align: center;
+        margin-top: 1rem;
+      }
+      .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding-bottom: 1rem;
+      }
+    </style>
+
+    <div class="menu-overview">
+      <div class="category-header" style="justify-content: center;">
+        <h3 class="category-title" style="margin:0; border:none; text-align: center;">Pâtisserie & Desserts</h3>
       </div>
       
-      <div class="menu-item reveal" style="transition-delay: 0.1s;">
-        <div class="menu-img">
-          <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=800&auto=format&fit=crop" alt="Croissant">
+      <div class="menu-landscape-container">
+        <!-- Item 1 -->
+        <div class="menu-item reveal">
+          <div class="menu-img">
+            <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Macarons">
+          </div>
+          <div class="menu-text">
+            <h3 class="menu-name">Les Macarons</h3>
+            <p class="menu-desc" data-id="Koleksi 12 rasa klasik, renyah di luar, lembut di dalam." data-en="Collection of 12 classic flavors, crisp on the outside, tender on the inside.">Collection of 12 classic flavors, crisp on the outside, tender on the inside.</p>
+            <div class="menu-price">350k</div>
+          </div>
         </div>
-        <h3 class="menu-name">Le Croissant Pur Beurre</h3>
-        <p class="menu-desc" data-id="Dilaminasi perlahan selama 48 jam dengan mentega AOC." data-en="Slowly laminated over 48 hours with AOC butter.">Slowly laminated over 48 hours with AOC butter.</p>
-        <div class="menu-price">45k</div>
+        
+        <!-- Item 2 -->
+        <div class="menu-item reveal">
+          <div class="menu-img">
+            <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=800&auto=format&fit=crop" alt="Mille-feuille">
+          </div>
+          <div class="menu-text">
+            <h3 class="menu-name">Mille-Feuille Classique</h3>
+            <p class="menu-desc" data-id="Lapisan pastry renyah dengan krim vanila yang kaya." data-en="Crispy pastry layers with rich vanilla cream.">Crispy pastry layers with rich vanilla cream.</p>
+            <div class="menu-price">120k</div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="menu-item reveal">
+          <div class="menu-img">
+            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=800&auto=format&fit=crop" alt="Croissant">
+          </div>
+          <div class="menu-text">
+            <h3 class="menu-name">Croissant au Beurre</h3>
+            <p class="menu-desc" data-id="Renyah, keemasan, dipanggang segar setiap pagi." data-en="Flaky, golden, baked fresh every morning.">Flaky, golden, baked fresh every morning.</p>
+            <div class="menu-price">45k</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-header">
+        <h3 class="category-title" style="margin:0; border:none;">Tea & Beverages</h3>
       </div>
       
-      <div class="menu-item reveal">
-        <div class="menu-img">
-          <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=800&auto=format&fit=crop" alt="Mille Feuille">
+      <div class="menu-landscape-container">
+        <!-- Item 1 -->
+        <div class="menu-item reveal">
+          <div class="menu-img">
+            <img src="https://images.unsplash.com/photo-1576092762791-dd9e2220c476?q=80&w=800&auto=format&fit=crop" alt="Earl Grey">
+          </div>
+          <div class="menu-text">
+            <h3 class="menu-name">Earl Grey Impérial</h3>
+            <p class="menu-desc" data-id="Teh hitam dengan sentuhan bergamot dan bunga biru." data-en="Black tea with a touch of bergamot and blue flowers.">Black tea with a touch of bergamot and blue flowers.</p>
+            <div class="menu-price">60k</div>
+          </div>
         </div>
-        <h3 class="menu-name">Mille-Feuille Vanille</h3>
-        <p class="menu-desc" data-id="Puff pastry berkaramel dengan krim diplomate vanila yang kaya." data-en="Caramelized puff pastry with rich vanilla diplomate cream.">Caramelized puff pastry with rich vanilla diplomate cream.</p>
-        <div class="menu-price">120k</div>
+        
+        <!-- Item 2 -->
+        <div class="menu-item reveal">
+          <div class="menu-img">
+            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=800&auto=format&fit=crop" alt="Coffee">
+          </div>
+          <div class="menu-text">
+            <h3 class="menu-name">Café Crème</h3>
+            <p class="menu-desc" data-id="Espresso klasik Paris disajikan dengan susu panas." data-en="Classic Parisian espresso served with steamed milk.">Classic Parisian espresso served with steamed milk.</p>
+            <div class="menu-price">55k</div>
+          </div>
+        </div>
       </div>
-      
-      <div class="menu-item reveal" style="transition-delay: 0.1s;">
-        <div class="menu-img">
-          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=800&auto=format&fit=crop" alt="Eclair">
-        </div>
-        <h3 class="menu-name">Éclair au Chocolat</h3>
-        <p class="menu-desc" data-id="Choux pastry klasik diisi dengan krim cokelat Valrhona." data-en="Classic choux pastry filled with Valrhona chocolate cream.">Classic choux pastry filled with Valrhona chocolate cream.</p>
-        <div class="menu-price">85k</div>
+      <div class="explore-btn-wrapper">
+        <a href="#full-menu" class="explore-btn" data-id="Eksplor Menu Lengkap" data-en="Explore Full Menu">Explore Full Menu</a>
       </div>
     </div>
   </div>
@@ -269,44 +253,6 @@
   </div>
 </footer>
 
-<script>
-  // Language Toggle
-  const langBtn = document.getElementById('langBtn');
-  let lang = 'en';
-  
-  document.querySelectorAll('[data-en]').forEach(el => {
-    el.innerHTML = el.dataset.en;
-  });
+<script src="js/script.js"></script>
 
-  langBtn.addEventListener('click', () => {
-    lang = lang === 'id' ? 'en' : 'id';
-    langBtn.textContent = lang === 'en' ? 'ID' : 'EN';
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-id]').forEach(el => {
-      el.innerHTML = el.dataset[lang];
-    });
-  });
-
-  // Nav Scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  });
-
-  // Reveal animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => {
-    observer.observe(el);
-  });
-</script>
-</body>
-</html>
+</body></html>
