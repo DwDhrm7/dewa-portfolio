@@ -113,7 +113,7 @@ export function FeedRow({ item }: { item: WriterItem }) {
       <Link href={`/writer/read/${item.slug}`} className="group grid grid-cols-[minmax(0,1fr)_auto] gap-6 sm:gap-10">
         <div className="min-w-0">
           <p className="font-ui text-[13px] text-ink-soft">
-            {c.category[item.category]}, {c.formatDate(item.date)}
+            {c.category[item.category]}{item.comingSoon ? "" : `, ${c.formatDate(item.date)}`}
           </p>
           <h2 className="mt-2 text-xl leading-snug transition group-hover:text-ink/70 sm:text-[22px]">
             {item.title}

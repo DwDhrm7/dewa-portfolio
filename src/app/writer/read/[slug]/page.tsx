@@ -395,8 +395,12 @@ export default function ReaderPage() {
             <span className="font-medium">Dewa Dharma Putra</span>
             <span aria-hidden="true">·</span>
             <span>{item.readTime}</span>
-            <span aria-hidden="true">·</span>
-            <span>{c.formatDate(item.date)}</span>
+            {!item.comingSoon && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>{c.formatDate(item.date)}</span>
+              </>
+            )}
           </div>
 
           {item.category === "novel" && item.chapters && item.chapters.length > 1 && (
