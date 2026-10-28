@@ -171,6 +171,10 @@ export const id = {
         role: "AI utama untuk berpikir, menulis, dan menyusun struktur solusi.",
       },
       {
+        name: "Claude Code",
+        role: "Super-assistant yang mewujudkan ide kreatif coding apa pun dari saya, dari sketsa pertama sampai kode yang siap rilis.",
+      },
+      {
         name: "ChatGPT",
         role: "Pendamping eksplorasi ide, validasi konsep, dan iterasi copy maupun strategi.",
       },

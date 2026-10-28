@@ -173,6 +173,10 @@ export const en: TranslationKeys = {
         role: "Primary AI for thinking, writing, and structuring solutions.",
       },
       {
+        name: "Claude Code",
+        role: "Super-assistant that turns any creative coding idea of mine into working software, from first sketch to shipped code.",
+      },
+      {
         name: "ChatGPT",
         role: "Companion for idea exploration, concept validation, and copy or strategy iteration.",
       },
