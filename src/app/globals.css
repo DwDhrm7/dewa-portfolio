@@ -54,19 +54,24 @@ select {
   font: inherit;
 }
 
-/* Everything inside the writer's realm speaks Garamond, headings included */
-.writer-realm,
-.writer-realm h1,
-.writer-realm h2,
-.writer-realm h3,
-.writer-realm h4,
-.writer-realm h5,
-.writer-realm h6,
-.writer-realm button,
-.writer-realm input,
-.writer-realm textarea,
-.writer-realm select {
-  font-family: var(--font-garamond), "Garamond", "Georgia", serif;
+/*
+ * Writer's realm, set like Medium: reading text in Source Serif, titles and
+ * interface in a tight grotesk. In the base layer so utilities still win.
+ */
+@layer base {
+  .writer-realm {
+    font-family: var(--font-reading), Georgia, Cambria, serif;
+  }
+
+  .writer-realm :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-writer-ui), "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.016em;
+  }
+
+  .writer-realm :where(button, input, textarea, select, label, nav) {
+    font-family: var(--font-writer-ui), "Helvetica Neue", Arial, sans-serif;
+  }
 }
 
 @layer utilities {

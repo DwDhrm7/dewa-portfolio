@@ -5,7 +5,7 @@ import { useWriterItems } from "@/components/writer/useWriterItems";
 import { NovelFeature, Ornament, RoomHeader } from "@/components/writer/Room";
 
 export default function NovelShelfPage() {
-  const novels = useWriterItems("novel");
+  const novels = useWriterItems("novel") ?? [];
 
   return (
     <>
@@ -13,7 +13,7 @@ export default function NovelShelfPage() {
         image={woodImages.study}
         eyebrow="Rak Novel"
         title="Karya Panjang & Bab Bersambung"
-        description="Novel dengan bab yang terus bertambah, daftar isi yang bisa dijelajahi, dan karakter yang tumbuh perlahan."
+        description="Bab-bab awal dari karya panjang, untuk dibaca pelan-pelan."
         position="center 40%"
       />
       <section className="px-6 py-20 md:px-14 md:py-24 lg:px-20">

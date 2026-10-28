@@ -36,7 +36,6 @@ import {
   TypographyAlignment,
   TypographyLineSpacing 
 } from "@/types/writer";
-import defaultWriterData from "@/data/writer-content.json";
 
 export default function WriterStudioPage() {
   const [authState, setAuthState] = useState<"checking" | "locked" | "open">("checking");
@@ -45,7 +44,7 @@ export default function WriterStudioPage() {
   const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
 
   // Items state
-  const [items, setItems] = useState<WriterItem[]>(defaultWriterData as WriterItem[]);
+  const [items, setItems] = useState<WriterItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<"all" | "puisi" | "cerpen" | "novel">("all");
 
@@ -163,10 +162,18 @@ export default function WriterStudioPage() {
     setIsEditorOpen(true);
   };
 
-  const openEditItem = (item: WriterItem) => {
-    setEditingItem(JSON.parse(JSON.stringify(item)));
-    setEditorMode("write");
-    setIsEditorOpen(true);
+  const openEditItem = async (item: WriterItem) => {
+    try {
+      const res = await fetch(`/api/writer?slug=${encodeURIComponent(item.slug)}`);
+      const json = await res.json();
+      if (!json.success) throw new Error(json.error);
+      const { excerpt: _excerpt, ...full } = json.data as WriterItem;
+      setEditingItem(full);
+      setEditorMode("write");
+      setIsEditorOpen(true);
+    } catch {
+      showNotify("Gagal membuka karya.", "error");
+    }
   };
 
   const handleDeleteItem = async (id: string, title: string) => {

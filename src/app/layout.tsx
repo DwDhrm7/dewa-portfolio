@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, EB_Garamond } from "next/font/google";
+import { Inter, Manrope, Inter_Tight, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,11 +17,18 @@ const manrope = Manrope({
   variable: "--font-headline",
 });
 
-const garamond = EB_Garamond({
+const readingSerif = Source_Serif_4({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-garamond",
+  variable: "--font-reading",
   style: ["normal", "italic"],
+  axes: ["opsz"],
+});
+
+const writerSans = Inter_Tight({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-writer-ui",
 });
 
 export const metadata: Metadata = {
@@ -62,7 +69,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`antialiased ${inter.variable} ${manrope.variable} ${garamond.variable}`}>
+      <body className={`antialiased ${inter.variable} ${manrope.variable} ${readingSerif.variable} ${writerSans.variable}`}>
         <LanguageProvider>
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>

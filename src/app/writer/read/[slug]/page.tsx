@@ -25,7 +25,26 @@ import {
 import { Ornament } from "@/components/writer/Room";
 import { motion, AnimatePresence } from "framer-motion";
 import { WriterItem, TypographyPaperTheme, TypographyFontSize, TypographyAlignment } from "@/types/writer";
-import defaultWriterData from "@/data/writer-content.json";
+import { formatDate } from "@/components/writer/useWriterItems";
+
+const SCENE_BREAK = "* * *";
+
+/** Poems keep their line breaks and stanzas; prose becomes paragraphs; "* * *" becomes an ornament. */
+function Body({ text, poem }: { text: string; poem: boolean }) {
+  return (
+    <>
+      {text.split(/\n{2,}/).map((block, i) =>
+        block.trim() === SCENE_BREAK ? (
+          <Ornament key={i} className="my-12" />
+        ) : (
+          <p key={i} className={poem ? "mb-[1.6em] whitespace-pre-wrap" : "mb-[1.25em] whitespace-pre-line"}>
+            {block}
+          </p>
+        )
+      )}
+    </>
+  );
+}
 
 export default function ReaderPage() {
   const params = useParams();
@@ -45,46 +64,24 @@ export default function ReaderPage() {
   const [paperTheme, setPaperTheme] = useState<TypographyPaperTheme>("cream");
   const [scrollProgress, setScrollProgress] = useState<number>(0);
 
-  // Fetch or find item
+  const [notFound, setNotFound] = useState<boolean>(false);
+
   useEffect(() => {
-    async function fetchItem() {
-      try {
-        const res = await fetch("/api/writer");
-        const json = await res.json();
-        if (json.success && json.data) {
-          const found = (json.data as WriterItem[]).find(
-            (it) => it.slug === slug || it.id === slug
-          );
-          if (found) {
-            setItem(found);
-            // Apply default typography from item if available
-            if (found.typography) {
-              setFontSize(found.typography.fontSize || "base");
-              setAlignment(found.typography.alignment || (found.category === "puisi" ? "center" : "justify"));
-              setPaperTheme(found.typography.paperTheme || "cream");
-            }
-            return;
-          }
+    if (!slug) return;
+    fetch(`/api/writer?slug=${encodeURIComponent(slug)}`)
+      .then((res) => res.json())
+      .then((json) => {
+        if (!json.success || !json.data) {
+          setNotFound(true);
+          return;
         }
-      } catch (err) {
-        console.error(err);
-      }
-
-      // Fallback to defaultWriterData
-      const found = (defaultWriterData as WriterItem[]).find(
-        (it) => it.slug === slug || it.id === slug
-      );
-      if (found) {
+        const found = json.data as WriterItem;
         setItem(found);
-        if (found.typography) {
-          setFontSize(found.typography.fontSize || "base");
-          setAlignment(found.typography.alignment || (found.category === "puisi" ? "center" : "justify"));
-          setPaperTheme(found.typography.paperTheme || "cream");
-        }
-      }
-    }
-
-    if (slug) fetchItem();
+        setFontSize(found.typography?.fontSize || "base");
+        setAlignment(found.typography?.alignment || "left");
+        setPaperTheme(found.typography?.paperTheme || "cream");
+      })
+      .catch(() => setNotFound(true));
   }, [slug]);
 
   // Track reading scroll progress
@@ -147,12 +144,12 @@ export default function ReaderPage() {
     },
   };
 
-  // Font size map
+  // Medium reads at 20px / 32px with a hair of negative tracking.
   const sizeClasses: Record<TypographyFontSize, string> = {
-    sm: "text-base sm:text-lg leading-relaxed",
-    base: "text-lg sm:text-xl leading-relaxed",
-    lg: "text-xl sm:text-2xl leading-loose",
-    xl: "text-2xl sm:text-3xl leading-loose",
+    sm: "text-[17px] sm:text-[18px] leading-[1.65]",
+    base: "text-[18px] sm:text-[20px] leading-[1.6]",
+    lg: "text-[20px] sm:text-[22px] leading-[1.6]",
+    xl: "text-[22px] sm:text-[24px] leading-[1.6]",
   };
 
   // Alignment map
@@ -174,14 +171,25 @@ export default function ReaderPage() {
 
   if (!item) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF7F0] text-neutral-800">
+      <div className="flex min-h-screen items-center justify-center bg-parchment px-6 text-ink">
         <div className="text-center">
-          <BookOpen size={36} className="mx-auto text-stone-800 animate-pulse mb-4" />
-          <p className="text-lg">Membuka lembaran karya...</p>
+          {notFound ? (
+            <>
+              <p className="text-xl">Karya ini tidak ditemukan.</p>
+              <Link href="/writer" className="mt-4 inline-block font-ui text-sm font-medium text-walnut-700">
+                Kembali ke ruang sastra
+              </Link>
+            </>
+          ) : (
+            <BookOpen size={32} className="mx-auto animate-pulse text-oak" />
+          )}
         </div>
       </div>
     );
   }
+
+  const isPoem = item.category === "puisi";
+  const isLastChapter = !item.chapters || currentChapterNum >= item.chapters.length;
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${currentTheme.bg} ${currentTheme.text}`}>
@@ -200,7 +208,7 @@ export default function ReaderPage() {
       <header className={`fixed top-24 left-4 right-4 z-40 transition-opacity duration-300 ${
         isDistractionFree ? "opacity-0 hover:opacity-100" : "opacity-100"
       }`}>
-        <div className="mx-auto max-w-4xl flex items-center justify-between rounded-sm border border-oak/30 bg-parchment/90 p-3 shadow-lg backdrop-blur-xl text-neutral-900">
+        <div className="mx-auto max-w-4xl flex items-center justify-between rounded-sm border border-oak/30 bg-parchment/90 p-3 shadow-lg backdrop-blur-xl text-neutral-900 font-ui">
           
           {/* Back button */}
           <Link
@@ -208,12 +216,12 @@ export default function ReaderPage() {
             className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-black/5 transition"
           >
             <ArrowLeft size={14} />
-            <span className="hidden sm:inline">Koleksi {item.category}</span>
+            <span className="hidden sm:inline">Kembali</span>
           </Link>
 
           {/* Title & Progress info */}
           <div className="text-center max-w-[200px] sm:max-w-xs truncate">
-            <span className="italic text-xs font-semibold block truncate">
+            <span className="text-xs font-semibold block truncate">
               {item.title}
             </span>
             {item.category === "novel" && currentChapter && (
@@ -269,10 +277,10 @@ export default function ReaderPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed top-40 left-4 right-4 z-40 mx-auto max-w-xl rounded-sm border border-oak/30 bg-parchment p-5 shadow-2xl backdrop-blur-2xl text-neutral-900"
+            className="fixed top-40 left-4 right-4 z-40 mx-auto max-w-xl rounded-sm border border-oak/30 bg-parchment p-5 shadow-2xl backdrop-blur-2xl text-neutral-900 font-ui"
           >
             <div className="flex items-center justify-between pb-3 border-b border-black/10 mb-4">
-              <span className="italic text-xs font-bold text-stone-950 uppercase tracking-wider flex items-center gap-2">
+              <span className="text-xs font-bold text-ink uppercase tracking-wider flex items-center gap-2">
                 <Type size={14} className="text-stone-700" />
                 Kustomisasi Ruang Baca
               </span>
@@ -365,123 +373,101 @@ export default function ReaderPage() {
       {/* ========================================================================= */}
       {/* READING CANVAS (THE ACTUAL CONTENT) */}
       {/* ========================================================================= */}
-      <main className="mx-auto max-w-3xl px-6 pt-44 pb-36 md:pt-52">
-        
-        {/* Article/Story Header */}
-        <header className="mb-14 text-center border-b border-black/10 pb-12">
-          
-          <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-3.5 py-1 text-xs italic mb-4">
-            <span className="uppercase tracking-widest text-[10px] font-bold">
-              {item.category}
-            </span>
-            <span>·</span>
-            <span>{item.date}</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.08] mb-4">
-            {item.title}
-          </h1>
-
+      <main className="mx-auto max-w-[680px] px-6 pb-36 pt-44 md:pt-52">
+        <header className="mb-12">
+          <h1 className="text-[34px] leading-[1.15] sm:text-[42px] sm:leading-[1.2]">{item.title}</h1>
           {item.subtitle && (
-            <p className="italic text-lg sm:text-xl text-neutral-600 max-w-xl mx-auto mb-6">
-              {item.subtitle}
-            </p>
+            <p className="mt-3 font-ui text-[20px] leading-snug opacity-60 sm:text-[22px]">{item.subtitle}</p>
           )}
 
-          {/* Novel Chapter Selector Dropdown if Novel */}
-          {item.category === "novel" && item.chapters && (
-            <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-black/15 bg-black/[0.03] px-5 py-3">
-              <BookOpen size={16} className="text-stone-700" />
+          <div className={`mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 border-y ${currentTheme.border} py-4 font-ui text-sm opacity-70`}>
+            <span className="font-medium">Dewa Dharma Putra</span>
+            <span aria-hidden="true">·</span>
+            <span>{item.readTime}</span>
+            <span aria-hidden="true">·</span>
+            <span>{formatDate(item.date)}</span>
+          </div>
+
+          {item.category === "novel" && item.chapters && item.chapters.length > 1 && (
+            <div className={`mt-6 inline-flex items-center gap-3 border ${currentTheme.border} px-4 py-2.5 font-ui text-sm`}>
+              <BookOpen size={15} className="opacity-60" />
               <select
                 value={currentChapterNum}
                 onChange={(e) => setCurrentChapterNum(parseInt(e.target.value, 10))}
-                className="bg-transparent text-sm font-semibold outline-none cursor-pointer"
+                className="cursor-pointer bg-transparent font-medium outline-none"
               >
                 {item.chapters.map((ch) => (
-                  <option key={ch.id} value={ch.chapterNumber} className="text-black bg-white">
+                  <option key={ch.id} value={ch.chapterNumber} className="bg-white text-black">
                     {ch.title}
                   </option>
                 ))}
               </select>
             </div>
           )}
-
         </header>
 
-        {/* ========================================================================= */}
-        {/* BODY TEXT RENDERING */}
-        {/* ========================================================================= */}
-        <article className={`font-garamond ${sizeClasses[fontSize]} ${alignClasses[alignment]}`}>
-          
-          {/* If Novel: Render selected Chapter */}
+        <article
+          className={`font-serif tracking-[-0.003em] ${sizeClasses[fontSize]} ${alignClasses[alignment]}`}
+        >
           {item.category === "novel" && currentChapter ? (
-            <div>
-              <div className="text-center mb-10">
-                <span className="italic text-xs tracking-widest text-stone-800 uppercase block mb-1">
-                  BAB {currentChapter.chapterNumber}
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-normal">
-                  {currentChapter.title}
-                </h2>
-              </div>
-
-              <div className="space-y-6 whitespace-pre-line">
-                {currentChapter.content}
-              </div>
-
-              {/* Chapter Navigation Buttons at bottom */}
-              <div className="mt-16 pt-10 border-t border-black/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                {currentChapterNum > 1 ? (
-                  <button
-                    onClick={() => {
-                      setCurrentChapterNum(currentChapterNum - 1);
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                    className="flex items-center gap-2 rounded-xl border border-black/15 px-5 py-3 text-sm font-medium hover:bg-black/5 transition"
-                  >
-                    <ChevronLeft size={16} />
-                    <span>Bab Sebelumnya ({currentChapterNum - 1})</span>
-                  </button>
-                ) : <div />}
-
-                {item.chapters && currentChapterNum < item.chapters.length && (
-                  <button
-                    onClick={() => {
-                      setCurrentChapterNum(currentChapterNum + 1);
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                    className="flex items-center gap-2 rounded-xl bg-walnut-800 px-6 py-3 text-sm font-medium text-white hover:bg-walnut-950 transition shadow-md"
-                  >
-                    <span>Lanjut ke Bab {currentChapterNum + 1}</span>
-                    <ChevronRight size={16} />
-                  </button>
-                )}
-              </div>
-            </div>
+            <>
+              <h2 className="mb-8 text-[26px] leading-tight">{currentChapter.title}</h2>
+              <Body text={currentChapter.content} poem={false} />
+            </>
           ) : (
-            /* Puisi or Cerpen: Render single content */
-            <div className="space-y-6 whitespace-pre-line">
-              {item.content}
-            </div>
+            <Body text={item.content ?? ""} poem={isPoem} />
           )}
-
         </article>
 
-        {/* Epilogue / Ending ornament */}
-        <div className="mt-20 pt-12 border-t border-black/10 text-center text-xs text-neutral-500">
-          <Ornament className="mb-4" />
-          <p>Karya oleh I Dewa Made Dharma Putra Santika</p>
-          <div className="mt-6">
-            <Link
-              href="/writer"
-              className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-2.5 text-xs uppercase tracking-wider text-neutral-800 hover:bg-black/5 transition"
-            >
-              <ArrowLeft size={13} />
-              <span>Kembali ke Rak Sastra</span>
-            </Link>
-          </div>
-        </div>
+        {item.category === "novel" && item.chapters && (
+          <div className={`mt-14 flex flex-col items-center justify-between gap-4 border-t ${currentTheme.border} pt-10 font-ui sm:flex-row`}>
+            {currentChapterNum > 1 ? (
+              <button
+                onClick={() => {
+                  setCurrentChapterNum(currentChapterNum - 1);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={`flex items-center gap-2 border ${currentTheme.border} px-5 py-3 text-sm font-medium transition hover:bg-black/5`}
+              >
+                <ChevronLeft size={16} />
+                {item.chapters[currentChapterNum - 2]?.title}
+              </button>
+            ) : (
+              <div />
+            )}
 
+            {!isLastChapter && (
+              <button
+                onClick={() => {
+                  setCurrentChapterNum(currentChapterNum + 1);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="flex items-center gap-2 bg-walnut-800 px-6 py-3 text-sm font-semibold text-parchment transition hover:bg-walnut-950"
+              >
+                {item.chapters[currentChapterNum]?.title}
+                <ChevronRight size={16} />
+              </button>
+            )}
+          </div>
+        )}
+
+        {item.isPreview && isLastChapter && (
+          <p className="mt-10 text-center font-ui text-sm opacity-60">
+            Pratinjau berakhir di sini.
+          </p>
+        )}
+
+        <div className={`mt-20 border-t ${currentTheme.border} pt-12 text-center`}>
+          <Ornament className="mb-5" />
+          <p className="font-ui text-sm opacity-60">Karya I Dewa Made Dharma Putra Santika</p>
+          <Link
+            href={`/writer/${item.category}`}
+            className={`mt-6 inline-flex items-center gap-2 border ${currentTheme.border} px-6 py-2.5 font-ui text-sm font-medium transition hover:bg-black/5`}
+          >
+            <ArrowLeft size={14} />
+            {item.category === "puisi" ? "Puisi lainnya" : item.category === "cerpen" ? "Cerpen lainnya" : "Rak novel"}
+          </Link>
+        </div>
       </main>
 
     </div>

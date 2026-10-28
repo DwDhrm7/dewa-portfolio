@@ -40,11 +40,11 @@ export default function Navbar() {
   if (isWriter) {
     return (
       <>
-        <nav className="writer-realm fixed top-0 z-50 w-full border-b border-brass/25 bg-walnut-900/95 text-parchment backdrop-blur-md">
+        <nav className="writer-realm fixed top-0 z-50 w-full border-b border-brass/25 bg-walnut-900/95 font-ui text-parchment backdrop-blur-md">
           <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-14 lg:px-20">
             <Link href="/writer" className="flex items-baseline gap-3">
-              <span className="text-2xl italic text-brass">DD</span>
-              <span className="text-lg tracking-wide text-parchment">Dewa Dharma</span>
+              <span className="font-serif text-2xl italic text-brass">DD</span>
+              <span className="text-[15px] font-semibold tracking-tight text-parchment">Dewa Dharma</span>
             </Link>
 
             <div className="hidden items-center gap-9 md:flex">
@@ -52,7 +52,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`border-b pb-0.5 text-[17px] transition ${
+                  className={`border-b pb-0.5 text-[15px] font-medium transition ${
                     isActive(item.href)
                       ? "border-brass text-parchment"
                       : "border-transparent text-parchment/60 hover:text-parchment"
@@ -66,14 +66,14 @@ export default function Navbar() {
             <div className="hidden items-center gap-5 md:flex">
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-[15px] italic text-parchment/70 transition hover:text-parchment"
+                className="inline-flex items-center gap-2 text-sm text-parchment/70 transition hover:text-parchment"
               >
                 <ArrowLeft size={14} />
                 {backLabel}
               </Link>
               <button
                 onClick={toggleLanguage}
-                className="text-[15px] tracking-[0.15em] text-brass transition hover:text-parchment"
+                className="text-sm font-semibold tracking-[0.15em] text-brass transition hover:text-parchment"
                 aria-label="Toggle language"
               >
                 {language.toUpperCase()}
@@ -96,7 +96,7 @@ export default function Navbar() {
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              className="writer-realm fixed inset-x-0 top-20 z-40 border-b border-brass/25 bg-walnut-900 p-6 text-parchment md:hidden"
+              className="writer-realm fixed inset-x-0 top-20 z-40 border-b border-brass/25 bg-walnut-900 p-6 font-ui text-parchment md:hidden"
             >
               <div className="flex flex-col gap-4">
                 {items.map((item) => (

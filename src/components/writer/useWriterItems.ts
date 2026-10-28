@@ -2,29 +2,32 @@
 
 import { useEffect, useState } from "react";
 import { WriterItem, WriterCategory } from "@/types/writer";
-import defaultWriterData from "@/data/writer-content.json";
-
-const published = (items: WriterItem[]) => items.filter((item) => item.isPublished !== false);
 
 export function useWriterItems(category?: WriterCategory) {
-  const pick = (items: WriterItem[]) =>
-    published(category ? items.filter((item) => item.category === category) : items);
-
-  const [items, setItems] = useState<WriterItem[]>(() => pick(defaultWriterData as WriterItem[]));
+  const [items, setItems] = useState<WriterItem[] | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     fetch("/api/writer")
       .then((res) => res.json())
       .then((json) => {
-        if (!cancelled && json.success && Array.isArray(json.data)) setItems(pick(json.data));
+        if (cancelled || !json.success || !Array.isArray(json.data)) return;
+        const all = json.data as WriterItem[];
+        setItems(category ? all.filter((item) => item.category === category) : all);
       })
-      .catch(() => {});
+      .catch(() => !cancelled && setItems([]));
     return () => {
       cancelled = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   return items;
+}
+
+const MONTHS = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+export function formatDate(date: string) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+  if (!match) return date;
+  return `${Number(match[3])} ${MONTHS[Number(match[2]) - 1]} ${match[1]}`;
 }

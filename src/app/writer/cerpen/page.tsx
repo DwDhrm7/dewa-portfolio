@@ -5,7 +5,7 @@ import { useWriterItems } from "@/components/writer/useWriterItems";
 import { RoomHeader, StoryCard } from "@/components/writer/Room";
 
 export default function CerpenPage() {
-  const stories = useWriterItems("cerpen");
+  const stories = useWriterItems("cerpen") ?? [];
 
   return (
     <>
@@ -13,7 +13,7 @@ export default function CerpenPage() {
         image={woodImages.library}
         eyebrow="Galeri Cerita Pendek"
         title="Narasi yang Menghidupkan"
-        description="Kisah fiksi realis dan spekulatif tentang manusia, ruang, waktu, dan pertemuan-pertemuan tak terduga."
+        description="Kisah tentang antrean, motor yang mogok, dan cinta pertama yang selesai."
         position="center 30%"
       />
       <section className="px-6 py-20 md:px-14 md:py-24 lg:px-20">

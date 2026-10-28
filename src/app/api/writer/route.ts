@@ -6,10 +6,32 @@ import { isStudioAuthenticated } from "@/lib/studioAuth";
 const unauthorized = () =>
   NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
 
-export async function GET() {
+function summarize(item: WriterItem): WriterItem {
+  const { content, ...rest } = item;
+  return {
+    ...rest,
+    excerpt: content?.split(/\n{2,}/).slice(0, 2).join("\n\n"),
+    chapters: item.chapters?.map(({ content: _body, ...chapter }) => ({ ...chapter, content: "" })),
+  };
+}
+
+export async function GET(req: NextRequest) {
   try {
     const items = getWriterItems();
-    return NextResponse.json({ success: true, data: items });
+    const slug = new URL(req.url).searchParams.get("slug");
+
+    if (slug) {
+      const item = items.find((it) => it.slug === slug || it.id === slug);
+      if (!item || (item.isPublished === false && !(await isStudioAuthenticated()))) {
+        return NextResponse.json({ success: false, error: "Not found" }, { status: 404 });
+      }
+      return NextResponse.json({ success: true, data: item });
+    }
+
+    const visible = (await isStudioAuthenticated())
+      ? items
+      : items.filter((it) => it.isPublished !== false);
+    return NextResponse.json({ success: true, data: visible.map(summarize) });
   } catch (error) {
     return NextResponse.json(
       { success: false, error: (error as Error).message },

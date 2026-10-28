@@ -5,7 +5,7 @@ import { useWriterItems } from "@/components/writer/useWriterItems";
 import { PoemCard, RoomHeader } from "@/components/writer/Room";
 
 export default function PuisiPage() {
-  const poems = useWriterItems("puisi");
+  const poems = useWriterItems("puisi") ?? [];
 
   return (
     <>
@@ -13,7 +13,7 @@ export default function PuisiPage() {
         image={woodImages.desk}
         eyebrow="Antologi Puisi"
         title="Bait-Bait yang Mengendap"
-        description="Sajak reflektif, dialog batin antara logika dan rasa, serta keheningan yang terselip di sela kesibukan dunia modern."
+        description="Puisi-puisi yang ditulis sepanjang 2026."
       />
       <section className="px-6 py-20 md:px-14 md:py-24 lg:px-20">
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 md:grid-cols-2">

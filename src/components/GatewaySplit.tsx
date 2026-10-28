@@ -273,20 +273,20 @@ export default function GatewaySplit() {
           className="relative flex h-full flex-col justify-center px-10 text-right md:px-16"
           style={{ x: writerX }}
         >
-          <span className="mb-4 ml-auto inline-flex items-center gap-2 text-sm italic tracking-wide text-brass">
+          <span className="mb-4 ml-auto inline-flex items-center gap-2 font-ui text-xs font-semibold uppercase tracking-[0.22em] text-brass">
             <Feather size={13} />
             {t.gateway.writerBadge}
           </span>
-          <h2 className="text-4xl italic leading-[1.05] text-parchment md:text-6xl">
+          <h2 className="font-serif text-4xl font-normal italic leading-[1.05] tracking-[-0.02em] text-parchment md:text-6xl">
             {t.gateway.writerTitle}
           </h2>
           <p className="ml-auto mt-5 max-w-sm text-base leading-relaxed text-parchment/75 md:text-lg">
             {t.gateway.writerDesc}
           </p>
-          <p className="mt-6 text-base italic text-parchment/55">
+          <p className="mt-6 font-ui text-sm text-parchment/55">
             {t.gateway.writerTags.join(" · ")}
           </p>
-          <span className="mt-8 inline-flex items-center justify-end gap-2 text-base tracking-wide text-brass">
+          <span className="mt-8 inline-flex items-center justify-end gap-2 font-ui text-sm font-semibold text-brass">
             <ArrowRight size={15} className="rotate-180" />
             {t.gateway.writerCta}
           </span>

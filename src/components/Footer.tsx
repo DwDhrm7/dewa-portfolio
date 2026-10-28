@@ -23,17 +23,17 @@ export default function Footer() {
 
   if (isWriter) {
     return (
-      <footer className="writer-realm border-t border-brass/25 bg-walnut-950 px-6 py-14 text-parchment md:px-14 lg:px-20">
+      <footer className="writer-realm border-t border-brass/25 bg-walnut-950 px-6 py-14 font-ui text-parchment md:px-14 lg:px-20">
         <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
           <div>
-            <p className="text-xl">I Dewa Made Dharma Putra Santika</p>
-            <p className="mt-1 italic text-parchment/60">
+            <p className="font-serif text-xl">I Dewa Made Dharma Putra Santika</p>
+            <p className="mt-1 text-sm text-parchment/60">
               {language === "en" ? "Poetry, short stories, and novels" : "Puisi, cerpen, dan novel"}
             </p>
             <p className="mt-3 text-sm text-parchment/40">{t.footer.copyright}</p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-7 text-[15px]">
+          <div className="flex flex-wrap items-center justify-center gap-7 text-sm">
             {socials.map((s) => (
               <Link
                 key={s.label}
@@ -44,7 +44,7 @@ export default function Footer() {
                 {s.label}
               </Link>
             ))}
-            <Link href="/" className="italic text-brass transition hover:text-parchment">
+            <Link href="/" className="font-medium text-brass transition hover:text-parchment">
               {backLabel}
             </Link>
           </div>
