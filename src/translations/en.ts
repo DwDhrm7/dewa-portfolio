@@ -27,6 +27,7 @@ export const en: TranslationKeys = {
     writerDesc: "An anthology of poetry, short stories, novel chapters, and soul musings crafted in timeless typography.",
     writerCta: "Enter The Writer's Realm",
     writerTags: ["Poetry", "Stories", "Novels", "Literature"],
+    greeting: "Hey I’m Dewa Dharma",
     choose: "Choose which Dewa Dharma you're looking for",
     loadingTech: "Preparing the tech realm",
     loadingWriter: "Opening the writing room",
@@ -85,6 +86,7 @@ export const en: TranslationKeys = {
     value3Desc: "Combining technology with arts and humanities to create meaningful solutions.",
     introLabel: "Introduction",
     introHeading: "Combining AI, IoT, and art into intentional systems.",
+    biographyEyebrow: "Behind the scenes",
     biographyTitle: "Biography",
     workingPrinciplesLabel: "Working Principles",
     capabilitiesLabel: "Capabilities",
@@ -266,6 +268,37 @@ export const en: TranslationKeys = {
     githubInfo: "GitHub",
     readyTitle: "Ready to Collaborate!",
     readyDesc: "I am open to discussions about AI projects, IoT, academic research, or creative collaborations. Feel free to contact me through the form or available contacts.",
+  },
+
+  // Tech realm home
+  techPage: {
+    titleLine1: "Engineering Clarity",
+    titleLine2: "from Complexity.",
+    viewProjects: "View All Projects",
+    collaborate: "Let's Collaborate",
+    specialties: [
+      { title: "Artificial Intelligence & Vision", body: "Applying YOLOv8 to real-time computer vision, spatial analytics on ATCS/CCTV data, and designing agentic intelligence." },
+      { title: "IoT & Embedded Systems", body: "Building industrial sensor telemetry architectures, MQTT broker integrations, Node-RED automation, and the AgriSense smart-farming system." },
+      { title: "Modern Web & Interfaces", body: "Building fast, interactive dashboards with the Next.js App Router, TypeScript, and clean editorial visual principles." },
+    ],
+    featuredEyebrow: "01 — Artifacts & Systems",
+    featuredTitle: "Selected Work & Research",
+    fullArchive: "Explore Full Archive",
+    readMore: "Read the Reflection & Architecture",
+    stackEyebrow: "02 — Technical Capabilities",
+    stackTitle: "Core Stack & Tools",
+    stackBody: "The technologies I use day to day to prototype, build artificial intelligence, and deploy embedded systems in the field.",
+    stackGroups: ["AI & Intelligence", "Web & Systems", "IoT & Robotics"],
+  },
+
+  // Error pages
+  errors: {
+    title: "Something went wrong on this page",
+    body: "The page failed to load. Try again, or head back to the gateway.",
+    retry: "Try again",
+    home: "To the gateway",
+    notFoundTitle: "Page not found",
+    notFoundBody: "The address you opened doesn't exist or has moved.",
   },
 
   // Footer

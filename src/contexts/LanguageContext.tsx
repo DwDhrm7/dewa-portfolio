@@ -13,7 +13,8 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("id");
+  // English is the base language; visitors can switch to Indonesian and the choice is remembered.
+  const [language, setLanguage] = useState<Language>("en");
 
   // Load language from localStorage on mount
   useEffect(() => {
@@ -24,6 +25,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       // storage can be blocked (private mode); keep the default
     }
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   // Save language to localStorage when changed
   const toggleLanguage = () => {

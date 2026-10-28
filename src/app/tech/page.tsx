@@ -15,11 +15,20 @@ export default function TechPage() {
 
   const featured = artifacts.slice(0, 4);
 
-  const techSkills = [
-    { category: "AI & Intelligence", items: ["Computer Vision", "YOLOv8", "Gemini API", "Neural Networks", "Predictive Analytics"] },
-    { category: "Web & Systems", items: ["Next.js (App Router)", "TypeScript", "Tailwind CSS", "RESTful APIs", "Framer Motion"] },
-    { category: "IoT & Robotics", items: ["Embedded C/C++", "Node-RED", "MQTT", "ESP32 / Arduino", "Sensor Telemetry"] },
+  const p = t.techPage;
+  const stackItems = [
+    ["Computer Vision", "YOLOv8", "Gemini API", "Neural Networks", "Predictive Analytics"],
+    ["Next.js (App Router)", "TypeScript", "Tailwind CSS", "RESTful APIs", "Framer Motion"],
+    ["Embedded C/C++", "Node-RED", "MQTT", "ESP32 / Arduino", "Sensor Telemetry"],
   ];
+  const techSkills = p.stackGroups.map((category, i) => ({ category, items: stackItems[i] }));
+  const specialtyIcons = [Cpu, Terminal, Code];
+  const categoryLabel = (category: string) =>
+    category === "Project Based"
+      ? t.portfolio.categories.projectBased
+      : category === "Case Based"
+        ? t.portfolio.categories.caseBased
+        : t.portfolio.categories.additional;
 
   return (
     <div className="px-6 pb-24 pt-32 md:px-14 md:pb-32 lg:px-20">
@@ -38,9 +47,9 @@ export default function TechPage() {
           <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
             <div className="max-w-4xl">
               <h1 className="font-headline text-5xl font-extrabold leading-[0.95] tracking-[-0.05em] text-neutral-950 md:text-7xl lg:text-8xl">
-                Engineering Clarity
+                {p.titleLine1}
                 <br />
-                from Complexity.
+                {p.titleLine2}
               </h1>
             </div>
 
@@ -55,7 +64,7 @@ export default function TechPage() {
               href="/portfolio"
               className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-neutral-950 px-8 py-4 text-xs font-extrabold uppercase tracking-[0.22em] text-white transition hover:bg-neutral-800 sm:w-auto shadow-md"
             >
-              <span>{language === "en" ? "View All Projects" : "Lihat Semua Proyek"}</span>
+              <span>{p.viewProjects}</span>
               <ArrowUpRight size={16} />
             </Link>
             
@@ -72,7 +81,7 @@ export default function TechPage() {
               href="/contact"
               className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-black/5 bg-neutral-100/60 px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-neutral-700 transition hover:bg-neutral-200 sm:w-auto"
             >
-              <span>{language === "en" ? "Let's Collaborate" : "Hubungi Saya"}</span>
+              <span>{p.collaborate}</span>
             </Link>
           </div>
         </motion.div>
@@ -81,41 +90,18 @@ export default function TechPage() {
         {/* CORE SPECIALIZATION CARDS */}
         {/* ========================================================================= */}
         <section className="mb-24 grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-2xl border border-black/5 bg-white p-8 shadow-[0_10px_30px_rgba(0,0,0,0.03)]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-50 text-neutral-700 mb-6">
-              <Cpu size={24} />
-            </div>
-            <h3 className="font-headline text-xl font-bold text-neutral-950 mb-2">
-              Artificial Intelligence & Vision
-            </h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
-              Menerapkan model YOLOv8 untuk computer vision waktu-nyata, analitik spasial pada data ATCS/CCTV, serta perancangan agentic intelligence.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-black/5 bg-white p-8 shadow-[0_10px_30px_rgba(0,0,0,0.03)]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-50 text-neutral-700 mb-6">
-              <Terminal size={24} />
-            </div>
-            <h3 className="font-headline text-xl font-bold text-neutral-950 mb-2">
-              IoT & Embedded Systems
-            </h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
-              Pengalaman membangun arsitektur telemetri sensor industri, integrasi broker MQTT, automasi Node-RED, dan smart agriculture AgriSense.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-black/5 bg-white p-8 shadow-[0_10px_30px_rgba(0,0,0,0.03)]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-50 text-neutral-700 mb-6">
-              <Code size={24} />
-            </div>
-            <h3 className="font-headline text-xl font-bold text-neutral-950 mb-2">
-              Modern Web & Interfaces
-            </h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
-              Membangun dashboard interaktif performa tinggi dengan Next.js App Router, TypeScript, dan prinsip estetika visual editorial berkelas.
-            </p>
-          </div>
+          {p.specialties.map((item, i) => {
+            const Icon = specialtyIcons[i];
+            return (
+              <div key={item.title} className="rounded-2xl border border-black/5 bg-white p-8 shadow-[0_10px_30px_rgba(0,0,0,0.03)]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-50 text-neutral-700 mb-6">
+                  <Icon size={24} />
+                </div>
+                <h3 className="font-headline text-xl font-bold text-neutral-950 mb-2">{item.title}</h3>
+                <p className="text-sm text-neutral-600 leading-relaxed">{item.body}</p>
+              </div>
+            );
+          })}
         </section>
 
         {/* ========================================================================= */}
@@ -125,10 +111,10 @@ export default function TechPage() {
           <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
               <p className="text-xs uppercase tracking-[0.24em] text-neutral-500 mb-2">
-                01 — Artifacts &amp; Systems
+                {p.featuredEyebrow}
               </p>
               <h2 className="font-headline text-3xl font-extrabold text-neutral-950 md:text-5xl">
-                Karya & Riset Pilihan
+                {p.featuredTitle}
               </h2>
             </div>
 
@@ -136,7 +122,7 @@ export default function TechPage() {
               href="/portfolio"
               className="inline-flex items-center gap-2 font-headline text-sm font-bold text-neutral-900 hover:text-neutral-700 transition"
             >
-              <span>{language === "en" ? "Explore Full Archive" : "Arsip Proyek Lengkap"}</span>
+              <span>{p.fullArchive}</span>
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -154,7 +140,7 @@ export default function TechPage() {
                 <div>
                   <div className="flex items-center justify-between text-xs text-neutral-500 mb-4">
                     <span className="rounded-full bg-neutral-100 px-3 py-1 text-neutral-800 font-semibold">
-                      {artifact.category}
+                      {categoryLabel(artifact.category)}
                     </span>
                     <span>{artifact.role[language]}</span>
                   </div>
@@ -186,7 +172,7 @@ export default function TechPage() {
                     href={`/portfolio#${artifact.id}`}
                     className="inline-flex items-center gap-2 font-headline text-xs font-bold uppercase tracking-wider text-neutral-900 group-hover:gap-3 transition-all"
                   >
-                    <span>Pelajari Refleksi & Arsitektur</span>
+                    <span>{p.readMore}</span>
                     <ArrowUpRight size={14} />
                   </Link>
                 </div>
@@ -201,13 +187,13 @@ export default function TechPage() {
         <section className="rounded-3xl bg-neutral-950 text-white p-8 md:p-14 lg:p-16">
           <div className="max-w-2xl mb-12">
             <p className="text-xs uppercase tracking-[0.24em] text-neutral-400 mb-3">
-              02 — Technical Capabilities
+              {p.stackEyebrow}
             </p>
             <h2 className="font-headline text-3xl font-extrabold md:text-5xl">
-              Stack & Perangkat Utama
+              {p.stackTitle}
             </h2>
             <p className="mt-4 text-sm text-neutral-400 leading-relaxed">
-              Kombinasi teknologi yang saya gunakan sehari-hari untuk merancang purwarupa, menyusun inteligensi buatan, hingga mengimplementasikan sistem embedded di lapangan.
+              {p.stackBody}
             </p>
           </div>
 

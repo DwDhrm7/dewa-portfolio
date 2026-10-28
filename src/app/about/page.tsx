@@ -58,7 +58,7 @@ export default function AboutPage() {
         <section className="mb-24 grid gap-10 lg:grid-cols-[1fr_2fr]">
           <div className="lg:sticky lg:top-32 lg:self-start">
             <p className="mb-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
-              Behind the scenes
+              {t.about.biographyEyebrow}
             </p>
             <h2 className="font-headline text-4xl font-bold tracking-[-0.03em] text-neutral-950">
               {t.about.biographyTitle}

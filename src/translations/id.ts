@@ -25,6 +25,7 @@ export const id = {
     writerDesc: "Kumpulan puisi, cerpen, bab novel, dan renungan jiwa dalam tipografi sastra yang tenang dan bebas.",
     writerCta: "Masuki Ruang Kata",
     writerTags: ["Puisi", "Cerpen", "Novel", "Sastra"],
+    greeting: "Hai, aku Dewa Dharma",
     choose: "Pilih Dewa Dharma yang kamu cari",
     loadingTech: "Menyiapkan ruang teknologi",
     loadingWriter: "Membuka ruang kata",
@@ -63,12 +64,12 @@ export const id = {
     intro3: "Selain dunia teknis, saya juga aktif dalam seni teater dan puisi. Bagi saya, seni adalah cara untuk memahami perspektif manusia yang lebih dalam, yang kemudian dapat saya terapkan dalam merancang teknologi yang lebih human-centered dan bermakna.",
     interestsTitle: "Minat & Keahlian Utama",
     interests: [
-      "Artificial Intelligence",
+      "Kecerdasan Buatan",
       "Internet of Things (IoT)",
-      "Robotics & Embedded Systems",
-      "Software Development",
-      "Smart City Solutions",
-      "Sustainable Technology",
+      "Robotika & Sistem Tertanam",
+      "Pengembangan Perangkat Lunak",
+      "Solusi Kota Cerdas",
+      "Teknologi Berkelanjutan",
     ],
     goalsTitle: "Tujuan Pengembangan Diri",
     goal1: "Melanjutkan studi S2 di bidang AI/Robotics di universitas terkemuka, baik dalam maupun luar negeri, untuk memperdalam riset dan kontribusi ilmiah.",
@@ -83,6 +84,7 @@ export const id = {
     value3Desc: "Menggabungkan teknologi dengan seni dan humaniora untuk menciptakan solusi yang bermakna.",
     introLabel: "Pengantar",
     introHeading: "Menggabungkan AI, IoT, dan seni menjadi sistem yang dirancang dengan sengaja.",
+    biographyEyebrow: "Di balik layar",
     biographyTitle: "Biografi",
     workingPrinciplesLabel: "Prinsip Berkarya",
     capabilitiesLabel: "Kapabilitas",
@@ -98,9 +100,9 @@ export const id = {
     ],
     capabilitiesCards: [
       "AI & Machine Learning",
-      "IoT & Embedded Systems",
-      "Creative Technology",
-      "Narrative Systems",
+      "IoT & Sistem Tertanam",
+      "Teknologi Kreatif",
+      "Sistem Naratif",
     ],
   },
 
@@ -201,7 +203,7 @@ export const id = {
     exp4Subtitle: "Teater Biner, PEKSIMIDA, PEKSIMINAS",
     exp4Period: "2023 - 2025",
     exp4Desc: "Menulis dan menampilkan karya puisi dan teater yang mengangkat isu sosial. Aktif di Teater Biner dan berkompetisi di tingkat provinsi dan nasional.",
-    exp5Title: "IoT Development Intern",
+    exp5Title: "Magang Pengembang IoT",
     exp5Subtitle: "PT Bima Sakti Sanjaya, Denpasar, Bali",
     exp5Period: "Mar 2026 - Jul 2026",
     exp5Desc: "Berkontribusi pada pengembangan AgriSense, platform smart farming IoT, dengan membangun web dashboard real-time menggunakan Next.js serta mendukung alur kerja aplikasi mobile React Native. Mengimplementasikan subscription data MQTT dan memvalidasi telemetri sensor end-to-end menggunakan Node-RED, mengintegrasikan sensor lapangan dengan edge device Raspberry Pi. Merancang UI responsif dan visualisasi data untuk pemantauan kualitas air (EC/TDS), udara, dan tanah, mendampingi engineer senior dalam kunjungan lapangan instalasi RTU Smart Panel, serta menyusun struktur data sensor untuk kebutuhan AI seperti deteksi anomali dan analitik prediksi irigasi.",
@@ -218,7 +220,7 @@ export const id = {
   portfolio: {
     title: "Portofolio",
     subtitle: "Karya & Kontribusi Saya",
-    eyebrow: "Library / Index 001",
+    eyebrow: "Pustaka / Indeks 001",
     intro:
       "Arsip terstruktur dari proyek berbasis riset, sistem terapan, dan karya lintas disiplin.",
     projectBasedTitle: "Berbasis Proyek",
@@ -266,9 +268,40 @@ export const id = {
     readyDesc: "Saya terbuka untuk diskusi tentang proyek AI, IoT, riset akademis, atau kolaborasi kreatif. Jangan ragu untuk menghubungi saya melalui form atau kontak yang tersedia.",
   },
 
+  // Tech realm home
+  techPage: {
+    titleLine1: "Menjernihkan",
+    titleLine2: "yang Rumit.",
+    viewProjects: "Lihat Semua Proyek",
+    collaborate: "Hubungi Saya",
+    specialties: [
+      { title: "Kecerdasan Buatan & Visi Komputer", body: "Menerapkan YOLOv8 untuk computer vision waktu nyata, analitik spasial pada data ATCS/CCTV, dan merancang agentic intelligence." },
+      { title: "IoT & Sistem Tertanam", body: "Membangun arsitektur telemetri sensor industri, integrasi broker MQTT, otomasi Node-RED, dan pertanian cerdas AgriSense." },
+      { title: "Web Modern & Antarmuka", body: "Membangun dashboard interaktif berperforma tinggi dengan Next.js App Router, TypeScript, dan prinsip visual editorial yang rapi." },
+    ],
+    featuredEyebrow: "01 — Karya & Sistem",
+    featuredTitle: "Karya & Riset Pilihan",
+    fullArchive: "Arsip Proyek Lengkap",
+    readMore: "Pelajari Refleksi & Arsitektur",
+    stackEyebrow: "02 — Kemampuan Teknis",
+    stackTitle: "Stack & Perangkat Utama",
+    stackBody: "Kombinasi teknologi yang saya gunakan sehari-hari untuk membuat purwarupa, menyusun kecerdasan buatan, hingga menerapkan sistem embedded di lapangan.",
+    stackGroups: ["AI & Kecerdasan", "Web & Sistem", "IoT & Robotika"],
+  },
+
+  // Error pages
+  errors: {
+    title: "Halaman ini sedang bermasalah",
+    body: "Terjadi kesalahan saat memuat halaman. Coba muat ulang, atau kembali ke gerbang.",
+    retry: "Coba lagi",
+    home: "Ke gerbang",
+    notFoundTitle: "Halaman tidak ditemukan",
+    notFoundBody: "Alamat yang kamu buka tidak ada atau sudah dipindahkan.",
+  },
+
   // Footer
   footer: {
-    copyright: "© 2026 Dewa Dharma. All rights reserved.",
+    copyright: "© 2026 Dewa Dharma. Hak cipta dilindungi.",
   },
 };
 

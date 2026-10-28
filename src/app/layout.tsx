@@ -50,7 +50,8 @@ export const metadata: Metadata = {
     description,
     url: siteUrl,
     siteName: "Dewa Dharma Portfolio",
-    locale: "id_ID",
+    locale: "en_US",
+    alternateLocale: ["id_ID"],
     type: "website",
   },
   twitter: {
@@ -69,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang="en">
       <body className={`antialiased ${inter.variable} ${manrope.variable} ${readingSerif.variable} ${writerSans.variable} ${handwriting.variable}`}>
         <LanguageProvider>
           <Navbar />

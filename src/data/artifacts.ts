@@ -74,7 +74,7 @@ export const artifacts: Artifact[] = [
     },
     category: "Project Based",
     role: {
-      id: "IoT & Web Developer",
+      id: "Pengembang IoT & Web",
       en: "IoT & Web Developer",
     },
     description: {
@@ -112,7 +112,7 @@ export const artifacts: Artifact[] = [
     },
     category: "Project Based",
     role: {
-      id: "Project Leader & Developer",
+      id: "Ketua Proyek & Pengembang",
       en: "Project Leader & Developer",
     },
     description: {
@@ -153,7 +153,7 @@ export const artifacts: Artifact[] = [
     },
     category: "Project Based",
     role: {
-      id: "Mobile Developer",
+      id: "Pengembang Aplikasi Mobile",
       en: "Mobile Developer",
     },
     description: {
@@ -197,7 +197,7 @@ export const artifacts: Artifact[] = [
     },
     category: "Case Based",
     role: {
-      id: "Research Assistant / Student Researcher",
+      id: "Asisten Peneliti / Peneliti Mahasiswa",
       en: "Research Assistant / Student Researcher",
     },
     description: {
@@ -239,7 +239,7 @@ export const artifacts: Artifact[] = [
     },
     category: "Case Based",
     role: {
-      id: "Peneliti / Student Researcher",
+      id: "Peneliti / Peneliti Mahasiswa",
       en: "Researcher / Student Researcher",
     },
     description: {
@@ -283,7 +283,7 @@ export const artifacts: Artifact[] = [
     },
     category: "Additional",
     role: {
-      id: "Writer & Performer",
+      id: "Penulis & Penampil",
       en: "Writer & Performer",
     },
     description: {
@@ -354,12 +354,12 @@ export const artifacts: Artifact[] = [
   {
     id: "vru-exchange",
     title: {
-      id: "Academic & Cross-Cultural Collaboration - VRU Thailand Exchange",
+      id: "Kolaborasi Akademik & Lintas Budaya - Pertukaran VRU Thailand",
       en: "Academic & Cross-Cultural Collaboration - VRU Thailand Exchange",
     },
     category: "Additional",
     role: {
-      id: "Student Delegate",
+      id: "Delegasi Mahasiswa",
       en: "Student Delegate",
     },
     description: {

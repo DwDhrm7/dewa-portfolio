@@ -137,7 +137,7 @@ function Page({ side, head, folio, children }: { side: "left" | "right"; head: s
  * (once per door) and clipped to each half, so the leaves meet at the gutter when the doors
  * are shut, and each door turns away like a page.
  */
-function OpenBook({ nameLabel, hintLabel }: { nameLabel: string; hintLabel: string }) {
+function OpenBook({ greeting, nameLabel, hintLabel }: { greeting: string; nameLabel: string; hintLabel: string }) {
   return (
     <div className="relative h-full w-full bg-[#1b130c]" aria-hidden="true">
       <Page side="left" head="De Machinis" folio="xii">
@@ -176,7 +176,7 @@ function OpenBook({ nameLabel, hintLabel }: { nameLabel: string; hintLabel: stri
       <div className="absolute inset-y-0 left-1/2 w-28 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(70,45,20,0.3)_38%,rgba(35,20,8,0.6)_50%,rgba(70,45,20,0.3)_62%,transparent)]" />
 
       <div className="absolute left-1/2 top-1/2 w-[82%] -translate-x-1/2 -translate-y-1/2 text-center">
-        <p className="book-ink whitespace-nowrap font-serif text-[12px] italic md:text-7xl lg:text-8xl">Hey I&rsquo;m Dewa Dharma</p>
+        <p className="book-ink whitespace-nowrap font-serif text-[12px] italic md:text-7xl lg:text-8xl">{greeting}</p>
         <p className="book-ink mt-4 font-serif text-[10px] uppercase leading-relaxed tracking-[0.28em] md:text-sm">{nameLabel}</p>
         <p className="mt-6 font-ui text-[10px] uppercase leading-relaxed tracking-[0.2em] text-[#5a4428] md:text-[11px]">{hintLabel}</p>
       </div>
@@ -322,13 +322,13 @@ export default function GatewaySplit() {
         side="left"
         rotate={rotateLeft}
         openAmount={openLeft}
-        art={<OpenBook nameLabel={t.gateway.choose} hintLabel={t.gateway.hint} />}
+        art={<OpenBook greeting={t.gateway.greeting} nameLabel={t.gateway.choose} hintLabel={t.gateway.hint} />}
       />
       <DoorFace
         side="right"
         rotate={rotateRight}
         openAmount={openRight}
-        art={<OpenBook nameLabel={t.gateway.choose} hintLabel={t.gateway.hint} />}
+        art={<OpenBook greeting={t.gateway.greeting} nameLabel={t.gateway.choose} hintLabel={t.gateway.hint} />}
       />
 
       {/* Tech reveal, behind the left door */}
