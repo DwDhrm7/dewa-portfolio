@@ -17,9 +17,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   // Load language from localStorage on mount
   useEffect(() => {
-    const savedLang = localStorage.getItem("language") as Language;
-    if (savedLang) {
-      setLanguage(savedLang);
+    try {
+      const savedLang = localStorage.getItem("language");
+      if (savedLang === "id" || savedLang === "en") setLanguage(savedLang);
+    } catch {
+      // storage can be blocked (private mode); keep the default
     }
   }, []);
 
@@ -27,7 +29,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const toggleLanguage = () => {
     const newLang = language === "id" ? "en" : "id";
     setLanguage(newLang);
-    localStorage.setItem("language", newLang);
+    try {
+      localStorage.setItem("language", newLang);
+    } catch {
+      // ignore: the choice just won't persist
+    }
   };
 
   // Simple translation function (will be enhanced)

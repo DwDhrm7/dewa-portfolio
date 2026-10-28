@@ -24,10 +24,3 @@ export function useWriterItems(category?: WriterCategory) {
   return items;
 }
 
-const MONTHS = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-
-export function formatDate(date: string) {
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
-  if (!match) return date;
-  return `${Number(match[3])} ${MONTHS[Number(match[2]) - 1]} ${match[1]}`;
-}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Inter_Tight, Source_Serif_4 } from "next/font/google";
+import { Inter, Manrope, Inter_Tight, Source_Serif_4, Cedarville_Cursive } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -25,37 +25,38 @@ const readingSerif = Source_Serif_4({
   axes: ["opsz"],
 });
 
+const handwriting = Cedarville_Cursive({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+  variable: "--font-hand",
+});
+
 const writerSans = Inter_Tight({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-writer-ui",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dewa-portfolio.vercel.app";
+const description = "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Dewa Dharma | Portfolio",
-  description:
-    "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
+  description,
   openGraph: {
     title: "Dewa Dharma | Portfolio",
-    description: "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
-    url: "https://dewa-portfolio.vercel.app", // Adjust with actual domain
+    description,
+    url: siteUrl,
     siteName: "Dewa Dharma Portfolio",
-    images: [
-      {
-        url: "/og-image.jpg", // Please place an og-image.jpg in your public folder
-        width: 1200,
-        height: 630,
-        alt: "Dewa Dharma Portfolio",
-      },
-    ],
     locale: "id_ID",
     type: "website",
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Dewa Dharma | Portfolio",
-    description: "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast",
-    images: ["/og-image.jpg"],
+    description,
   },
   icons: {
     icon: "/favicon.ico",
@@ -69,7 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`antialiased ${inter.variable} ${manrope.variable} ${readingSerif.variable} ${writerSans.variable}`}>
+      <body className={`antialiased ${inter.variable} ${manrope.variable} ${readingSerif.variable} ${writerSans.variable} ${handwriting.variable}`}>
         <LanguageProvider>
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>

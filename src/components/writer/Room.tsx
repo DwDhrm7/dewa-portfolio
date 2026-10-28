@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { WriterItem, WriterCategory } from "@/types/writer";
-import { formatDate } from "./useWriterItems";
+import { useWriterCopy } from "./copy";
 import { woodImages } from "./woodImages";
 
 /** A short rule with a diamond. Only used where it means something: a scene break. */
@@ -18,24 +19,13 @@ export function Ornament({ className = "" }: { className?: string }) {
   );
 }
 
-const categoryLabel: Record<WriterCategory, string> = { puisi: "Puisi", cerpen: "Cerpen", novel: "Novel" };
-
-const achievements = [
-  "Juara I Penulisan Puisi, PEKSIMIDA Bali 2026",
-  "Delegasi Bali, PEKSIMINAS 2026",
-  "Juara I Baca Puisi Putra, PEKSIMIDA Bali 2024",
-  "Delegasi Bali, PEKSIMINAS 2024",
-  "Juara I Baca Puisi Nasional, CORISINDO 2024",
-  "Juara II Baca Puisi Nasional, OFSN 2024",
-];
-
 type Tab = "beranda" | WriterCategory;
 
-const tabs: { id: Tab; label: string; href: string }[] = [
-  { id: "beranda", label: "Beranda", href: "/writer" },
-  { id: "puisi", label: "Puisi", href: "/writer/puisi" },
-  { id: "cerpen", label: "Cerpen", href: "/writer/cerpen" },
-  { id: "novel", label: "Novel", href: "/writer/novel" },
+const tabs: { id: Tab; href: string }[] = [
+  { id: "beranda", href: "/writer" },
+  { id: "puisi", href: "/writer/puisi" },
+  { id: "cerpen", href: "/writer/cerpen" },
+  { id: "novel", href: "/writer/novel" },
 ];
 
 /** Medium's profile page: name and tabs over the main column, the author's sidebar alongside. */
@@ -48,16 +38,17 @@ export function WriterShell({
   items: WriterItem[] | null;
   children: React.ReactNode;
 }) {
-  const count = (c: WriterCategory) => items?.filter((i) => i.category === c).length;
+  const c = useWriterCopy();
+  const count = (cat: WriterCategory) => items?.filter((i) => i.category === cat).length;
 
   return (
     <div className="mx-auto max-w-[1192px] px-6 pb-24 pt-28 md:pt-32">
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
         <div className="min-w-0">
-          <h1 className="text-[34px] leading-tight sm:text-[42px]">Dewa Dharma Putra</h1>
+          <h1 className="text-[34px] leading-tight sm:text-[42px]">{c.title}</h1>
 
           <nav
-            aria-label="Kategori karya"
+            aria-label={c.tabsLabel}
             className="mt-8 flex gap-7 overflow-x-auto overflow-y-hidden border-b border-ink/10 font-ui text-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {tabs.map((tab) => {
@@ -72,7 +63,7 @@ export function WriterShell({
                     isActive ? "border-ink text-ink" : "border-transparent text-ink-soft hover:text-ink"
                   }`}
                 >
-                  {tab.label}
+                  {c.tabs[tab.id]}
                   {n !== undefined && <span className="tabular-nums text-xs text-ink-soft">{n}</span>}
                 </Link>
               );
@@ -84,14 +75,14 @@ export function WriterShell({
 
         <aside className="mt-16 border-t border-ink/10 pt-10 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-2">
           <div className="lg:sticky lg:top-28">
-            <p className="font-ui text-base font-semibold">Profil Penulis</p>
+            <p className="font-ui text-base font-semibold">{c.profileTitle}</p>
             <p className="mt-3 font-ui text-sm leading-relaxed text-ink-soft">
-              Dewa Dharma Putra bernama lengkap I Dewa Made Dharma Putra Santika adalah penulis dan penyair muda asal Bali. Ia aktif menulis dan membaca puisi. Ia meraih juara pertama baca puisi putra pada PEKSIMIDA 2024 Bali dan menjadi peserta PEKSIMINAS 2024 di Universitas Negeri Jakarta. Pada PEKSIMIDA Bali 2026, ia meraih juara pertama penulisan puisi dan melaju ke PEKSIMINAS 2026 di Universitas Negeri Jember.
+              {c.profile}
             </p>
 
-            <p className="mt-10 font-ui text-base font-semibold">Prestasi</p>
+            <p className="mt-10 font-ui text-base font-semibold">{c.achievementsTitle}</p>
             <ul className="mt-4 space-y-3 font-ui text-sm text-ink-soft">
-              {achievements.map((a) => (
+              {c.achievements.map((a) => (
                 <li key={a}>{a}</li>
               ))}
             </ul>
@@ -114,6 +105,7 @@ function poemPreview(item: WriterItem) {
 
 /** One row of the feed, as on Medium: meta, bold title, a serif line of the work, thumbnail on the right. */
 export function FeedRow({ item }: { item: WriterItem }) {
+  const c = useWriterCopy();
   const preview = item.category === "puisi" ? poemPreview(item) : item.synopsis;
 
   return (
@@ -121,7 +113,7 @@ export function FeedRow({ item }: { item: WriterItem }) {
       <Link href={`/writer/read/${item.slug}`} className="group grid grid-cols-[minmax(0,1fr)_auto] gap-6 sm:gap-10">
         <div className="min-w-0">
           <p className="font-ui text-[13px] text-ink-soft">
-            {categoryLabel[item.category]}, {formatDate(item.date)}
+            {c.category[item.category]}, {c.formatDate(item.date)}
           </p>
           <h2 className="mt-2 text-xl leading-snug transition group-hover:text-ink/70 sm:text-[22px]">
             {item.title}
@@ -132,9 +124,13 @@ export function FeedRow({ item }: { item: WriterItem }) {
           {item.readTime && <p className="mt-4 font-ui text-[13px] text-ink-soft">{item.readTime}</p>}
         </div>
         {item.coverImage && (
-          <img
+          <Image
             src={item.coverImage}
             alt=""
+            unoptimized={item.coverImage.startsWith("http")}
+            width={160}
+            height={107}
+            sizes="(min-width: 640px) 160px, 72px"
             className="h-[72px] w-[72px] object-cover object-[center_35%] sm:h-[107px] sm:w-[160px]"
           />
         )}
@@ -144,8 +140,9 @@ export function FeedRow({ item }: { item: WriterItem }) {
 }
 
 export function Feed({ items }: { items: WriterItem[] | null }) {
-  if (items === null) return <p className="py-10 font-ui text-sm text-ink-soft">Memuat karya...</p>;
-  if (items.length === 0) return <p className="py-10 font-ui text-sm text-ink-soft">Belum ada karya di sini.</p>;
+  const c = useWriterCopy();
+  if (items === null) return <p className="py-10 font-ui text-sm text-ink-soft">{c.loading}</p>;
+  if (items.length === 0) return <p className="py-10 font-ui text-sm text-ink-soft">{c.empty}</p>;
   return (
     <div>
       {items.map((item) => (
@@ -173,8 +170,11 @@ function tornEdge(seed: number, teeth = 38, depthPx = 9) {
   return `polygon(${[...top, ...bottom].join(", ")})`;
 }
 
+const SHEET_CHAPTERS = 4;
+
 /** A novel as a page torn from a manuscript, laid left or right on the desk. */
 export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "left" | "right"; seed: number }) {
+  const c = useWriterCopy();
   const reduce = useReducedMotion();
   const tilt = side === "left" ? -0.8 : 0.8;
   const chapters = novel.chapters ?? [];
@@ -206,7 +206,7 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
         >
           <div className="min-w-0">
             <p className="font-ui text-[13px] text-ink-soft">
-              {novel.isPreview ? `Pratinjau, ${chapters.length} bagian` : `${chapters.length} bagian`}
+              {novel.isPreview ? c.preview(chapters.length) : c.sections(chapters.length)}
               {novel.readTime ? `, ${novel.readTime}` : ""}
             </p>
             <h2 className="mt-2 text-[28px] leading-tight sm:text-[32px]">{novel.title}</h2>
@@ -215,7 +215,7 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
 
             {chapters.length > 0 && (
               <ul className="mt-5 space-y-1 font-ui text-sm">
-                {chapters.map((ch) => (
+                {chapters.slice(0, SHEET_CHAPTERS).map((ch) => (
                   <li key={ch.id}>
                     <Link
                       href={`/writer/read/${novel.slug}?bab=${ch.chapterNumber}`}
@@ -225,6 +225,9 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
                     </Link>
                   </li>
                 ))}
+                {chapters.length > SHEET_CHAPTERS && (
+                  <li className="pt-1 text-ink-soft">{c.moreSections(chapters.length - SHEET_CHAPTERS)}</li>
+                )}
               </ul>
             )}
 
@@ -233,7 +236,7 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
                 href={`/writer/read/${novel.slug}`}
                 className="mt-7 inline-flex rounded-full bg-ink px-5 py-2.5 font-ui text-sm font-medium text-paper transition hover:bg-ink/85"
               >
-                Baca dari {first.title.split(":")[0].toLowerCase()}
+                {c.readFrom(first.title.split(":")[0].toLowerCase())}
               </Link>
             )}
           </div>
@@ -255,11 +258,19 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
 
 /** A book cover that sits on top of its container rather than inside it. */
 function Cover({ item }: { item: WriterItem }) {
+  const c = useWriterCopy();
   const shadow = "shadow-[0_28px_40px_-14px_rgba(36,28,21,0.55),0_6px_14px_rgba(36,28,21,0.18)]";
   return (
     <div className={`relative aspect-[2/3] w-full overflow-hidden ${shadow}`}>
       {item.coverImage ? (
-        <img src={item.coverImage} alt={`Sampul ${item.title}`} className="h-full w-full object-cover" />
+        <Image
+          src={item.coverImage}
+          alt={c.cover(item.title)}
+          unoptimized={item.coverImage.startsWith("http")}
+          fill
+          sizes="(min-width: 640px) 192px, 128px"
+          className="object-cover"
+        />
       ) : (
         <div className="flex h-full flex-col justify-between bg-ink p-4 text-paper">
           <span className="font-serif text-xl leading-tight">{item.title}</span>
@@ -273,13 +284,14 @@ function Cover({ item }: { item: WriterItem }) {
 
 /** A short story gets more weight than a poem: a washed panel with its cover leaning out of the top. */
 export function StoryPanel({ story }: { story: WriterItem }) {
+  const c = useWriterCopy();
   return (
     <article className="mt-20 first:mt-16 sm:mt-24">
       <Link
         href={`/writer/read/${story.slug}`}
         className="group relative block bg-wash/70 px-6 pb-8 pt-[8.5rem] transition-colors hover:bg-wash sm:min-h-[15rem] sm:py-9 sm:pl-8 sm:pr-[13rem]"
       >
-        <p className="font-ui text-[13px] text-ink-soft">Cerpen, {formatDate(story.date)}</p>
+        <p className="font-ui text-[13px] text-ink-soft">{c.category.cerpen}, {c.formatDate(story.date)}</p>
         <h2 className="mt-2 text-2xl leading-snug sm:text-[26px]">{story.title}</h2>
         <p className="mt-3 line-clamp-3 whitespace-pre-line text-[17px] leading-relaxed text-ink-soft">
           {story.synopsis}
@@ -295,7 +307,8 @@ export function StoryPanel({ story }: { story: WriterItem }) {
 }
 
 export function StoryList({ stories }: { stories: WriterItem[] | null }) {
-  if (stories === null) return <p className="py-10 font-ui text-sm text-ink-soft">Memuat karya...</p>;
+  const c = useWriterCopy();
+  if (stories === null) return <p className="py-10 font-ui text-sm text-ink-soft">{c.loading}</p>;
   return (
     <div>
       {stories.map((story) => (
@@ -306,23 +319,24 @@ export function StoryList({ stories }: { stories: WriterItem[] | null }) {
 }
 
 export function Pager({ page, pages, onChange }: { page: number; pages: number; onChange: (page: number) => void }) {
+  const c = useWriterCopy();
   const step = "inline-flex h-11 items-center gap-1.5 px-2 text-ink-soft transition hover:text-ink disabled:pointer-events-none disabled:opacity-30";
   return (
-    <nav aria-label="Halaman puisi" className="mt-10 flex items-center justify-between gap-4 font-ui text-sm">
+    <nav aria-label={c.pager.label} className="mt-10 flex items-center justify-between gap-4 font-ui text-sm">
       <button type="button" className={step} disabled={page === 1} onClick={() => onChange(page - 1)}>
         <ChevronLeft size={16} />
-        <span className="hidden sm:inline">Sebelumnya</span>
+        <span className="hidden sm:inline">{c.pager.prev}</span>
       </button>
 
       <span className="tabular-nums text-ink-soft sm:hidden">
-        Halaman {page} dari {pages}
+        {c.pager.page(page, pages)}
       </span>
       <ol className="hidden items-center gap-1 sm:flex">
         {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
           <li key={n}>
             <button
               type="button"
-              aria-label={`Halaman ${n}`}
+              aria-label={c.pager.goTo(n)}
               aria-current={n === page ? "page" : undefined}
               onClick={() => onChange(n)}
               className={`h-10 w-10 rounded-full tabular-nums transition ${
@@ -336,7 +350,7 @@ export function Pager({ page, pages, onChange }: { page: number; pages: number; 
       </ol>
 
       <button type="button" className={step} disabled={page === pages} onClick={() => onChange(page + 1)}>
-        <span className="hidden sm:inline">Berikutnya</span>
+        <span className="hidden sm:inline">{c.pager.next}</span>
         <ChevronRight size={16} />
       </button>
     </nav>

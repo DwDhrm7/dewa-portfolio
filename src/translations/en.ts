@@ -27,7 +27,11 @@ export const en: TranslationKeys = {
     writerDesc: "An anthology of poetry, short stories, novel chapters, and soul musings crafted in timeless typography.",
     writerCta: "Enter The Writer's Realm",
     writerTags: ["Poetry", "Stories", "Novels", "Literature"],
-    hint: "Move your cursor left or right",
+    choose: "Choose which Dewa Dharma you're looking for",
+    loadingTech: "Preparing the tech realm",
+    loadingWriter: "Opening the writing room",
+    loadingGateway: "Returning to the gateway",
+    hint: "Move your cursor left or right to find out",
   },
 
   // Hero

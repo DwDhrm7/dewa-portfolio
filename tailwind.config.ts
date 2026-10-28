@@ -27,6 +27,7 @@ const config: Config = {
         headline: ["var(--font-headline)", "system-ui", "sans-serif"],
         serif: ["var(--font-reading)", "Georgia", "Cambria", "serif"],
         ui: ["var(--font-writer-ui)", "Helvetica Neue", "Arial", "sans-serif"],
+        hand: ["var(--font-hand)", "cursive"],
         mono: ["ui-monospace", "SFMono-Regular", "monospace"],
       },
     },

@@ -71,6 +71,7 @@ export default function PortfolioPage() {
                   <Link
                     href={artifact.links[0].url}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="rounded-full border border-black/10 p-3 text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
                   >
                     <ArrowUpRight size={18} />
@@ -164,6 +165,7 @@ export default function PortfolioPage() {
                           key={link.url}
                           href={link.url}
                           target="_blank"
+                          rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-neutral-950"
                         >
                           {link.label}

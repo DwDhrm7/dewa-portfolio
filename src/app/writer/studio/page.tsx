@@ -42,6 +42,8 @@ export default function WriterStudioPage() {
   const [passwordInput, setPasswordInput] = useState<string>("");
   const [loginError, setLoginError] = useState<string>("");
   const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [configured, setConfigured] = useState<boolean>(true);
 
   // Items state
   const [items, setItems] = useState<WriterItem[]>([]);
@@ -73,57 +75,68 @@ export default function WriterStudioPage() {
 
   const [notification, setNotification] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
+  /** One place for network + status handling; a 401 anywhere means the session ended. */
+  async function api<T = unknown>(url: string, init?: RequestInit): Promise<{ ok: boolean; status: number; json: T & { error?: string } }> {
+    try {
+      const res = await fetch(url, init);
+      const json = (await res.json().catch(() => ({}))) as T & { error?: string };
+      if (res.status === 401 && url !== "/api/writer/auth") setAuthState("locked");
+      return { ok: res.ok, status: res.status, json };
+    } catch {
+      return { ok: false, status: 0, json: { error: "Tidak dapat terhubung ke server." } as T & { error?: string } };
+    }
+  }
+
   useEffect(() => {
-    fetch("/api/writer/auth")
-      .then((res) => res.json())
-      .then((json) => setAuthState(json.authenticated ? "open" : "locked"))
-      .catch(() => setAuthState("locked"));
+    api<{ authenticated: boolean; configured: boolean }>("/api/writer/auth").then(({ json }) => {
+      setConfigured(json.configured !== false);
+      setAuthState(json.authenticated ? "open" : "locked");
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (authState === "open") fetchItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authState]);
 
   async function fetchItems() {
     setIsLoading(true);
-    try {
-      const res = await fetch("/api/writer");
-      const json = await res.json();
-      if (json.success && json.data) {
-        setItems(json.data);
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    const { ok, json } = await api<{ data?: WriterItem[] }>("/api/writer");
+    if (ok && Array.isArray(json.data)) setItems(json.data);
+    else showNotify(json.error || "Gagal memuat daftar karya.", "error");
+    setIsLoading(false);
   }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSigningIn(true);
     setLoginError("");
-    try {
-      const res = await fetch("/api/writer/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: passwordInput }),
-      });
-      if (res.ok) {
-        setPasswordInput("");
-        setAuthState("open");
-      } else {
-        setLoginError("Kata sandi tidak sesuai.");
-      }
-    } catch {
-      setLoginError("Tidak dapat terhubung ke server.");
-    } finally {
-      setIsSigningIn(false);
+    const { ok, status, json } = await api("/api/writer/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: passwordInput }),
+    });
+    if (ok) {
+      setPasswordInput("");
+      setAuthState("open");
+    } else if (status === 401) {
+      setLoginError("Kata sandi tidak sesuai.");
+    } else if (status === 429) {
+      setLoginError(json.error || "Terlalu banyak percobaan. Coba lagi nanti.");
+    } else if (status === 403) {
+      setLoginError("Permintaan ditolak. Buka Studio langsung dari alamat situs ini, lalu coba lagi.");
+    } else if (status === 0) {
+      setLoginError(json.error || "Tidak dapat terhubung ke server.");
+    } else {
+      setLoginError(`Server sedang bermasalah (kode ${status}). Coba muat ulang halaman.`);
     }
+    setIsSigningIn(false);
   };
 
   const handleLogout = async () => {
-    await fetch("/api/writer/auth", { method: "DELETE" }).catch(() => {});
+    await api("/api/writer/auth", { method: "DELETE" });
+    setItems([]);
     setAuthState("locked");
     setPasswordInput("");
   };
@@ -163,57 +176,48 @@ export default function WriterStudioPage() {
   };
 
   const openEditItem = async (item: WriterItem) => {
-    try {
-      const res = await fetch(`/api/writer?slug=${encodeURIComponent(item.slug)}`);
-      const json = await res.json();
-      if (!json.success) throw new Error(json.error);
-      const { excerpt: _excerpt, ...full } = json.data as WriterItem;
-      setEditingItem(full);
-      setEditorMode("write");
-      setIsEditorOpen(true);
-    } catch {
-      showNotify("Gagal membuka karya.", "error");
+    const { ok, json } = await api<{ data?: WriterItem }>(`/api/writer?slug=${encodeURIComponent(item.slug)}`);
+    if (!ok || !json.data) {
+      showNotify(json.error || "Gagal membuka karya.", "error");
+      return;
     }
+    const { excerpt: _excerpt, ...full } = json.data;
+    setEditingItem(full);
+    setEditorMode("write");
+    setIsEditorOpen(true);
   };
 
   const handleDeleteItem = async (id: string, title: string) => {
-    if (!confirm(`Hapus karya "${title}"?`)) return;
-
-    try {
-      const res = await fetch(`/api/writer?id=${id}`, { method: "DELETE" });
-      const json = await res.json();
-      if (json.success) {
-        setItems(json.data);
-        showNotify("Karya berhasil dihapus.", "success");
-      }
-    } catch (err) {
-      showNotify("Gagal menghapus karya.", "error");
+    if (!confirm(`Hapus karya "${title}"? Tindakan ini tidak bisa dibatalkan.`)) return;
+    const { ok, json } = await api<{ data?: WriterItem[] }>(`/api/writer?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+    if (ok && json.data) {
+      setItems(json.data);
+      showNotify("Karya berhasil dihapus.", "success");
+    } else {
+      showNotify(json.error || "Gagal menghapus karya.", "error");
     }
   };
 
   const handleSaveItem = async () => {
-    if (!editingItem.title || !editingItem.category) {
-      alert("Judul dan Kategori wajib diisi!");
+    if (!editingItem.title?.trim() || !editingItem.category) {
+      showNotify("Judul dan kategori wajib diisi.", "error");
       return;
     }
+    if (isSaving) return;
+    setIsSaving(true);
+    const { ok, json } = await api<{ data?: WriterItem[] }>("/api/writer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editingItem),
+    });
+    setIsSaving(false);
 
-    try {
-      const res = await fetch("/api/writer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editingItem),
-      });
-      const json = await res.json();
-
-      if (json.success) {
-        setItems(json.data);
-        setIsEditorOpen(false);
-        showNotify("Karya berhasil disimpan & dipublikasikan!", "success");
-      } else {
-        showNotify(json.error || "Gagal menyimpan karya", "error");
-      }
-    } catch (err) {
-      showNotify("Terjadi kesalahan saat menyimpan karya.", "error");
+    if (ok && json.data) {
+      setItems(json.data);
+      setIsEditorOpen(false);
+      showNotify("Karya berhasil disimpan.", "success");
+    } else {
+      showNotify(json.error || "Gagal menyimpan karya.", "error");
     }
   };
 
@@ -262,7 +266,7 @@ export default function WriterStudioPage() {
         <div className="w-full max-w-sm border border-ink/10 bg-paper p-10 text-center">
           <Lock size={22} className="mx-auto text-oak" />
           <h1 className="mt-5 text-3xl font-normal">Studio</h1>
-          <p className="mt-2 italic text-ink-soft">Khusus penulis.</p>
+          <p className="mt-2 text-ink-soft">Khusus penulis.</p>
 
           <form onSubmit={handleLogin} className="mt-8 space-y-4">
             <input
@@ -274,6 +278,9 @@ export default function WriterStudioPage() {
               className="w-full border border-ink/20 bg-paper px-4 py-3 text-center text-lg text-ink outline-none transition placeholder:text-ink-soft/60 focus:border-oak"
               autoFocus
             />
+            {!configured && (
+              <p className="text-sm text-ink-soft">Studio belum diaktifkan. Isi WRITER_STUDIO_PASSWORD (minimal 8 karakter) di environment server.</p>
+            )}
             {loginError && <p className="text-sm text-[#9b3b2a]">{loginError}</p>}
             <button
               type="submit"
@@ -447,6 +454,7 @@ export default function WriterStudioPage() {
                 <Link
                   href={`/writer/read/${item.slug}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="rounded-xl border border-black/10 bg-black/[0.02] p-2.5 text-neutral-700 hover:bg-black/5 hover:text-black transition"
                   title="Lihat Pratinjau Pembaca"
                 >
@@ -809,10 +817,11 @@ export default function WriterStudioPage() {
               <button
                 type="button"
                 onClick={handleSaveItem}
-                className="inline-flex items-center gap-2 rounded-xl bg-stone-900 px-8 py-3 text-xs font-semibold text-white hover:bg-black transition shadow-md"
+                disabled={isSaving}
+                className="inline-flex items-center gap-2 rounded-xl bg-stone-900 px-8 py-3 text-xs font-semibold text-white hover:bg-black transition shadow-md disabled:opacity-60"
               >
                 <Save size={14} />
-                <span>Simpan & Publikasikan Karya</span>
+                <span>{isSaving ? "Menyimpan..." : "Simpan Karya"}</span>
               </button>
             </div>
 

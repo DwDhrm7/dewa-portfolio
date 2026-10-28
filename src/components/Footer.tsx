@@ -32,6 +32,7 @@ export default function Footer() {
                 key={s.label}
                 href={s.href}
                 target={s.href.startsWith("http") ? "_blank" : undefined}
+                rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="transition hover:text-ink"
               >
                 {s.label}
@@ -64,14 +65,12 @@ export default function Footer() {
               key={s.label}
               href={s.href}
               target={s.href.startsWith("http") ? "_blank" : undefined}
+              rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
               className="transition hover:text-neutral-950"
             >
               {s.label}
             </Link>
           ))}
-          <Link href="/" className="font-semibold text-neutral-900 transition hover:text-neutral-500">
-            {backLabel}
-          </Link>
         </div>
       </div>
     </footer>

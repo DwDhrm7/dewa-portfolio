@@ -7,6 +7,7 @@ import { Globe, Menu, X, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
+import { TransitionLink } from "@/components/RealmTransition";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,11 +40,11 @@ export default function Navbar() {
           </Link>
 
           <div className="flex items-center gap-5 text-sm">
-            <Link href="/" className="inline-flex items-center gap-1.5 text-ink-soft transition hover:text-ink">
+            <TransitionLink href="/" to="gateway" title="Dewa Dharma" label={t.gateway.loadingGateway} className="inline-flex items-center gap-1.5 text-ink-soft transition hover:text-ink">
               <ArrowLeft size={14} />
               <span className="hidden sm:inline">{backLabel}</span>
               <span className="sm:hidden">{isEn ? "Gateway" : "Gerbang"}</span>
-            </Link>
+            </TransitionLink>
             <button
               onClick={toggleLanguage}
               className="inline-flex h-11 min-w-11 items-center justify-center font-semibold text-ink-soft transition hover:text-ink"
@@ -82,13 +83,14 @@ export default function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
-            <Link
+            <TransitionLink
               href="/"
+              to="gateway" title="Dewa Dharma" label={t.gateway.loadingGateway}
               className="inline-flex items-center gap-2 rounded-full border border-black/10 px-4 py-2 font-headline text-xs font-semibold text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
             >
               <ArrowLeft size={13} />
               {backLabel}
-            </Link>
+            </TransitionLink>
             <button
               onClick={toggleLanguage}
               className="inline-flex items-center gap-1.5 rounded-full border border-black/10 px-3.5 py-2 font-headline text-xs font-semibold uppercase tracking-[0.2em] text-neutral-900 transition hover:bg-neutral-950 hover:text-white"
@@ -131,14 +133,14 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="mt-2 flex items-center justify-between border-t border-black/10 pt-4">
-                <Link
+                <TransitionLink
                   href="/"
-                  onClick={() => setIsOpen(false)}
+                  to="gateway" title="Dewa Dharma" label={t.gateway.loadingGateway}
                   className="inline-flex items-center gap-2 font-headline text-sm font-semibold text-neutral-700"
                 >
                   <ArrowLeft size={14} />
                   {backLabel}
-                </Link>
+                </TransitionLink>
                 <button
                   onClick={toggleLanguage}
                   className="font-headline text-xs font-bold uppercase tracking-[0.2em] text-neutral-900"

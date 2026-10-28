@@ -1,102 +1,109 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getWriterItems, saveWriterItem, deleteWriterItem } from "@/lib/writerStorage";
-import { WriterItem } from "@/types/writer";
-import { isStudioAuthenticated } from "@/lib/studioAuth";
+import { LIMITS, validateItem } from "@/lib/writerValidation";
+import {
+  SlugConflictError,
+  StorageUnavailableError,
+  deleteWriterItem,
+  getWriterItems,
+  saveWriterItem,
+} from "@/lib/writerStorage";
+import { isSameOrigin, isStudioAuthenticated } from "@/lib/studioAuth";
+import type { WriterItem } from "@/types/writer";
 
-const unauthorized = () =>
-  NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+const noStore = { "Cache-Control": "no-store" };
+const cacheFor = (private_: boolean) => ({
+  "Cache-Control": private_ ? "no-store" : "public, s-maxage=60, stale-while-revalidate=300",
+  Vary: "Cookie", // drafts are visible to the author only, so shared caches must not mix the two
+});
+
+function fail(status: number, error: string, extra: Record<string, unknown> = {}) {
+  return NextResponse.json({ success: false, error, ...extra }, { status, headers: noStore });
+}
+
+/** Unexpected errors are logged for us and reported generically to the client. */
+function serverError(context: string, error: unknown) {
+  console.error(`[api/writer] ${context}:`, error);
+  return fail(500, "Terjadi kesalahan di server.");
+}
 
 function summarize(item: WriterItem): WriterItem {
   const { content, ...rest } = item;
   return {
     ...rest,
     excerpt: content?.split(/\n{2,}/).slice(0, 2).join("\n\n"),
-    chapters: item.chapters?.map(({ content: _body, ...chapter }) => ({ ...chapter, content: "" })),
+    chapters: item.chapters?.map((chapter) => ({ ...chapter, content: "" })),
   };
 }
 
 export async function GET(req: NextRequest) {
   try {
     const items = getWriterItems();
-    const slug = new URL(req.url).searchParams.get("slug");
+    const canSeeDrafts = await isStudioAuthenticated();
+    const visible = canSeeDrafts ? items : items.filter((item) => item.isPublished !== false);
 
+    const slug = new URL(req.url).searchParams.get("slug");
     if (slug) {
-      const item = items.find((it) => it.slug === slug || it.id === slug);
-      if (!item || (item.isPublished === false && !(await isStudioAuthenticated()))) {
-        return NextResponse.json({ success: false, error: "Not found" }, { status: 404 });
-      }
-      return NextResponse.json({ success: true, data: item });
+      const item = visible.find((it) => it.slug === slug || it.id === slug);
+      return item
+        ? NextResponse.json({ success: true, data: item }, { headers: cacheFor(canSeeDrafts) })
+        : fail(404, "Karya tidak ditemukan.");
     }
 
-    const visible = (await isStudioAuthenticated())
-      ? items
-      : items.filter((it) => it.isPublished !== false);
-    return NextResponse.json({ success: true, data: visible.map(summarize) });
-  } catch (error) {
     return NextResponse.json(
-      { success: false, error: (error as Error).message },
-      { status: 500 }
+      { success: true, data: visible.map(summarize) },
+      { headers: cacheFor(canSeeDrafts) }
     );
+  } catch (error) {
+    return serverError("GET", error);
   }
 }
 
+async function guardWrite(req: NextRequest) {
+  if (!isSameOrigin(req)) return fail(403, "Permintaan ditolak.");
+  if (!(await isStudioAuthenticated())) return fail(401, "Unauthorized");
+  return null;
+}
+
 export async function POST(req: NextRequest) {
-  if (!(await isStudioAuthenticated())) return unauthorized();
+  const denied = await guardWrite(req);
+  if (denied) return denied;
 
   try {
-    const body = await req.json();
-    const item = body as WriterItem;
+    const text = await req.text();
+    if (text.length > LIMITS.body) return fail(413, "Data terlalu besar.");
 
-    if (!item.title || !item.category) {
-      return NextResponse.json(
-        { success: false, error: "Title and Category are required." },
-        { status: 400 }
-      );
+    let body: unknown;
+    try {
+      body = JSON.parse(text);
+    } catch {
+      return fail(400, "Format data tidak valid.");
     }
 
-    // Generate slug if missing
-    if (!item.slug) {
-      item.slug = item.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)+/g, "");
-    }
+    const result = validateItem(body);
+    if (!result.ok) return fail(400, result.errors[0], { errors: result.errors });
 
-    // Generate id if missing
-    if (!item.id) {
-      item.id = `${item.category}-${Date.now()}`;
-    }
-
-    const updated = saveWriterItem(item);
-    return NextResponse.json({ success: true, data: updated, savedItem: item });
+    const items = await saveWriterItem(result.value);
+    return NextResponse.json({ success: true, data: items.map(summarize), savedItem: summarize(result.value) }, { headers: noStore });
   } catch (error) {
-    return NextResponse.json(
-      { success: false, error: (error as Error).message },
-      { status: 500 }
-    );
+    if (error instanceof SlugConflictError) return fail(409, error.message);
+    if (error instanceof StorageUnavailableError) return fail(503, error.message);
+    return serverError("POST", error);
   }
 }
 
 export async function DELETE(req: NextRequest) {
-  if (!(await isStudioAuthenticated())) return unauthorized();
+  const denied = await guardWrite(req);
+  if (denied) return denied;
 
   try {
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
+    const id = new URL(req.url).searchParams.get("id");
+    if (!id || !/^[A-Za-z0-9_-]{1,100}$/.test(id)) return fail(400, "ID karya tidak valid.");
 
-    if (!id) {
-      return NextResponse.json(
-        { success: false, error: "Item ID is required for deletion." },
-        { status: 400 }
-      );
-    }
-
-    const updated = deleteWriterItem(id);
-    return NextResponse.json({ success: true, data: updated });
+    const items = await deleteWriterItem(id);
+    if (items === null) return fail(404, "Karya tidak ditemukan.");
+    return NextResponse.json({ success: true, data: items.map(summarize) }, { headers: noStore });
   } catch (error) {
-    return NextResponse.json(
-      { success: false, error: (error as Error).message },
-      { status: 500 }
-    );
+    if (error instanceof StorageUnavailableError) return fail(503, error.message);
+    return serverError("DELETE", error);
   }
 }

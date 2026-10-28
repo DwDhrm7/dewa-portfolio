@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useWriterItems } from "@/components/writer/useWriterItems";
+import { useWriterCopy } from "@/components/writer/copy";
 import { Feed, NovelShelf, StoryList, WriterShell } from "@/components/writer/Room";
 
 const LATEST_POEMS = 5;
 
 export default function WriterHomePage() {
   const items = useWriterItems();
+  const c = useWriterCopy();
   const novels = items?.filter((item) => item.category === "novel") ?? [];
   const stories = items ? items.filter((item) => item.category === "cerpen") : null;
   const poems = items ? items.filter((item) => item.category === "puisi") : null;
@@ -19,14 +21,14 @@ export default function WriterHomePage() {
 
       {poems && poems.length > 0 && (
         <section className="mt-20">
-          <h2 className="border-b border-ink/10 pb-4 font-ui text-base">Puisi terbaru</h2>
+          <h2 className="border-b border-ink/10 pb-4 font-ui text-base">{c.latestPoems}</h2>
           <Feed items={poems.slice(0, LATEST_POEMS)} />
           {poems.length > LATEST_POEMS && (
             <Link
               href="/writer/puisi?halaman=2"
               className="mt-8 inline-flex rounded-full border border-ink/20 px-5 py-2.5 font-ui text-sm font-medium transition hover:border-ink hover:bg-ink hover:text-paper"
             >
-              {poems.length - LATEST_POEMS} puisi lainnya
+              {c.morePoems(poems.length - LATEST_POEMS)}
             </Link>
           )}
         </section>

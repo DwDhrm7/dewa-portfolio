@@ -25,9 +25,14 @@ import {
 import { Ornament } from "@/components/writer/Room";
 import { motion, AnimatePresence } from "framer-motion";
 import { WriterItem, TypographyPaperTheme, TypographyFontSize, TypographyAlignment } from "@/types/writer";
-import { formatDate } from "@/components/writer/useWriterItems";
+import { useWriterCopy } from "@/components/writer/copy";
 
 const SCENE_BREAK = "* * *";
+
+function parseChapter(value: string | null | undefined): number {
+  const n = parseInt(value ?? "", 10);
+  return Number.isFinite(n) && n >= 1 ? n : 1;
+}
 
 /** Poems keep their line breaks and stanzas; prose becomes paragraphs; "* * *" becomes an ornament. */
 function Body({ text, poem }: { text: string; poem: boolean }) {
@@ -36,6 +41,10 @@ function Body({ text, poem }: { text: string; poem: boolean }) {
       {text.split(/\n{2,}/).map((block, i) =>
         block.trim() === SCENE_BREAK ? (
           <Ornament key={i} className="my-12" />
+        ) : block.startsWith("## ") ? (
+          <h2 key={i} className="mb-6 mt-14 text-[24px] leading-snug first:mt-0">
+            {block.slice(3)}
+          </h2>
         ) : (
           <p key={i} className={poem ? "mb-[1.6em] whitespace-pre-wrap" : "mb-[1.25em] whitespace-pre-line"}>
             {block}
@@ -47,10 +56,12 @@ function Body({ text, poem }: { text: string; poem: boolean }) {
 }
 
 export default function ReaderPage() {
+  const c = useWriterCopy();
+  const r = c.reader;
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = params?.slug as string;
-  const initialBab = parseInt(searchParams?.get("bab") || "1", 10);
+  const initialBab = parseChapter(searchParams?.get("bab"));
 
   const [item, setItem] = useState<WriterItem | null>(null);
   const [currentChapterNum, setCurrentChapterNum] = useState<number>(initialBab);
@@ -100,7 +111,7 @@ export default function ReaderPage() {
   useEffect(() => {
     const babParam = searchParams?.get("bab");
     if (babParam) {
-      setCurrentChapterNum(parseInt(babParam, 10));
+      setCurrentChapterNum(parseChapter(babParam));
     }
   }, [searchParams]);
 
@@ -175,9 +186,9 @@ export default function ReaderPage() {
         <div className="text-center">
           {notFound ? (
             <>
-              <p className="text-xl">Karya ini tidak ditemukan.</p>
+              <p className="text-xl">{r.notFound}</p>
               <Link href="/writer" className="mt-4 inline-block font-ui text-sm font-medium text-ink">
-                Kembali ke ruang sastra
+                {r.backHome}
               </Link>
             </>
           ) : (
@@ -216,7 +227,7 @@ export default function ReaderPage() {
             className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-black/5 transition"
           >
             <ArrowLeft size={14} />
-            <span className="hidden sm:inline">Kembali</span>
+            <span className="hidden sm:inline">{r.back}</span>
           </Link>
 
           {/* Title & Progress info */}
@@ -237,7 +248,7 @@ export default function ReaderPage() {
             {/* Share / Copy link */}
             <button
               onClick={handleShare}
-              title="Salin tautan baca"
+              title={r.share}
               className="rounded-lg p-2 text-neutral-600 hover:bg-black/5 transition"
             >
               {copied ? <Check size={15} className="text-neutral-600" /> : <Share2 size={15} />}
@@ -246,7 +257,7 @@ export default function ReaderPage() {
             {/* Typography Customizer Drawer Trigger */}
             <button
               onClick={() => setShowToolbar(!showToolbar)}
-              title="Pengaturan Tampilan & Tipografi"
+              title={r.settings}
               className={`rounded-lg p-2 transition ${
                 showToolbar ? "bg-stone-100 text-stone-900" : "text-neutral-600 hover:bg-black/5"
               }`}
@@ -257,7 +268,7 @@ export default function ReaderPage() {
             {/* Distraction Free Mode Toggle */}
             <button
               onClick={() => setIsDistractionFree(!isDistractionFree)}
-              title={isDistractionFree ? "Keluar Mode Hening" : "Mode Hening (Distraction-Free)"}
+              title={isDistractionFree ? r.quietOff : r.quietOn}
               className="rounded-lg p-2 text-neutral-600 hover:bg-black/5 transition"
             >
               {isDistractionFree ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
@@ -282,14 +293,14 @@ export default function ReaderPage() {
             <div className="flex items-center justify-between pb-3 border-b border-black/10 mb-4">
               <span className="text-xs font-bold text-ink uppercase tracking-wider flex items-center gap-2">
                 <Type size={14} className="text-stone-700" />
-                Kustomisasi Ruang Baca
+                {r.panelTitle}
               </span>
               <button 
                 onClick={() => setShowToolbar(false)}
                 className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-black"
               >
                 <X size={13} />
-                Tutup
+                {r.close}
               </button>
             </div>
 
@@ -298,7 +309,7 @@ export default function ReaderPage() {
               {/* Font Size & Alignment */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-neutral-500 mb-1.5 block">Ukuran Huruf:</label>
+                  <label className="text-neutral-500 mb-1.5 block">{r.size}</label>
                   <div className="flex items-center gap-1.5 bg-black/[0.03] p-1 rounded-xl border border-black/10">
                     {[
                       { id: "sm", label: "A-" },
@@ -320,7 +331,7 @@ export default function ReaderPage() {
                 </div>
 
                 <div>
-                  <label className="text-neutral-500 mb-1.5 block">Perataan Teks:</label>
+                  <label className="text-neutral-500 mb-1.5 block">{r.align}</label>
                   <div className="flex items-center gap-1.5 bg-black/[0.03] p-1 rounded-xl border border-black/10">
                     {[
                       { id: "left", icon: AlignLeft, label: "Kiri" },
@@ -343,14 +354,14 @@ export default function ReaderPage() {
 
               {/* Paper Theme Choice */}
               <div>
-                <label className="text-neutral-500 mb-1.5 block">Nuansa Kertas / Latar:</label>
+                <label className="text-neutral-500 mb-1.5 block">{r.paper}</label>
                 <div className="grid grid-cols-5 gap-2">
                   {[
-                    { id: "cream", label: "Krem", bg: "bg-[#FAF7F0] text-black border-stone-900/30" },
-                    { id: "parchment", label: "Perkamen", bg: "bg-[#F4ECD8] text-black border-stone-900/40" },
-                    { id: "sepia", label: "Sepia", bg: "bg-[#EFE5D0] text-black border-stone-800/40" },
-                    { id: "clean-white", label: "Putih", bg: "bg-white text-black border-neutral-300" },
-                    { id: "obsidian", label: "Malam", bg: "bg-[#141414] text-white border-neutral-700" },
+                    { id: "cream", label: r.themes["cream"], bg: "bg-[#FAF7F0] text-black border-stone-900/30" },
+                    { id: "parchment", label: r.themes["parchment"], bg: "bg-[#F4ECD8] text-black border-stone-900/40" },
+                    { id: "sepia", label: r.themes["sepia"], bg: "bg-[#EFE5D0] text-black border-stone-800/40" },
+                    { id: "clean-white", label: r.themes["clean-white"], bg: "bg-white text-black border-neutral-300" },
+                    { id: "obsidian", label: r.themes["obsidian"], bg: "bg-[#141414] text-white border-neutral-700" },
                   ].map((th) => (
                     <button
                       key={th.id}
@@ -385,7 +396,7 @@ export default function ReaderPage() {
             <span aria-hidden="true">·</span>
             <span>{item.readTime}</span>
             <span aria-hidden="true">·</span>
-            <span>{formatDate(item.date)}</span>
+            <span>{c.formatDate(item.date)}</span>
           </div>
 
           {item.category === "novel" && item.chapters && item.chapters.length > 1 && (
@@ -393,7 +404,7 @@ export default function ReaderPage() {
               <BookOpen size={15} className="opacity-60" />
               <select
                 value={currentChapterNum}
-                onChange={(e) => setCurrentChapterNum(parseInt(e.target.value, 10))}
+                onChange={(e) => setCurrentChapterNum(parseChapter(e.target.value))}
                 className="cursor-pointer bg-transparent font-medium outline-none"
               >
                 {item.chapters.map((ch) => (
@@ -442,7 +453,7 @@ export default function ReaderPage() {
                   setCurrentChapterNum(currentChapterNum + 1);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="flex items-center gap-2 bg-ink px-6 py-3 text-sm font-semibold text-ink transition hover:bg-ink/85"
+                className="flex items-center gap-2 bg-ink px-6 py-3 text-sm font-semibold text-paper transition hover:bg-ink/85"
               >
                 {item.chapters[currentChapterNum]?.title}
                 <ChevronRight size={16} />
@@ -453,19 +464,19 @@ export default function ReaderPage() {
 
         {item.isPreview && isLastChapter && (
           <p className="mt-10 text-center font-ui text-sm opacity-60">
-            Pratinjau berakhir di sini.
+            {r.previewEnd}
           </p>
         )}
 
         <div className={`mt-20 border-t ${currentTheme.border} pt-12 text-center`}>
           <Ornament className="mb-5" />
-          <p className="font-ui text-sm opacity-60">Karya I Dewa Made Dharma Putra Santika</p>
+          <p className="font-ui text-sm opacity-60">{r.byline}</p>
           <Link
             href={`/writer/${item.category}`}
             className={`mt-6 inline-flex items-center gap-2 border ${currentTheme.border} px-6 py-2.5 font-ui text-sm font-medium transition hover:bg-black/5`}
           >
             <ArrowLeft size={14} />
-            {item.category === "puisi" ? "Puisi lainnya" : item.category === "cerpen" ? "Cerpen lainnya" : "Rak novel"}
+            {r.more[item.category]}
           </Link>
         </div>
       </main>

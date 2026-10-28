@@ -126,3 +126,37 @@ select {
 ::-webkit-scrollbar-thumb:hover {
   background: #3b3b3b;
 }
+
+/* ---- Gateway: an old book lying open on a wooden table, shot at low exposure ---- */
+.wood-table {
+  background-color: #2a1d14;
+  background-image:
+    /* uneven planks of grain */
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(90deg, rgba(255, 210, 160, 0.035) 0 2px, transparent 2px 23px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.12) 0 3px, transparent 3px 61px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.6' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.38 0 0 0 0 0.24 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    linear-gradient(90deg, #3a2a1d, #2b1e15 30%, #33251a 55%, #261a12 80%, #31231a);
+}
+
+/* aged paper: yellowed, foxed, darker towards the edges */
+.book-page {
+  background-color: #d9c69f;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.32 0 0 0 0 0.16 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.035' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.33 0 0 0 0 0.15 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 85% 80% at 50% 50%, rgba(255, 246, 225, 0.35), transparent 70%),
+    radial-gradient(ellipse 120% 120% at 50% 50%, transparent 45%, rgba(130, 90, 40, 0.45) 100%);
+}
+
+/* the stacked edges of the leaves beneath the open spread */
+.page-block {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(90, 62, 30, 0.35) 0 1px, rgba(214, 192, 148, 0.9) 1px 3px),
+    linear-gradient(180deg, #c9b285, #b79c6c);
+}
+
+.book-ink {
+  color: #2a1e12;
+  text-shadow: 0 1px 0 rgba(255, 240, 210, 0.35);
+}

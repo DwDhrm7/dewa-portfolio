@@ -25,7 +25,11 @@ export const id = {
     writerDesc: "Kumpulan puisi, cerpen, bab novel, dan renungan jiwa dalam tipografi sastra yang tenang dan bebas.",
     writerCta: "Masuki Ruang Kata",
     writerTags: ["Puisi", "Cerpen", "Novel", "Sastra"],
-    hint: "Gerakkan kursor ke kiri atau ke kanan",
+    choose: "Pilih Dewa Dharma yang kamu cari",
+    loadingTech: "Menyiapkan ruang teknologi",
+    loadingWriter: "Membuka ruang kata",
+    loadingGateway: "Kembali ke gerbang",
+    hint: "Gerakkan kursor ke kiri atau kanan untuk mengetahuinya",
   },
 
   // Hero

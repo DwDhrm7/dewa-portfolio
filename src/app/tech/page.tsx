@@ -34,13 +34,6 @@ export default function TechPage() {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          {/* Eyebrow & Status */}
-          <div className="mb-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-900/10 bg-white/80 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-neutral-900" />
-              <span>Tech Realm · ITB STIKOM Bali</span>
-            </div>
-          </div>
 
           <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
             <div className="max-w-4xl">
