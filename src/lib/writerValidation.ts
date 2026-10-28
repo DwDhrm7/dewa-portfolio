@@ -170,6 +170,7 @@ export function validateItem(input: unknown): Result<WriterItem> {
       tags,
       isPublished: raw.isPublished !== false,
       ...(raw.featured === true ? { featured: true } : {}),
+      ...(raw.comingSoon === true ? { comingSoon: true } : {}),
       typography: {
         fontFamily: pick(t.fontFamily, FONTS, "serif"),
         fontSize: pick(t.fontSize, SIZES, "base"),

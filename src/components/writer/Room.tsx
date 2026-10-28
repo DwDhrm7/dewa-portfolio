@@ -206,8 +206,14 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
         >
           <div className="min-w-0">
             <p className="font-ui text-[13px] text-ink-soft">
-              {novel.isPreview ? c.preview(chapters.length) : c.sections(chapters.length)}
-              {novel.readTime ? `, ${novel.readTime}` : ""}
+              {chapters.length > 0 ? (
+                <>
+                  {novel.isPreview ? c.preview(chapters.length) : c.sections(chapters.length)}
+                  {novel.readTime ? `, ${novel.readTime}` : ""}
+                </>
+              ) : (
+                novel.readTime || "Coming Soon!"
+              )}
             </p>
             <h2 className="mt-2 text-[28px] leading-tight sm:text-[32px]">{novel.title}</h2>
             {novel.subtitle && <p className="mt-1.5 font-ui text-base text-ink-soft">{novel.subtitle}</p>}
@@ -231,13 +237,17 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
               </ul>
             )}
 
-            {first && (
+            {first ? (
               <Link
                 href={`/writer/read/${novel.slug}`}
                 className="mt-7 inline-flex rounded-full bg-ink px-5 py-2.5 font-ui text-sm font-medium text-paper transition hover:bg-ink/85"
               >
                 {c.readFrom(first.title.split(":")[0].toLowerCase())}
               </Link>
+            ) : (
+              <span className="mt-7 inline-flex rounded-full border border-ink/20 px-5 py-2.5 font-ui text-sm font-medium text-ink-soft">
+                Coming Soon!
+              </span>
             )}
           </div>
         </div>

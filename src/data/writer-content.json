@@ -278,6 +278,32 @@
     }
   },
   {
+    "id": "novel-jurnal-jantama-3",
+    "slug": "jurnal-jantama-3",
+    "title": "Jurnal Jantama: Hard Fork 3.0",
+    "category": "novel",
+    "subtitle": "Seri 3 dari trilogi Jurnal Jantama",
+    "synopsis": "Coming Soon!",
+    "content": "Coming Soon!",
+    "chapters": [],
+    "date": "2026-10-28",
+    "readTime": "Coming Soon!",
+    "coverImage": "/writer/jurnal-jantama-seri3.png",
+    "tags": [
+      "Novel",
+      "Fiksi Ilmiah"
+    ],
+    "isPublished": true,
+    "comingSoon": true,
+    "typography": {
+      "fontFamily": "serif",
+      "fontSize": "base",
+      "alignment": "left",
+      "paperTheme": "cream",
+      "lineSpacing": "relaxed"
+    }
+  },
+  {
     "id": "cerpen-jadi-pulang",
     "slug": "jadi-pulang",
     "title": "Jadi Pulang?",

@@ -40,6 +40,8 @@ export interface WriterItem {
   featured?: boolean;
   /** Only part of the work is online; the reader says so after the last chapter. */
   isPreview?: boolean;
+  /** Upcoming work not yet published with full chapters */
+  comingSoon?: boolean;
   /** Set by the list API in place of `content`, so listings stay light. */
   excerpt?: string;
   typography: WriterTypographyConfig;

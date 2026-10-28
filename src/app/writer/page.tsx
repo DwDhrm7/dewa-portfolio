@@ -10,7 +10,7 @@ const LATEST_POEMS = 5;
 export default function WriterHomePage() {
   const items = useWriterItems();
   const c = useWriterCopy();
-  const novels = items?.filter((item) => item.category === "novel") ?? [];
+  const novels = items?.filter((item) => item.category === "novel" && !item.comingSoon && item.id !== "novel-jurnal-jantama-3") ?? [];
   const stories = items ? items.filter((item) => item.category === "cerpen") : null;
   const poems = items ? items.filter((item) => item.category === "puisi") : null;
 
