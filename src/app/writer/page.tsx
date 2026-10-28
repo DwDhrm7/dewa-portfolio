@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useWriterItems } from "@/components/writer/useWriterItems";
 import { useWriterCopy } from "@/components/writer/copy";
-import { Feed, NovelShelf, StoryList, WriterShell } from "@/components/writer/Room";
+import { Feed, NovelShelf, Reveal, StoryList, WriterShell } from "@/components/writer/Room";
 
 const LATEST_POEMS = 5;
 
@@ -21,7 +21,9 @@ export default function WriterHomePage() {
 
       {poems && poems.length > 0 && (
         <section className="mt-20">
-          <h2 className="border-b border-ink/10 pb-4 font-ui text-base">{c.latestPoems}</h2>
+          <Reveal>
+            <h2 className="border-b border-ink/10 pb-4 font-ui text-base">{c.latestPoems}</h2>
+          </Reveal>
           <Feed items={poems.slice(0, LATEST_POEMS)} />
           {poems.length > LATEST_POEMS && (
             <Link

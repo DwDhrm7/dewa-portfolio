@@ -8,6 +8,34 @@ import { WriterItem, WriterCategory } from "@/types/writer";
 import { useWriterCopy } from "./copy";
 import { woodImages } from "./woodImages";
 
+/**
+ * Fades a block up the first time it scrolls into view. Off-screen blocks stay idle until then,
+ * and once shown they are never animated again.
+ */
+export function Reveal({
+  as = "div",
+  className,
+  children,
+}: {
+  as?: "div" | "article" | "section";
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const reduce = useReducedMotion();
+  const Tag = motion[as];
+  return (
+    <Tag
+      className={className}
+      initial={reduce ? false : { opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </Tag>
+  );
+}
+
 /** A short rule with a diamond. Only used where it means something: a scene break. */
 export function Ornament({ className = "" }: { className?: string }) {
   return (
@@ -74,7 +102,7 @@ export function WriterShell({
         </div>
 
         <aside className="mt-16 border-t border-ink/10 pt-10 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-2">
-          <div className="lg:sticky lg:top-28">
+          <Reveal className="lg:sticky lg:top-28">
             <p className="font-ui text-base font-semibold">{c.profileTitle}</p>
             <p className="mt-3 font-ui text-sm leading-relaxed text-ink-soft">
               {c.profile}
@@ -86,7 +114,7 @@ export function WriterShell({
                 <li key={a}>{a}</li>
               ))}
             </ul>
-          </div>
+          </Reveal>
         </aside>
       </div>
     </div>
@@ -109,7 +137,7 @@ export function FeedRow({ item }: { item: WriterItem }) {
   const preview = item.category === "puisi" ? poemPreview(item) : item.synopsis;
 
   return (
-    <article className="border-b border-ink/10 py-8">
+    <Reveal as="article" className="border-b border-ink/10 py-8">
       <Link href={`/writer/read/${item.slug}`} className="group grid grid-cols-[minmax(0,1fr)_auto] gap-6 sm:gap-10">
         <div className="min-w-0">
           <p className="font-ui text-[13px] text-ink-soft">
@@ -135,7 +163,7 @@ export function FeedRow({ item }: { item: WriterItem }) {
           />
         )}
       </Link>
-    </article>
+    </Reveal>
   );
 }
 
@@ -296,7 +324,7 @@ function Cover({ item }: { item: WriterItem }) {
 export function StoryPanel({ story }: { story: WriterItem }) {
   const c = useWriterCopy();
   return (
-    <article className="mt-20 first:mt-16 sm:mt-24">
+    <Reveal as="article" className="mt-20 first:mt-16 sm:mt-24">
       <Link
         href={`/writer/read/${story.slug}`}
         className="group relative block bg-wash/70 px-6 pb-8 pt-[8.5rem] transition-colors hover:bg-wash sm:min-h-[15rem] sm:py-9 sm:pl-8 sm:pr-[13rem]"
@@ -312,7 +340,7 @@ export function StoryPanel({ story }: { story: WriterItem }) {
           <Cover item={story} />
         </div>
       </Link>
-    </article>
+    </Reveal>
   );
 }
 

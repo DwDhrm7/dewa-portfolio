@@ -3,6 +3,7 @@ import { Inter, Manrope, Inter_Tight, Source_Serif_4, Cedarville_Cursive } from 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollMemory from "@/components/ScrollMemory";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const inter = Inter({
@@ -72,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased ${inter.variable} ${manrope.variable} ${readingSerif.variable} ${writerSans.variable} ${handwriting.variable}`}>
+        <ScrollMemory />
         <LanguageProvider>
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>

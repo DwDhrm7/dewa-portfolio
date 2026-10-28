@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { 
   ArrowLeft, 
   Settings2, 
@@ -26,6 +26,7 @@ import { Ornament } from "@/components/writer/Room";
 import { motion, AnimatePresence } from "framer-motion";
 import { WriterItem, TypographyPaperTheme, TypographyFontSize, TypographyAlignment } from "@/types/writer";
 import { useWriterCopy } from "@/components/writer/copy";
+import { canGoBackInApp } from "@/components/ScrollMemory";
 
 const SCENE_BREAK = "* * *";
 
@@ -60,7 +61,15 @@ export default function ReaderPage() {
   const r = c.reader;
   const params = useParams();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const slug = params?.slug as string;
+
+  // Coming from a list on this site, go back to it so it reopens where the reader left it.
+  const backInHistory = (event: React.MouseEvent) => {
+    if (!canGoBackInApp()) return;
+    event.preventDefault();
+    router.back();
+  };
   const initialBab = parseChapter(searchParams?.get("bab"));
 
   const [item, setItem] = useState<WriterItem | null>(null);
@@ -223,7 +232,8 @@ export default function ReaderPage() {
           
           {/* Back button */}
           <Link
-            href={`/writer/${item.category === "novel" ? "novel" : item.category === "puisi" ? "puisi" : "cerpen"}`}
+            href={`/writer/${item.category}`}
+            onClick={backInHistory}
             className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-black/5 transition"
           >
             <ArrowLeft size={14} />
@@ -477,6 +487,7 @@ export default function ReaderPage() {
           <p className="font-ui text-sm opacity-60">{r.byline}</p>
           <Link
             href={`/writer/${item.category}`}
+            onClick={backInHistory}
             className={`mt-6 inline-flex items-center gap-2 border ${currentTheme.border} px-6 py-2.5 font-ui text-sm font-medium transition hover:bg-black/5`}
           >
             <ArrowLeft size={14} />
