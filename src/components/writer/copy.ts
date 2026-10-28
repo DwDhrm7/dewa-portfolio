@@ -35,6 +35,10 @@ const copy = {
     cover: (title: string) => `Sampul ${title}`,
     latestPoems: "Puisi terbaru",
     morePoems: (n: number) => `${n} puisi lainnya`,
+    searchPoetry: "Cari judul, bait, atau kata dalam puisi...",
+    searchResults: (count: number, query: string) => `Ditemukan ${count} puisi untuk "${query}"`,
+    noPoetryFound: (query: string) => `Tidak ada puisi yang cocok dengan "${query}".`,
+    clearSearch: "Hapus pencarian",
     reader: {
       notFound: "Karya ini tidak ditemukan.", backHome: "Kembali ke ruang sastra", back: "Kembali",
       share: "Salin tautan baca", settings: "Pengaturan tampilan", quietOn: "Mode hening", quietOff: "Keluar mode hening",
@@ -71,6 +75,10 @@ const copy = {
     cover: (title: string) => `Cover of ${title}`,
     latestPoems: "Latest poems",
     morePoems: (n: number) => `${n} more poems`,
+    searchPoetry: "Search poems by title, lines, or themes...",
+    searchResults: (count: number, query: string) => `Found ${count} ${count === 1 ? "poem" : "poems"} for "${query}"`,
+    noPoetryFound: (query: string) => `No poems found matching "${query}".`,
+    clearSearch: "Clear search",
     reader: {
       notFound: "This work could not be found.", backHome: "Back to the writing", back: "Back",
       share: "Copy link", settings: "Display settings", quietOn: "Distraction-free mode", quietOff: "Exit distraction-free mode",
