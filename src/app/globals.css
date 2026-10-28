@@ -10,11 +10,12 @@
   --line: rgba(23, 23, 23, 0.1);
   --accent: #171717;
 
-  /* Writer's realm — warm, soft, quiet paper tones (never saturated) */
-  --paper: #f8f4ec;
-  --paper-deep: #f1ead9;
-  --ink: #2b2620;
-  --ink-soft: #57504a;
+  /* Writer's realm — a classy wooden house: walnut, oak, brass, parchment */
+  --paper: #f4ecdd;
+  --paper-deep: #e9dcc5;
+  --ink: #2a1f16;
+  --ink-soft: #5e4b3a;
+  --walnut: #271a11;
 }
 
 * {
@@ -53,13 +54,24 @@ select {
   font: inherit;
 }
 
+/* Everything inside the writer's realm speaks Garamond, headings included */
+.writer-realm,
+.writer-realm h1,
+.writer-realm h2,
+.writer-realm h3,
+.writer-realm h4,
+.writer-realm h5,
+.writer-realm h6,
+.writer-realm button,
+.writer-realm input,
+.writer-realm textarea,
+.writer-realm select {
+  font-family: var(--font-garamond), "Garamond", "Georgia", serif;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-
-  .font-fraunces {
-    font-family: var(--font-fraunces), "Georgia", serif;
   }
 
   .editorial-headline {

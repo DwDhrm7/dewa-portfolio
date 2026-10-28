@@ -12,6 +12,8 @@ import {
 import { Cpu, Feather, Globe, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
+import FadedBackdrop from "@/components/writer/FadedBackdrop";
+import { woodImages } from "@/components/writer/woodImages";
 
 const VIEW_W = 1600;
 const VIEW_H = 900;
@@ -234,7 +236,7 @@ export default function GatewaySplit() {
         className="pointer-events-none absolute inset-y-0 left-0 z-10 flex w-1/2 flex-col justify-center bg-neutral-950 px-10 md:px-16"
         style={{ opacity: openLeft, x: techX }}
       >
-        <span className="mb-4 inline-flex w-fit items-center gap-2 border border-white/20 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.2em] text-white/70">
+        <span className="mb-4 inline-flex w-fit items-center gap-2 border border-white/20 px-3 py-1 font-headline text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
           <Cpu size={12} />
           {t.gateway.techBadge}
         </span>
@@ -263,33 +265,32 @@ export default function GatewaySplit() {
       {/* Writer reveal, behind the right door */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-1/2 flex-col justify-center px-10 text-right md:px-16"
-        style={{ opacity: openRight, x: writerX, backgroundColor: "var(--paper)" }}
+        className="writer-realm pointer-events-none absolute inset-y-0 right-0 z-10 w-1/2 bg-walnut-950 text-parchment"
+        style={{ opacity: openRight }}
       >
-        <span className="mb-4 ml-auto inline-flex w-fit items-center gap-2 border border-[var(--ink)]/15 px-3 py-1 text-[11px] font-serif italic text-[var(--ink-soft)]">
-          <Feather size={12} />
-          {t.gateway.writerBadge}
-        </span>
-        <h2 className="font-fraunces text-3xl font-normal italic leading-[1.05] text-[var(--ink)] md:text-5xl">
-          {t.gateway.writerTitle}
-        </h2>
-        <p className="ml-auto mt-5 max-w-sm font-serif text-sm leading-relaxed text-[var(--ink-soft)] md:text-base">
-          {t.gateway.writerDesc}
-        </p>
-        <div className="mt-6 flex flex-wrap justify-end gap-2">
-          {t.gateway.writerTags.map((tag) => (
-            <span
-              key={tag}
-              className="border border-[var(--ink)]/10 px-2.5 py-1 text-[11px] font-serif italic text-[var(--ink-soft)]"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <span className="mt-8 inline-flex items-center justify-end gap-2 font-serif text-xs font-semibold uppercase tracking-[0.18em] text-[var(--ink)]">
-          <ArrowRight size={14} className="rotate-180" />
-          {t.gateway.writerCta}
-        </span>
+        <FadedBackdrop src={woodImages.library} />
+        <motion.div
+          className="relative flex h-full flex-col justify-center px-10 text-right md:px-16"
+          style={{ x: writerX }}
+        >
+          <span className="mb-4 ml-auto inline-flex items-center gap-2 text-sm italic tracking-wide text-brass">
+            <Feather size={13} />
+            {t.gateway.writerBadge}
+          </span>
+          <h2 className="text-4xl italic leading-[1.05] text-parchment md:text-6xl">
+            {t.gateway.writerTitle}
+          </h2>
+          <p className="ml-auto mt-5 max-w-sm text-base leading-relaxed text-parchment/75 md:text-lg">
+            {t.gateway.writerDesc}
+          </p>
+          <p className="mt-6 text-base italic text-parchment/55">
+            {t.gateway.writerTags.join(" · ")}
+          </p>
+          <span className="mt-8 inline-flex items-center justify-end gap-2 text-base tracking-wide text-brass">
+            <ArrowRight size={15} className="rotate-180" />
+            {t.gateway.writerCta}
+          </span>
+        </motion.div>
       </motion.div>
 
       {/* Accessible, always-clickable halves */}

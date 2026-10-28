@@ -23,13 +23,14 @@ import {
   Palette,
   AlignLeft,
   AlignCenter,
-  AlignJustify
+  AlignJustify,
+  X
 } from "lucide-react";
 import { 
   WriterItem, 
   WriterCategory, 
   NovelChapter, 
-  TypographyFontFamily, 
+  
   TypographyPaperTheme, 
   TypographyFontSize, 
   TypographyAlignment,
@@ -38,10 +39,10 @@ import {
 import defaultWriterData from "@/data/writer-content.json";
 
 export default function WriterStudioPage() {
-  // Authentication PIN state
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [pinInput, setPinInput] = useState<string>("");
-  const [pinError, setPinError] = useState<string>("");
+  const [authState, setAuthState] = useState<"checking" | "locked" | "open">("checking");
+  const [passwordInput, setPasswordInput] = useState<string>("");
+  const [loginError, setLoginError] = useState<string>("");
+  const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
 
   // Items state
   const [items, setItems] = useState<WriterItem[]>(defaultWriterData as WriterItem[]);
@@ -73,14 +74,16 @@ export default function WriterStudioPage() {
 
   const [notification, setNotification] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
-  // Check session auth
   useEffect(() => {
-    const savedAuth = sessionStorage.getItem("dd_writer_studio_auth");
-    if (savedAuth === "true") {
-      setIsAuthenticated(true);
-    }
-    fetchItems();
+    fetch("/api/writer/auth")
+      .then((res) => res.json())
+      .then((json) => setAuthState(json.authenticated ? "open" : "locked"))
+      .catch(() => setAuthState("locked"));
   }, []);
+
+  useEffect(() => {
+    if (authState === "open") fetchItems();
+  }, [authState]);
 
   async function fetchItems() {
     setIsLoading(true);
@@ -97,22 +100,33 @@ export default function WriterStudioPage() {
     }
   }
 
-  const handlePinSubmit = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Default PIN: 1209 (also accepts "dewa", "admin")
-    if (pinInput === "1209" || pinInput.toLowerCase() === "dewa" || pinInput === "admin") {
-      setIsAuthenticated(true);
-      sessionStorage.setItem("dd_writer_studio_auth", "true");
-      setPinError("");
-    } else {
-      setPinError("PIN tidak sesuai. (Petunjuk default: 1209)");
+    setIsSigningIn(true);
+    setLoginError("");
+    try {
+      const res = await fetch("/api/writer/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: passwordInput }),
+      });
+      if (res.ok) {
+        setPasswordInput("");
+        setAuthState("open");
+      } else {
+        setLoginError("Kata sandi tidak sesuai.");
+      }
+    } catch {
+      setLoginError("Tidak dapat terhubung ke server.");
+    } finally {
+      setIsSigningIn(false);
     }
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("dd_writer_studio_auth");
-    setIsAuthenticated(false);
-    setPinInput("");
+  const handleLogout = async () => {
+    await fetch("/api/writer/auth", { method: "DELETE" }).catch(() => {});
+    setAuthState("locked");
+    setPasswordInput("");
   };
 
   const openNewItemEditor = (cat: WriterCategory = "puisi") => {
@@ -231,59 +245,37 @@ export default function WriterStudioPage() {
     setEditingItem({ ...editingItem, chapters: renumbered });
   };
 
-  // If not authenticated, show PIN modal
-  if (!isAuthenticated) {
+  if (authState === "checking") {
+    return <div className="min-h-screen bg-walnut-950" />;
+  }
+
+  if (authState === "locked") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF7F0] px-6 text-neutral-900 font-serif">
-        <div className="w-full max-w-md rounded-3xl border border-stone-900/15 bg-white p-8 sm:p-10 shadow-2xl">
-          <div className="text-center mb-6">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-stone-900 text-stone-100 shadow-md">
-              <Lock size={24} />
-            </div>
-            <span className="font-serif italic text-xs tracking-widest text-stone-800 uppercase block mb-1">
-              STUDIO CMS PENULIS
-            </span>
-            <h1 className="font-fraunces text-2xl font-normal text-neutral-950">
-              Masuk ke Ruang Kurasi
-            </h1>
-            <p className="text-xs text-neutral-500 mt-2">
-              Masukkan PIN untuk mengelola puisi, cerpen, novel, dan tipografi publikasi.
-            </p>
-          </div>
+      <div className="flex min-h-screen items-center justify-center bg-walnut-950 px-6 pt-20 text-parchment">
+        <div className="w-full max-w-sm border border-brass/25 bg-walnut-900 p-10 text-center">
+          <Lock size={22} className="mx-auto text-brass" />
+          <h1 className="mt-5 text-3xl font-normal">Studio</h1>
+          <p className="mt-2 italic text-parchment/60">Khusus penulis.</p>
 
-          <form onSubmit={handlePinSubmit} className="space-y-4">
-            <div>
-              <input
-                type="password"
-                placeholder="Masukkan PIN (Default: 1209)"
-                value={pinInput}
-                onChange={(e) => setPinInput(e.target.value)}
-                className="w-full rounded-xl border border-stone-900/20 bg-stone-50/40 p-4 text-center font-mono text-lg tracking-widest outline-none focus:border-stone-900 focus:bg-white transition"
-                autoFocus
-              />
-              {pinError && (
-                <p className="mt-2 text-center text-xs text-rose-600 font-sans">
-                  {pinError}
-                </p>
-              )}
-            </div>
-
+          <form onSubmit={handleLogin} className="mt-8 space-y-4">
+            <input
+              type="password"
+              autoComplete="current-password"
+              placeholder="Kata sandi"
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+              className="w-full border border-brass/30 bg-walnut-950 px-4 py-3 text-center text-lg text-parchment outline-none transition placeholder:text-parchment/30 focus:border-brass"
+              autoFocus
+            />
+            {loginError && <p className="text-sm text-[#d9a38a]">{loginError}</p>}
             <button
               type="submit"
-              className="w-full rounded-xl bg-stone-900 py-3.5 text-xs font-serif font-semibold tracking-wider text-stone-50 hover:bg-black transition shadow-md"
+              disabled={isSigningIn || passwordInput.length === 0}
+              className="w-full bg-brass py-3 text-lg text-walnut-950 transition hover:bg-parchment disabled:opacity-50"
             >
-              Buka Studio Penulis ✍
+              {isSigningIn ? "Memeriksa..." : "Masuk"}
             </button>
           </form>
-
-          <div className="mt-6 text-center">
-            <Link
-              href="/writer"
-              className="text-xs font-serif text-stone-900 hover:underline"
-            >
-              ← Kembali ke Ruang Sastra Publik
-            </Link>
-          </div>
         </div>
       </div>
     );
@@ -294,12 +286,12 @@ export default function WriterStudioPage() {
     : items.filter((item) => item.category === activeTab);
 
   return (
-    <div className="min-h-screen bg-[#FAF7F0] text-neutral-900 px-6 pb-28 pt-32 md:px-14 lg:px-20 font-serif">
+    <div className="min-h-screen bg-[#FAF7F0] text-neutral-900 px-6 pb-28 pt-32 md:px-14 lg:px-20">
       <div className="mx-auto max-w-[1440px]">
         
         {/* Toast Notification */}
         {notification && (
-          <div className={`fixed bottom-6 right-6 z-50 rounded-2xl px-5 py-3 shadow-xl flex items-center gap-3 text-xs font-serif ${
+          <div className={`fixed bottom-6 right-6 z-50 rounded-2xl px-5 py-3 shadow-xl flex items-center gap-3 text-xs ${
             notification.type === "success" ? "bg-neutral-950 text-neutral-100" : "bg-rose-950 text-rose-100"
           }`}>
             <CheckCircle size={15} />
@@ -311,7 +303,7 @@ export default function WriterStudioPage() {
         <div className="mb-12 border-b border-stone-900/15 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="rounded-full bg-stone-900/10 px-3 py-1 text-xs font-serif italic text-stone-900 font-medium">
+              <span className="rounded-full bg-stone-900/10 px-3 py-1 text-xs italic text-stone-900 font-medium">
                 STUDIO CMS INTERNAL // DEWA DHARMA
               </span>
               <button
@@ -321,10 +313,10 @@ export default function WriterStudioPage() {
                 Keluar (Kunci Studio)
               </button>
             </div>
-            <h1 className="font-fraunces text-4xl sm:text-5xl font-normal text-neutral-950">
+            <h1 className="text-4xl sm:text-5xl font-normal text-neutral-950">
               Meja Kerja Penulis
             </h1>
-            <p className="font-serif text-sm text-neutral-600 mt-2">
+            <p className="text-sm text-neutral-600 mt-2">
               Kelola seluruh karya tulis, bab novel, tipografi huruf, serta suasana kertas publikasi Anda.
             </p>
           </div>
@@ -332,7 +324,7 @@ export default function WriterStudioPage() {
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => openNewItemEditor("puisi")}
-              className="inline-flex items-center gap-2 rounded-xl border border-stone-900/20 bg-white px-4 py-2.5 text-xs font-serif font-semibold text-stone-950 hover:bg-stone-100 transition shadow-sm"
+              className="inline-flex items-center gap-2 rounded-xl border border-stone-900/20 bg-white px-4 py-2.5 text-xs font-semibold text-stone-950 hover:bg-stone-100 transition shadow-sm"
             >
               <Feather size={14} className="text-stone-700" />
               <span>+ Tulis Puisi</span>
@@ -340,7 +332,7 @@ export default function WriterStudioPage() {
 
             <button
               onClick={() => openNewItemEditor("cerpen")}
-              className="inline-flex items-center gap-2 rounded-xl border border-stone-900/20 bg-white px-4 py-2.5 text-xs font-serif font-semibold text-stone-950 hover:bg-stone-100 transition shadow-sm"
+              className="inline-flex items-center gap-2 rounded-xl border border-stone-900/20 bg-white px-4 py-2.5 text-xs font-semibold text-stone-950 hover:bg-stone-100 transition shadow-sm"
             >
               <BookOpen size={14} className="text-stone-700" />
               <span>+ Tulis Cerpen</span>
@@ -348,7 +340,7 @@ export default function WriterStudioPage() {
 
             <button
               onClick={() => openNewItemEditor("novel")}
-              className="inline-flex items-center gap-2 rounded-xl bg-stone-900 px-5 py-2.5 text-xs font-serif font-semibold text-stone-50 hover:bg-black transition shadow-md"
+              className="inline-flex items-center gap-2 rounded-xl bg-stone-900 px-5 py-2.5 text-xs font-semibold text-stone-50 hover:bg-black transition shadow-md"
             >
               <Plus size={14} />
               <span>+ Buat Novel Baru</span>
@@ -360,23 +352,23 @@ export default function WriterStudioPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
           <div className="rounded-2xl border border-stone-900/10 bg-white p-5">
             <span className="text-xs text-neutral-500 block mb-1">Total Karya</span>
-            <span className="font-fraunces text-3xl font-normal text-neutral-950">{items.length}</span>
+            <span className="text-3xl font-normal text-neutral-950">{items.length}</span>
           </div>
           <div className="rounded-2xl border border-stone-900/10 bg-white p-5">
             <span className="text-xs text-neutral-500 block mb-1">Puisi</span>
-            <span className="font-fraunces text-3xl font-normal text-neutral-950">
+            <span className="text-3xl font-normal text-neutral-950">
               {items.filter((i) => i.category === "puisi").length}
             </span>
           </div>
           <div className="rounded-2xl border border-stone-900/10 bg-white p-5">
             <span className="text-xs text-neutral-500 block mb-1">Cerita Pendek</span>
-            <span className="font-fraunces text-3xl font-normal text-neutral-950">
+            <span className="text-3xl font-normal text-neutral-950">
               {items.filter((i) => i.category === "cerpen").length}
             </span>
           </div>
           <div className="rounded-2xl border border-stone-900/10 bg-white p-5">
             <span className="text-xs text-neutral-500 block mb-1">Novel</span>
-            <span className="font-fraunces text-3xl font-normal text-neutral-950">
+            <span className="text-3xl font-normal text-neutral-950">
               {items.filter((i) => i.category === "novel").length}
             </span>
           </div>
@@ -393,7 +385,7 @@ export default function WriterStudioPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`rounded-full px-4 py-1.5 text-xs font-serif transition ${
+              className={`rounded-full px-4 py-1.5 text-xs transition ${
                 activeTab === tab.id
                   ? "bg-stone-900 text-white font-semibold"
                   : "border border-stone-900/15 bg-white/70 text-neutral-700 hover:bg-stone-100/60"
@@ -413,7 +405,13 @@ export default function WriterStudioPage() {
             >
               <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-stone-100 text-stone-900 font-bold text-sm">
-                  {item.category === "puisi" ? "✍" : item.category === "novel" ? "📖" : "📄"}
+                  {item.category === "puisi" ? (
+                    <Feather size={18} />
+                  ) : item.category === "novel" ? (
+                    <BookOpen size={18} />
+                  ) : (
+                    <Layers size={18} />
+                  )}
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -428,7 +426,7 @@ export default function WriterStudioPage() {
                       </span>
                     )}
                   </div>
-                  <h3 className="font-fraunces text-xl font-normal text-neutral-950">
+                  <h3 className="text-xl font-normal text-neutral-950">
                     {item.title}
                   </h3>
                   <p className="text-xs text-neutral-600 line-clamp-1 mt-1 max-w-xl">
@@ -480,10 +478,10 @@ export default function WriterStudioPage() {
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-6 border-b border-stone-900/15 mb-6">
               <div>
-                <span className="font-serif italic text-xs tracking-wider text-stone-800 uppercase block">
+                <span className="italic text-xs tracking-wider text-stone-800 uppercase block">
                   PENGATUR KARYA & TIPOGRAFI
                 </span>
-                <h2 className="font-fraunces text-2xl sm:text-3xl font-normal text-neutral-950">
+                <h2 className="text-2xl sm:text-3xl font-normal text-neutral-950">
                   {editingItem.title ? `Sunting: ${editingItem.title}` : "Tulis Karya Baru"}
                 </h2>
               </div>
@@ -493,7 +491,7 @@ export default function WriterStudioPage() {
                 <div className="flex bg-stone-950/10 p-1 rounded-xl">
                   <button
                     onClick={() => setEditorMode("write")}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-serif transition ${
+                    className={`px-3 py-1.5 rounded-lg text-xs transition ${
                       editorMode === "write" ? "bg-stone-900 text-white font-semibold" : "text-neutral-700"
                     }`}
                   >
@@ -501,7 +499,7 @@ export default function WriterStudioPage() {
                   </button>
                   <button
                     onClick={() => setEditorMode("preview")}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-serif transition ${
+                    className={`px-3 py-1.5 rounded-lg text-xs transition ${
                       editorMode === "preview" ? "bg-stone-900 text-white font-semibold" : "text-neutral-700"
                     }`}
                   >
@@ -512,8 +510,9 @@ export default function WriterStudioPage() {
                 <button
                   onClick={() => setIsEditorOpen(false)}
                   className="rounded-xl border border-black/10 bg-white/80 p-2 text-neutral-500 hover:text-black"
+                  aria-label="Tutup editor"
                 >
-                  ✕
+                  <X size={16} />
                 </button>
               </div>
             </div>
@@ -531,7 +530,7 @@ export default function WriterStudioPage() {
                     <select
                       value={editingItem.category}
                       onChange={(e) => setEditingItem({ ...editingItem, category: e.target.value as WriterCategory })}
-                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 font-serif outline-none"
+                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 outline-none"
                     >
                       <option value="puisi">Puisi / Bait Sajak</option>
                       <option value="cerpen">Cerpen (Cerita Pendek)</option>
@@ -548,7 +547,7 @@ export default function WriterStudioPage() {
                       placeholder="Contoh: Batas Sunyi di Ujung Senja"
                       value={editingItem.title || ""}
                       onChange={(e) => setEditingItem({ ...editingItem, title: e.target.value })}
-                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 font-serif outline-none"
+                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 outline-none"
                     />
                   </div>
                 </div>
@@ -564,7 +563,7 @@ export default function WriterStudioPage() {
                       placeholder="Contoh: Renungan tentang jeda di antara riuh dunia"
                       value={editingItem.subtitle || ""}
                       onChange={(e) => setEditingItem({ ...editingItem, subtitle: e.target.value })}
-                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 font-serif outline-none"
+                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 outline-none"
                     />
                   </div>
 
@@ -577,7 +576,7 @@ export default function WriterStudioPage() {
                       placeholder="Contoh: 3 min read"
                       value={editingItem.readTime || ""}
                       onChange={(e) => setEditingItem({ ...editingItem, readTime: e.target.value })}
-                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 font-serif outline-none"
+                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 outline-none"
                     />
                   </div>
                 </div>
@@ -592,7 +591,7 @@ export default function WriterStudioPage() {
                     placeholder="Tuliskan gambaran ringkas karya ini..."
                     value={editingItem.synopsis || ""}
                     onChange={(e) => setEditingItem({ ...editingItem, synopsis: e.target.value })}
-                    className="w-full rounded-xl border border-stone-900/20 bg-white p-3 font-serif outline-none"
+                    className="w-full rounded-xl border border-stone-900/20 bg-white p-3 outline-none"
                   />
                 </div>
 
@@ -606,7 +605,7 @@ export default function WriterStudioPage() {
                     placeholder="https://images.unsplash.com/photo-..."
                     value={editingItem.coverImage || ""}
                     onChange={(e) => setEditingItem({ ...editingItem, coverImage: e.target.value })}
-                    className="w-full rounded-xl border border-stone-900/20 bg-white p-3 font-mono text-xs outline-none"
+                    className="w-full rounded-xl border border-stone-900/20 bg-white p-3 text-xs outline-none"
                   />
                 </div>
 
@@ -616,33 +615,12 @@ export default function WriterStudioPage() {
                 <div className="rounded-2xl border border-stone-900/20 bg-white p-5 space-y-4">
                   <div className="flex items-center gap-2 pb-2 border-b border-stone-900/10">
                     <Palette size={16} className="text-stone-700" />
-                    <span className="font-serif italic text-xs font-bold text-stone-950 uppercase tracking-wider">
+                    <span className="italic text-xs font-bold text-stone-950 uppercase tracking-wider">
                       Pengaturan Tipografi & Nuansa Publikasi
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-                    {/* Font Family */}
-                    <div>
-                      <label className="text-neutral-500 block mb-1">Pilihan Font:</label>
-                      <select
-                        value={editingItem.typography?.fontFamily || "fraunces"}
-                        onChange={(e) => setEditingItem({
-                          ...editingItem,
-                          typography: {
-                            ...editingItem.typography!,
-                            fontFamily: e.target.value as TypographyFontFamily,
-                          }
-                        })}
-                        className="w-full rounded-lg border border-black/10 p-2 font-serif bg-white"
-                      >
-                        <option value="fraunces">Fraunces (Editorial)</option>
-                        <option value="serif">Serif Klasik (Buku)</option>
-                        <option value="sans">Modern Sans (Inter)</option>
-                        <option value="mono">Mesin Tik (Monospace)</option>
-                      </select>
-                    </div>
-
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
                     {/* Font Size */}
                     <div>
                       <label className="text-neutral-500 block mb-1">Ukuran Default:</label>
@@ -655,7 +633,7 @@ export default function WriterStudioPage() {
                             fontSize: e.target.value as TypographyFontSize,
                           }
                         })}
-                        className="w-full rounded-lg border border-black/10 p-2 font-serif bg-white"
+                        className="w-full rounded-lg border border-black/10 p-2 bg-white"
                       >
                         <option value="sm">Kecil (sm)</option>
                         <option value="base">Standar (base)</option>
@@ -676,7 +654,7 @@ export default function WriterStudioPage() {
                             alignment: e.target.value as TypographyAlignment,
                           }
                         })}
-                        className="w-full rounded-lg border border-black/10 p-2 font-serif bg-white"
+                        className="w-full rounded-lg border border-black/10 p-2 bg-white"
                       >
                         <option value="center">Tengah (Cocok Puisi)</option>
                         <option value="justify">Rata Kanan Kiri</option>
@@ -696,7 +674,7 @@ export default function WriterStudioPage() {
                             paperTheme: e.target.value as TypographyPaperTheme,
                           }
                         })}
-                        className="w-full rounded-lg border border-black/10 p-2 font-serif bg-white"
+                        className="w-full rounded-lg border border-black/10 p-2 bg-white"
                       >
                         <option value="cream">Krem Hangat (Cream)</option>
                         <option value="parchment">Perkamen Tua (Parchment)</option>
@@ -713,13 +691,13 @@ export default function WriterStudioPage() {
                   /* ================= NOVEL CHAPTER MANAGER ================= */
                   <div className="space-y-4 pt-4 border-t border-stone-900/15">
                     <div className="flex items-center justify-between">
-                      <span className="font-serif font-bold text-neutral-900">
+                      <span className="font-bold text-neutral-900">
                         Daftar Bab Novel ({editingItem.chapters?.length || 0} Bab):
                       </span>
                       <button
                         type="button"
                         onClick={addChapter}
-                        className="inline-flex items-center gap-1.5 rounded-xl bg-stone-900 px-3.5 py-1.5 text-xs text-white hover:bg-black transition font-serif"
+                        className="inline-flex items-center gap-1.5 rounded-xl bg-stone-900 px-3.5 py-1.5 text-xs text-white hover:bg-black transition"
                       >
                         <Plus size={13} />
                         <span>Tambah Bab</span>
@@ -730,7 +708,7 @@ export default function WriterStudioPage() {
                       {(editingItem.chapters || []).map((ch, idx) => (
                         <div key={ch.id} className="rounded-2xl border border-stone-900/20 bg-white p-4">
                           <div className="flex items-center justify-between mb-3">
-                            <span className="font-serif italic text-xs font-semibold text-stone-900">
+                            <span className="italic text-xs font-semibold text-stone-900">
                               BAB {idx + 1}
                             </span>
                             <button
@@ -748,7 +726,7 @@ export default function WriterStudioPage() {
                               placeholder="Judul Bab (Contoh: Bab 1: Titik Temu di Bawah Gerimis)"
                               value={ch.title}
                               onChange={(e) => updateChapter(idx, "title", e.target.value)}
-                              className="w-full rounded-lg border border-black/10 p-2.5 font-serif text-sm font-semibold outline-none"
+                              className="w-full rounded-lg border border-black/10 p-2.5 text-sm font-semibold outline-none"
                             />
                           </div>
 
@@ -758,7 +736,7 @@ export default function WriterStudioPage() {
                               placeholder="Tuliskan narasi lengkap untuk bab ini..."
                               value={ch.content}
                               onChange={(e) => updateChapter(idx, "content", e.target.value)}
-                              className="w-full rounded-lg border border-black/10 p-3 font-serif text-sm leading-relaxed outline-none"
+                              className="w-full rounded-lg border border-black/10 p-3 text-sm leading-relaxed outline-none"
                             />
                           </div>
                         </div>
@@ -779,7 +757,7 @@ export default function WriterStudioPage() {
                       }
                       value={editingItem.content || ""}
                       onChange={(e) => setEditingItem({ ...editingItem, content: e.target.value })}
-                      className="w-full rounded-2xl border border-stone-900/20 bg-white p-5 font-serif text-base leading-relaxed outline-none shadow-inner"
+                      className="w-full rounded-2xl border border-stone-900/20 bg-white p-5 text-base leading-relaxed outline-none shadow-inner"
                     />
                   </div>
                 )}
@@ -789,20 +767,20 @@ export default function WriterStudioPage() {
               /* LIVE PREVIEW */
               <div className="p-8 rounded-2xl bg-white border border-stone-900/20 max-w-2xl mx-auto shadow-sm">
                 <div className="text-center mb-8">
-                  <span className="text-xs font-serif uppercase tracking-widest text-stone-800">
+                  <span className="text-xs uppercase tracking-widest text-stone-800">
                     {editingItem.category}
                   </span>
-                  <h3 className="font-fraunces text-3xl font-normal mt-2">
+                  <h3 className="text-3xl font-normal mt-2">
                     {editingItem.title || "Judul Belum Ditulis"}
                   </h3>
                   {editingItem.subtitle && (
-                    <p className="font-serif italic text-sm text-neutral-600 mt-1">
+                    <p className="italic text-sm text-neutral-600 mt-1">
                       {editingItem.subtitle}
                     </p>
                   )}
                 </div>
 
-                <div className="font-serif whitespace-pre-line leading-relaxed text-neutral-800">
+                <div className="whitespace-pre-line leading-relaxed text-neutral-800">
                   {editingItem.category === "novel"
                     ? (editingItem.chapters?.[0]?.content || "Belum ada bab yang ditulis.")
                     : (editingItem.content || "Belum ada isi tulisan.")
@@ -816,7 +794,7 @@ export default function WriterStudioPage() {
               <button
                 type="button"
                 onClick={() => setIsEditorOpen(false)}
-                className="rounded-xl border border-black/10 px-6 py-2.5 text-xs font-serif text-neutral-700 hover:bg-black/5"
+                className="rounded-xl border border-black/10 px-6 py-2.5 text-xs text-neutral-700 hover:bg-black/5"
               >
                 Batal
               </button>
@@ -824,7 +802,7 @@ export default function WriterStudioPage() {
               <button
                 type="button"
                 onClick={handleSaveItem}
-                className="inline-flex items-center gap-2 rounded-xl bg-stone-900 px-8 py-3 text-xs font-serif font-semibold text-white hover:bg-black transition shadow-md"
+                className="inline-flex items-center gap-2 rounded-xl bg-stone-900 px-8 py-3 text-xs font-semibold text-white hover:bg-black transition shadow-md"
               >
                 <Save size={14} />
                 <span>Simpan & Publikasikan Karya</span>

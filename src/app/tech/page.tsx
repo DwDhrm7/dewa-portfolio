@@ -1,19 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { 
-  ArrowUpRight, 
-  Download, 
-  Cpu, 
-  Terminal, 
-  Code, 
-  Layers, 
-  Compass, 
-  Sparkles,
-  ArrowRight,
-  GitBranch,
-  Feather
-} from "lucide-react";
+import { ArrowUpRight, Download, Cpu, Terminal, Code, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { artifacts } from "@/data/artifacts";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -47,19 +35,11 @@ export default function TechPage() {
           className="mb-20"
         >
           {/* Eyebrow & Status */}
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-900/10 bg-white/80 px-4 py-1.5 text-xs font-mono font-semibold text-neutral-800 shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-neutral-500 animate-pulse" />
-              <span>THE TECH REALM // ITB STIKOM BALI</span>
+          <div className="mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-900/10 bg-white/80 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-neutral-900" />
+              <span>Tech Realm · ITB STIKOM Bali</span>
             </div>
-
-            <Link
-              href="/writer"
-              className="inline-flex items-center gap-2 rounded-full border border-stone-900/15 bg-stone-50 px-4 py-1.5 text-xs font-serif italic text-stone-900 hover:bg-stone-100 transition"
-            >
-              <Feather size={12} className="text-stone-700" />
-              <span>Mencari karya tulis & puisi? Kunjungi Writer Realm →</span>
-            </Link>
           </div>
 
           <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
@@ -151,8 +131,8 @@ export default function TechPage() {
         <section className="mb-24">
           <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
-              <p className="text-xs font-mono uppercase tracking-[0.24em] text-neutral-500 mb-2">
-                01 // ARTIFACTS & SYSTEMS
+              <p className="text-xs uppercase tracking-[0.24em] text-neutral-500 mb-2">
+                01 — Artifacts &amp; Systems
               </p>
               <h2 className="font-headline text-3xl font-extrabold text-neutral-950 md:text-5xl">
                 Karya & Riset Pilihan
@@ -179,7 +159,7 @@ export default function TechPage() {
                 className="group relative flex flex-col justify-between rounded-2xl border border-black/5 bg-white p-8 shadow-[0_15px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.07)] transition-all"
               >
                 <div>
-                  <div className="flex items-center justify-between text-xs font-mono text-neutral-500 mb-4">
+                  <div className="flex items-center justify-between text-xs text-neutral-500 mb-4">
                     <span className="rounded-full bg-neutral-100 px-3 py-1 text-neutral-800 font-semibold">
                       {artifact.category}
                     </span>
@@ -201,7 +181,7 @@ export default function TechPage() {
                       {artifact.techStack.map((tech) => (
                         <span
                           key={tech}
-                          className="rounded-md bg-neutral-100 px-2.5 py-1 text-[11px] font-mono text-neutral-700"
+                          className="rounded-md bg-neutral-100 px-2.5 py-1 text-[11px] text-neutral-700"
                         >
                           {tech}
                         </span>
@@ -225,10 +205,10 @@ export default function TechPage() {
         {/* ========================================================================= */}
         {/* TECH STACK BREAKDOWN */}
         {/* ========================================================================= */}
-        <section className="mb-24 rounded-3xl bg-neutral-950 text-white p-8 md:p-14 lg:p-16">
+        <section className="rounded-3xl bg-neutral-950 text-white p-8 md:p-14 lg:p-16">
           <div className="max-w-2xl mb-12">
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-neutral-400 mb-3">
-              02 // TECHNICAL CAPABILITIES
+            <p className="text-xs uppercase tracking-[0.24em] text-neutral-400 mb-3">
+              02 — Technical Capabilities
             </p>
             <h2 className="font-headline text-3xl font-extrabold md:text-5xl">
               Stack & Perangkat Utama
@@ -241,7 +221,7 @@ export default function TechPage() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {techSkills.map((skillGroup) => (
               <div key={skillGroup.category} className="border-t border-white/10 pt-6">
-                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-300 mb-4">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-300 mb-4">
                   {skillGroup.category}
                 </h4>
                 <ul className="space-y-3">
@@ -255,31 +235,6 @@ export default function TechPage() {
               </div>
             ))}
           </div>
-        </section>
-
-        {/* ========================================================================= */}
-        {/* THE BRIDGE: HOW LITERATURE ENRICHES ENGINEERING */}
-        {/* ========================================================================= */}
-        <section className="rounded-3xl border border-stone-900/10 bg-[#FAF7F0] p-8 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="max-w-2xl">
-            <span className="font-serif italic text-xs tracking-widest text-stone-800 uppercase block mb-2">
-              Sintesis Dua Sisi
-            </span>
-            <h3 className="font-fraunces text-2xl md:text-3xl font-normal italic text-neutral-900 mb-4">
-              &ldquo;Teknologi tanpa rasa melahirkan kekakuan; sastra memberi jiwa pada apa yang kita bangun.&rdquo;
-            </h3>
-            <p className="text-sm text-neutral-600 leading-relaxed font-serif">
-              Selain merakit model AI dan rangkaian IoT, saya aktif menulis puisi, cerpen, dan novel. Penyelaman dalam dunia kata membuat saya selalu mempertanyakan dampak manusiawi dari setiap arsitektur kode yang saya susun.
-            </p>
-          </div>
-
-          <Link
-            href="/writer"
-            className="inline-flex shrink-0 items-center gap-3 rounded-2xl bg-stone-900 px-8 py-5 font-serif text-sm font-medium text-stone-100 shadow-md hover:bg-stone-950 transition"
-          >
-            <Feather size={16} className="text-stone-300" />
-            <span>Kunjungi Ruang Sastra & Cerita →</span>
-          </Link>
         </section>
 
       </div>

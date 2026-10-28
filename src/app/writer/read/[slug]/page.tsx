@@ -19,10 +19,12 @@ import {
   AlignCenter,
   AlignJustify,
   Share2,
-  Check
+  Check,
+  X
 } from "lucide-react";
+import { Ornament } from "@/components/writer/Room";
 import { motion, AnimatePresence } from "framer-motion";
-import { WriterItem, TypographyFontFamily, TypographyPaperTheme, TypographyFontSize, TypographyAlignment } from "@/types/writer";
+import { WriterItem, TypographyPaperTheme, TypographyFontSize, TypographyAlignment } from "@/types/writer";
 import defaultWriterData from "@/data/writer-content.json";
 
 export default function ReaderPage() {
@@ -33,12 +35,11 @@ export default function ReaderPage() {
 
   const [item, setItem] = useState<WriterItem | null>(null);
   const [currentChapterNum, setCurrentChapterNum] = useState<number>(initialBab);
-  const [showToolbar, setShowToolbar] = useState<boolean>(true);
+  const [showToolbar, setShowToolbar] = useState<boolean>(false);
   const [isDistractionFree, setIsDistractionFree] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
 
   // Reader Customizer States
-  const [fontFamily, setFontFamily] = useState<TypographyFontFamily>("fraunces");
   const [fontSize, setFontSize] = useState<TypographyFontSize>("base");
   const [alignment, setAlignment] = useState<TypographyAlignment>("justify");
   const [paperTheme, setPaperTheme] = useState<TypographyPaperTheme>("cream");
@@ -58,7 +59,6 @@ export default function ReaderPage() {
             setItem(found);
             // Apply default typography from item if available
             if (found.typography) {
-              setFontFamily(found.typography.fontFamily || "fraunces");
               setFontSize(found.typography.fontSize || "base");
               setAlignment(found.typography.alignment || (found.category === "puisi" ? "center" : "justify"));
               setPaperTheme(found.typography.paperTheme || "cream");
@@ -77,7 +77,6 @@ export default function ReaderPage() {
       if (found) {
         setItem(found);
         if (found.typography) {
-          setFontFamily(found.typography.fontFamily || "fraunces");
           setFontSize(found.typography.fontSize || "base");
           setAlignment(found.typography.alignment || (found.category === "puisi" ? "center" : "justify"));
           setPaperTheme(found.typography.paperTheme || "cream");
@@ -148,14 +147,6 @@ export default function ReaderPage() {
     },
   };
 
-  // Font family map
-  const fontClasses: Record<TypographyFontFamily, string> = {
-    fraunces: "font-fraunces",
-    serif: "font-serif",
-    sans: "font-headline font-normal",
-    mono: "font-mono",
-  };
-
   // Font size map
   const sizeClasses: Record<TypographyFontSize, string> = {
     sm: "text-base sm:text-lg leading-relaxed",
@@ -183,7 +174,7 @@ export default function ReaderPage() {
 
   if (!item) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF7F0] text-neutral-800 font-serif">
+      <div className="min-h-screen flex items-center justify-center bg-[#FAF7F0] text-neutral-800">
         <div className="text-center">
           <BookOpen size={36} className="mx-auto text-stone-800 animate-pulse mb-4" />
           <p className="text-lg">Membuka lembaran karya...</p>
@@ -196,9 +187,9 @@ export default function ReaderPage() {
     <div className={`min-h-screen transition-colors duration-300 ${currentTheme.bg} ${currentTheme.text}`}>
       
       {/* Top Reading Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-black/10">
+      <div className="fixed top-20 left-0 right-0 z-40 h-0.5 bg-black/10">
         <div 
-          className="h-full bg-stone-600 transition-all duration-150"
+          className="h-full bg-brass transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -206,15 +197,15 @@ export default function ReaderPage() {
       {/* ========================================================================= */}
       {/* FLOATING TOP CONTROLS (Distraction-Free Capable) */}
       {/* ========================================================================= */}
-      <header className={`fixed top-4 left-4 right-4 z-40 transition-opacity duration-300 ${
+      <header className={`fixed top-24 left-4 right-4 z-40 transition-opacity duration-300 ${
         isDistractionFree ? "opacity-0 hover:opacity-100" : "opacity-100"
       }`}>
-        <div className="mx-auto max-w-4xl flex items-center justify-between rounded-2xl border border-black/10 bg-white/80 p-3 shadow-lg backdrop-blur-xl text-neutral-900">
+        <div className="mx-auto max-w-4xl flex items-center justify-between rounded-sm border border-oak/30 bg-parchment/90 p-3 shadow-lg backdrop-blur-xl text-neutral-900">
           
           {/* Back button */}
           <Link
             href={`/writer/${item.category === "novel" ? "novel" : item.category === "puisi" ? "puisi" : "cerpen"}`}
-            className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-serif font-medium text-neutral-700 hover:bg-black/5 transition"
+            className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-black/5 transition"
           >
             <ArrowLeft size={14} />
             <span className="hidden sm:inline">Koleksi {item.category}</span>
@@ -222,7 +213,7 @@ export default function ReaderPage() {
 
           {/* Title & Progress info */}
           <div className="text-center max-w-[200px] sm:max-w-xs truncate">
-            <span className="font-serif italic text-xs font-semibold block truncate">
+            <span className="italic text-xs font-semibold block truncate">
               {item.title}
             </span>
             {item.category === "novel" && currentChapter && (
@@ -278,48 +269,24 @@ export default function ReaderPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed top-20 left-4 right-4 z-40 mx-auto max-w-xl rounded-2xl border border-black/10 bg-white/95 p-5 shadow-2xl backdrop-blur-2xl text-neutral-900"
+            className="fixed top-40 left-4 right-4 z-40 mx-auto max-w-xl rounded-sm border border-oak/30 bg-parchment p-5 shadow-2xl backdrop-blur-2xl text-neutral-900"
           >
             <div className="flex items-center justify-between pb-3 border-b border-black/10 mb-4">
-              <span className="font-serif italic text-xs font-bold text-stone-950 uppercase tracking-wider flex items-center gap-2">
+              <span className="italic text-xs font-bold text-stone-950 uppercase tracking-wider flex items-center gap-2">
                 <Type size={14} className="text-stone-700" />
                 Kustomisasi Ruang Baca
               </span>
               <button 
                 onClick={() => setShowToolbar(false)}
-                className="text-xs text-neutral-500 hover:text-black font-mono"
+                className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-black"
               >
-                ✕ Tutup
+                <X size={13} />
+                Tutup
               </button>
             </div>
 
-            <div className="space-y-4 text-xs font-serif">
+            <div className="space-y-4 text-xs">
               
-              {/* Font Family Choice */}
-              <div>
-                <label className="text-neutral-500 mb-1.5 block">Gaya Huruf / Tipografi:</label>
-                <div className="grid grid-cols-4 gap-2">
-                  {[
-                    { id: "fraunces", label: "Fraunces", cls: "font-fraunces" },
-                    { id: "serif", label: "Serif Klasik", cls: "font-serif" },
-                    { id: "sans", label: "Modern Sans", cls: "font-headline" },
-                    { id: "mono", label: "Mesin Tik", cls: "font-mono" },
-                  ].map((f) => (
-                    <button
-                      key={f.id}
-                      onClick={() => setFontFamily(f.id as TypographyFontFamily)}
-                      className={`rounded-xl p-2 text-center transition border ${f.cls} ${
-                        fontFamily === f.id
-                          ? "border-stone-900 bg-stone-900 text-white font-semibold"
-                          : "border-black/10 bg-black/[0.02] hover:bg-black/5"
-                      }`}
-                    >
-                      {f.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {/* Font Size & Alignment */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -334,8 +301,8 @@ export default function ReaderPage() {
                       <button
                         key={s.id}
                         onClick={() => setFontSize(s.id as TypographyFontSize)}
-                        className={`flex-1 py-1 rounded-lg text-center font-mono font-bold transition ${
-                          fontSize === s.id ? "bg-stone-900 text-white" : "hover:bg-black/5 text-neutral-700"
+                        className={`flex-1 py-1 rounded-lg text-center font-bold transition ${
+                          fontSize === s.id ? "bg-walnut-800 text-parchment" : "hover:bg-black/5 text-neutral-700"
                         }`}
                       >
                         {s.label}
@@ -356,7 +323,7 @@ export default function ReaderPage() {
                         key={a.id}
                         onClick={() => setAlignment(a.id as TypographyAlignment)}
                         className={`flex-1 py-1 rounded-lg flex items-center justify-center transition ${
-                          alignment === a.id ? "bg-stone-900 text-white" : "hover:bg-black/5 text-neutral-700"
+                          alignment === a.id ? "bg-walnut-800 text-parchment" : "hover:bg-black/5 text-neutral-700"
                         }`}
                       >
                         <a.icon size={14} />
@@ -381,7 +348,7 @@ export default function ReaderPage() {
                       key={th.id}
                       onClick={() => setPaperTheme(th.id as TypographyPaperTheme)}
                       className={`rounded-xl py-2 px-1 text-center border text-[11px] font-medium transition ${th.bg} ${
-                        paperTheme === th.id ? "ring-2 ring-stone-600 ring-offset-2" : ""
+                        paperTheme === th.id ? "ring-2 ring-oak ring-offset-2" : ""
                       }`}
                     >
                       {th.label}
@@ -398,12 +365,12 @@ export default function ReaderPage() {
       {/* ========================================================================= */}
       {/* READING CANVAS (THE ACTUAL CONTENT) */}
       {/* ========================================================================= */}
-      <main className="mx-auto max-w-3xl px-6 pt-32 pb-36 md:pt-40">
+      <main className="mx-auto max-w-3xl px-6 pt-44 pb-36 md:pt-52">
         
         {/* Article/Story Header */}
         <header className="mb-14 text-center border-b border-black/10 pb-12">
           
-          <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-3.5 py-1 text-xs font-serif italic mb-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-3.5 py-1 text-xs italic mb-4">
             <span className="uppercase tracking-widest text-[10px] font-bold">
               {item.category}
             </span>
@@ -411,12 +378,12 @@ export default function ReaderPage() {
             <span>{item.date}</span>
           </div>
 
-          <h1 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.08] mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.08] mb-4">
             {item.title}
           </h1>
 
           {item.subtitle && (
-            <p className="font-serif italic text-lg sm:text-xl text-neutral-600 max-w-xl mx-auto mb-6">
+            <p className="italic text-lg sm:text-xl text-neutral-600 max-w-xl mx-auto mb-6">
               {item.subtitle}
             </p>
           )}
@@ -428,7 +395,7 @@ export default function ReaderPage() {
               <select
                 value={currentChapterNum}
                 onChange={(e) => setCurrentChapterNum(parseInt(e.target.value, 10))}
-                className="bg-transparent font-serif text-sm font-semibold outline-none cursor-pointer"
+                className="bg-transparent text-sm font-semibold outline-none cursor-pointer"
               >
                 {item.chapters.map((ch) => (
                   <option key={ch.id} value={ch.chapterNumber} className="text-black bg-white">
@@ -444,16 +411,16 @@ export default function ReaderPage() {
         {/* ========================================================================= */}
         {/* BODY TEXT RENDERING */}
         {/* ========================================================================= */}
-        <article className={`${fontClasses[fontFamily]} ${sizeClasses[fontSize]} ${alignClasses[alignment]}`}>
+        <article className={`font-garamond ${sizeClasses[fontSize]} ${alignClasses[alignment]}`}>
           
           {/* If Novel: Render selected Chapter */}
           {item.category === "novel" && currentChapter ? (
             <div>
               <div className="text-center mb-10">
-                <span className="font-serif italic text-xs tracking-widest text-stone-800 uppercase block mb-1">
+                <span className="italic text-xs tracking-widest text-stone-800 uppercase block mb-1">
                   BAB {currentChapter.chapterNumber}
                 </span>
-                <h2 className="font-fraunces text-2xl sm:text-3xl font-normal">
+                <h2 className="text-2xl sm:text-3xl font-normal">
                   {currentChapter.title}
                 </h2>
               </div>
@@ -470,7 +437,7 @@ export default function ReaderPage() {
                       setCurrentChapterNum(currentChapterNum - 1);
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                    className="flex items-center gap-2 rounded-xl border border-black/15 px-5 py-3 text-sm font-serif font-medium hover:bg-black/5 transition"
+                    className="flex items-center gap-2 rounded-xl border border-black/15 px-5 py-3 text-sm font-medium hover:bg-black/5 transition"
                   >
                     <ChevronLeft size={16} />
                     <span>Bab Sebelumnya ({currentChapterNum - 1})</span>
@@ -483,7 +450,7 @@ export default function ReaderPage() {
                       setCurrentChapterNum(currentChapterNum + 1);
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                    className="flex items-center gap-2 rounded-xl bg-stone-900 px-6 py-3 text-sm font-serif font-medium text-white hover:bg-stone-950 transition shadow-md"
+                    className="flex items-center gap-2 rounded-xl bg-walnut-800 px-6 py-3 text-sm font-medium text-white hover:bg-walnut-950 transition shadow-md"
                   >
                     <span>Lanjut ke Bab {currentChapterNum + 1}</span>
                     <ChevronRight size={16} />
@@ -501,13 +468,13 @@ export default function ReaderPage() {
         </article>
 
         {/* Epilogue / Ending ornament */}
-        <div className="mt-20 pt-12 border-t border-black/10 text-center font-serif text-xs text-neutral-500">
-          <p className="text-2xl mb-2 text-stone-800">❦</p>
+        <div className="mt-20 pt-12 border-t border-black/10 text-center text-xs text-neutral-500">
+          <Ornament className="mb-4" />
           <p>Karya oleh I Dewa Made Dharma Putra Santika</p>
           <div className="mt-6">
             <Link
               href="/writer"
-              className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-2.5 text-xs font-serif uppercase tracking-wider text-neutral-800 hover:bg-black/5 transition"
+              className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-2.5 text-xs uppercase tracking-wider text-neutral-800 hover:bg-black/5 transition"
             >
               <ArrowLeft size={13} />
               <span>Kembali ke Rak Sastra</span>

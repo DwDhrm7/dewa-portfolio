@@ -35,7 +35,7 @@ export const id = {
     eyebrow: "Portofolio Personal / 2026",
     titleLine1: "Engineering Clarity",
     titleLine2: "from Complexity.",
-    viewPortfolio: "Jelajahi Karya Teknologi →",
+    viewPortfolio: "Jelajahi Karya Teknologi",
     downloadCV: "Download CV",
     focusLabel: "Fokus Saat Ini",
     focusTitle: "AI, IoT, dan Sistem Antarmuka",
@@ -53,7 +53,7 @@ export const id = {
   about: {
     title: "Tentang Saya",
     subtitle: "Mengenal lebih dekat",
-    greeting: "Halo! Saya Dewa Dharma 👋",
+    greeting: "Halo! Saya Dewa Dharma",
     intro1: "Saya adalah mahasiswa ITB STIKOM Bali yang memiliki passion mendalam di bidang teknologi dan seni. Saya baru saja menyelesaikan program magang sebagai IoT Development Intern di PT Bima Sakti Sanjaya, di mana saya turut membangun platform smart farming AgriSense.",
     intro2: "Fokus utama saya adalah pengembangan sistem cerdas yang menggabungkan AI, IoT, dan Robotika. Selama magang, saya merancang dashboard Next.js real-time dan mengintegrasikan telemetri sensor lapangan menggunakan Node-RED dan MQTT.",
     intro3: "Selain dunia teknis, saya juga aktif dalam seni teater dan puisi. Bagi saya, seni adalah cara untuk memahami perspektif manusia yang lebih dalam, yang kemudian dapat saya terapkan dalam merancang teknologi yang lebih human-centered dan bermakna.",

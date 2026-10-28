@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Fraunces } from "next/font/google";
+import { Inter, Manrope, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,11 +17,11 @@ const manrope = Manrope({
   variable: "--font-headline",
 });
 
-const fraunces = Fraunces({
+const garamond = EB_Garamond({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-fraunces",
-  axes: ["opsz"],
+  variable: "--font-garamond",
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -62,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`antialiased ${inter.variable} ${manrope.variable} ${fraunces.variable}`}>
+      <body className={`antialiased ${inter.variable} ${manrope.variable} ${garamond.variable}`}>
         <LanguageProvider>
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>

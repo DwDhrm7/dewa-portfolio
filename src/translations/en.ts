@@ -37,7 +37,7 @@ export const en: TranslationKeys = {
     eyebrow: "Personal Portfolio / 2026",
     titleLine1: "Engineering Clarity",
     titleLine2: "from Complexity.",
-    viewPortfolio: "Explore Tech Works →",
+    viewPortfolio: "Explore Tech Works",
     downloadCV: "Download CV",
     focusLabel: "Current Focus",
     focusTitle: "AI, IoT, and Interface Systems",
@@ -55,7 +55,7 @@ export const en: TranslationKeys = {
   about: {
     title: "About Me",
     subtitle: "Get to know me better",
-    greeting: "Hello! I'm Dewa Dharma 👋",
+    greeting: "Hello! I'm Dewa Dharma",
     intro1: "I am a student at ITB STIKOM Bali with a deep passion for technology and art. I recently completed my internship as an IoT Development Intern at PT Bima Sakti Sanjaya, where I helped build the AgriSense smart farming platform.",
     intro2: "My main focus is developing intelligent systems that combine AI, IoT, and Robotics. During my internship, I designed a real-time Next.js dashboard and integrated field sensor telemetry using Node-RED and MQTT.",
     intro3: "Besides the technical world, I am also active in theater and poetry arts. For me, art is a way to understand deeper human perspectives, which I can then apply in designing more human-centered and meaningful technology.",

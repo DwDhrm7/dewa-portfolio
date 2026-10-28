@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getWriterItems, saveWriterItem, deleteWriterItem } from "@/lib/writerStorage";
 import { WriterItem } from "@/types/writer";
+import { isStudioAuthenticated } from "@/lib/studioAuth";
+
+const unauthorized = () =>
+  NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
 
 export async function GET() {
   try {
@@ -15,6 +19,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  if (!(await isStudioAuthenticated())) return unauthorized();
+
   try {
     const body = await req.json();
     const item = body as WriterItem;
@@ -50,6 +56,8 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  if (!(await isStudioAuthenticated())) return unauthorized();
+
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
