@@ -747,27 +747,6 @@
     }
   },
   {
-    "id": "puisi-tembakau-bawah-bantal",
-    "slug": "tembakau-bawah-bantal",
-    "title": "Tembakau Bawah Bantal",
-    "category": "puisi",
-    "synopsis": "Tembakau = sesuatu yang berharga tapi tidak dihargai di negeri sendiri",
-    "content": "Tembakau = sesuatu yang berharga tapi tidak dihargai di negeri sendiri\nBawah bantal = tertutup oleh mata, kita gatau apa\n\nTanam tunasku\nBelai sayapku\nSubur akarku\nPanen kemewahanku\nKeringkan tubuhku\n\nJemur tulang-tulangku\nCoklat sewarna matamu\nGurih garis bibirmu\nAroma tradisi leluhur\n\nRanjang kemanusiaan\nBantal kehidupan\nSelimuti diri",
-    "date": "2026-09-10",
-    "readTime": "1 menit baca",
-    "tags": [
-      "Puisi"
-    ],
-    "isPublished": true,
-    "typography": {
-      "fontFamily": "serif",
-      "fontSize": "base",
-      "alignment": "left",
-      "paperTheme": "cream",
-      "lineSpacing": "relaxed"
-    }
-  },
-  {
     "id": "puisi-aku-tunas-abadi",
     "slug": "aku-tunas-abadi",
     "title": "Aku Tunas Abadi",
