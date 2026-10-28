@@ -19,114 +19,42 @@ export default function Navbar() {
   const isWriter = pathname.startsWith("/writer");
   const isEn = language === "en";
 
-  const items = isWriter
-    ? [
-        { name: isEn ? "Home" : "Beranda", href: "/writer" },
-        { name: isEn ? "Poetry" : "Puisi", href: "/writer/puisi" },
-        { name: isEn ? "Short Stories" : "Cerpen", href: "/writer/cerpen" },
-        { name: isEn ? "Novels" : "Novel", href: "/writer/novel" },
-      ]
-    : [
-        { name: t.nav.home, href: "/tech" },
-        { name: t.nav.portfolio, href: "/portfolio" },
-        { name: t.nav.about, href: "/about" },
-        { name: t.nav.resume, href: "/resume" },
-        { name: t.nav.contact, href: "/contact" },
-      ];
+  const items = [
+    { name: t.nav.home, href: "/tech" },
+    { name: t.nav.portfolio, href: "/portfolio" },
+    { name: t.nav.about, href: "/about" },
+    { name: t.nav.resume, href: "/resume" },
+    { name: t.nav.contact, href: "/contact" },
+  ];
 
   const backLabel = isEn ? "Back to gateway" : "Kembali ke gerbang";
   const isActive = (href: string) => pathname === href;
 
   if (isWriter) {
     return (
-      <>
-        <nav className="writer-realm fixed top-0 z-50 w-full border-b border-brass/25 bg-walnut-900/95 font-ui text-parchment backdrop-blur-md">
-          <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-14 lg:px-20">
-            <Link href="/writer" className="flex items-baseline gap-3">
-              <span className="font-serif text-2xl italic text-brass">DD</span>
-              <span className="text-[15px] font-semibold tracking-tight text-parchment">Dewa Dharma</span>
+      <nav className="writer-realm fixed top-0 z-50 w-full border-b border-ink/10 bg-paper/95 font-ui text-ink backdrop-blur-sm">
+        <div className="mx-auto flex h-16 max-w-[1192px] items-center justify-between px-6">
+          <Link href="/writer" className="flex items-baseline gap-2.5">
+            <span className="font-serif text-[22px] italic text-oak">DD</span>
+            <span className="text-[15px] font-semibold tracking-tight">Dewa Dharma</span>
+          </Link>
+
+          <div className="flex items-center gap-5 text-sm">
+            <Link href="/" className="inline-flex items-center gap-1.5 text-ink-soft transition hover:text-ink">
+              <ArrowLeft size={14} />
+              <span className="hidden sm:inline">{backLabel}</span>
+              <span className="sm:hidden">{isEn ? "Gateway" : "Gerbang"}</span>
             </Link>
-
-            <div className="hidden items-center gap-9 md:flex">
-              {items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`border-b pb-0.5 text-[15px] font-medium transition ${
-                    isActive(item.href)
-                      ? "border-brass text-parchment"
-                      : "border-transparent text-parchment/60 hover:text-parchment"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-
-            <div className="hidden items-center gap-5 md:flex">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 text-sm text-parchment/70 transition hover:text-parchment"
-              >
-                <ArrowLeft size={14} />
-                {backLabel}
-              </Link>
-              <button
-                onClick={toggleLanguage}
-                className="text-sm font-semibold tracking-[0.15em] text-brass transition hover:text-parchment"
-                aria-label="Toggle language"
-              >
-                {language.toUpperCase()}
-              </button>
-            </div>
-
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-parchment md:hidden"
-              aria-label="Toggle menu"
+              onClick={toggleLanguage}
+              className="inline-flex h-11 min-w-11 items-center justify-center font-semibold text-ink-soft transition hover:text-ink"
+              aria-label="Toggle language"
             >
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
+              {language.toUpperCase()}
             </button>
           </div>
-        </nav>
-
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              className="writer-realm fixed inset-x-0 top-20 z-40 border-b border-brass/25 bg-walnut-900 p-6 font-ui text-parchment md:hidden"
-            >
-              <div className="flex flex-col gap-4">
-                {items.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`text-xl ${isActive(item.href) ? "text-parchment" : "text-parchment/60"}`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-                <div className="mt-2 flex items-center justify-between border-t border-brass/20 pt-4">
-                  <Link
-                    href="/"
-                    onClick={() => setIsOpen(false)}
-                    className="inline-flex items-center gap-2 italic text-parchment/70"
-                  >
-                    <ArrowLeft size={14} />
-                    {backLabel}
-                  </Link>
-                  <button onClick={toggleLanguage} className="tracking-[0.15em] text-brass">
-                    {language.toUpperCase()}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </>
+        </div>
+      </nav>
     );
   }
 

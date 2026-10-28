@@ -253,16 +253,16 @@ export default function WriterStudioPage() {
   };
 
   if (authState === "checking") {
-    return <div className="min-h-screen bg-walnut-950" />;
+    return <div className="min-h-screen bg-paper" />;
   }
 
   if (authState === "locked") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-walnut-950 px-6 pt-20 text-parchment">
-        <div className="w-full max-w-sm border border-brass/25 bg-walnut-900 p-10 text-center">
-          <Lock size={22} className="mx-auto text-brass" />
+      <div className="flex min-h-screen items-center justify-center bg-paper px-6 pt-20 text-ink">
+        <div className="w-full max-w-sm border border-ink/10 bg-paper p-10 text-center">
+          <Lock size={22} className="mx-auto text-oak" />
           <h1 className="mt-5 text-3xl font-normal">Studio</h1>
-          <p className="mt-2 italic text-parchment/60">Khusus penulis.</p>
+          <p className="mt-2 italic text-ink-soft">Khusus penulis.</p>
 
           <form onSubmit={handleLogin} className="mt-8 space-y-4">
             <input
@@ -271,14 +271,14 @@ export default function WriterStudioPage() {
               placeholder="Kata sandi"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
-              className="w-full border border-brass/30 bg-walnut-950 px-4 py-3 text-center text-lg text-parchment outline-none transition placeholder:text-parchment/30 focus:border-brass"
+              className="w-full border border-ink/20 bg-paper px-4 py-3 text-center text-lg text-ink outline-none transition placeholder:text-ink-soft/60 focus:border-oak"
               autoFocus
             />
-            {loginError && <p className="text-sm text-[#d9a38a]">{loginError}</p>}
+            {loginError && <p className="text-sm text-[#9b3b2a]">{loginError}</p>}
             <button
               type="submit"
               disabled={isSigningIn || passwordInput.length === 0}
-              className="w-full bg-brass py-3 text-lg text-walnut-950 transition hover:bg-parchment disabled:opacity-50"
+              className="w-full bg-ink py-3 text-lg text-paper transition hover:bg-ink/85 disabled:opacity-50"
             >
               {isSigningIn ? "Memeriksa..." : "Masuk"}
             </button>

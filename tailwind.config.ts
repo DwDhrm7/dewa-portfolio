@@ -15,18 +15,11 @@ const config: Config = {
         muted: "var(--muted)",
         line: "var(--line)",
         accent: "var(--accent)",
-        walnut: {
-          950: "#1c130c",
-          900: "#271a11",
-          800: "#382618",
-          700: "#4e3622",
-          600: "#6b4c32",
-        },
-        oak: "#9a7653",
-        brass: "#b08d57",
-        parchment: "#f4ecdd",
-        linen: "#e9dcc5",
-        ink: "#2a1f16",
+        // Writer's realm: paper and ink, brown only as a faint pencil tint.
+        paper: "#fbf9f5",
+        wash: "#f3ede4",
+        ink: { DEFAULT: "#241c15", soft: "#6b5d50" },
+        oak: "#8a6a4a",
       },
       fontFamily: {
         sans: ["var(--font-body)", "system-ui", "sans-serif"],

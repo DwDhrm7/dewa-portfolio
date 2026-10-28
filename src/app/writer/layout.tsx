@@ -1,3 +1,4 @@
 export default function WriterLayout({ children }: { children: React.ReactNode }) {
-  return <div className="writer-realm min-h-screen bg-parchment text-ink">{children}</div>;
+  // overflow-x-clip (not hidden) so tilted sheets never cause sideways scroll and sticky still works.
+  return <div className="writer-realm min-h-screen overflow-x-clip bg-paper text-ink">{children}</div>;
 }

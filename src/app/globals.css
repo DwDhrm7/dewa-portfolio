@@ -9,13 +9,6 @@
   --muted: #6b6b6b;
   --line: rgba(23, 23, 23, 0.1);
   --accent: #171717;
-
-  /* Writer's realm — a classy wooden house: walnut, oak, brass, parchment */
-  --paper: #f4ecdd;
-  --paper-deep: #e9dcc5;
-  --ink: #2a1f16;
-  --ink-soft: #5e4b3a;
-  --walnut: #271a11;
 }
 
 * {
@@ -72,6 +65,26 @@ select {
   .writer-realm :where(button, input, textarea, select, label, nav) {
     font-family: var(--font-writer-ui), "Helvetica Neue", Arial, sans-serif;
   }
+
+  .writer-realm {
+    caret-color: #8a6a4a;
+  }
+
+  .writer-realm ::selection {
+    background: #e8dccb;
+    color: #241c15;
+  }
+
+  .writer-realm :focus-visible {
+    outline: 2px solid #8a6a4a;
+    outline-offset: 3px;
+  }
+}
+
+/* Faint paper grain for the torn manuscript sheets. */
+.paper-grain {
+  background-color: #f7f2ea;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.33 0 0 0 0 0.24 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @layer utilities {

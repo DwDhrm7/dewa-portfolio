@@ -171,12 +171,12 @@ export default function ReaderPage() {
 
   if (!item) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-parchment px-6 text-ink">
+      <div className="flex min-h-screen items-center justify-center bg-paper px-6 text-ink">
         <div className="text-center">
           {notFound ? (
             <>
               <p className="text-xl">Karya ini tidak ditemukan.</p>
-              <Link href="/writer" className="mt-4 inline-block font-ui text-sm font-medium text-walnut-700">
+              <Link href="/writer" className="mt-4 inline-block font-ui text-sm font-medium text-ink">
                 Kembali ke ruang sastra
               </Link>
             </>
@@ -197,7 +197,7 @@ export default function ReaderPage() {
       {/* Top Reading Progress Bar */}
       <div className="fixed top-20 left-0 right-0 z-40 h-0.5 bg-black/10">
         <div 
-          className="h-full bg-brass transition-all duration-150"
+          className="h-full bg-ink transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -208,7 +208,7 @@ export default function ReaderPage() {
       <header className={`fixed top-24 left-4 right-4 z-40 transition-opacity duration-300 ${
         isDistractionFree ? "opacity-0 hover:opacity-100" : "opacity-100"
       }`}>
-        <div className="mx-auto max-w-4xl flex items-center justify-between rounded-sm border border-oak/30 bg-parchment/90 p-3 shadow-lg backdrop-blur-xl text-neutral-900 font-ui">
+        <div className="mx-auto max-w-4xl flex items-center justify-between rounded-sm border border-oak/30 bg-paper/95 p-3 shadow-lg backdrop-blur-xl text-neutral-900 font-ui">
           
           {/* Back button */}
           <Link
@@ -277,7 +277,7 @@ export default function ReaderPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed top-40 left-4 right-4 z-40 mx-auto max-w-xl rounded-sm border border-oak/30 bg-parchment p-5 shadow-2xl backdrop-blur-2xl text-neutral-900 font-ui"
+            className="fixed top-40 left-4 right-4 z-40 mx-auto max-w-xl rounded-sm border border-oak/30 bg-paper p-5 shadow-2xl backdrop-blur-2xl text-neutral-900 font-ui"
           >
             <div className="flex items-center justify-between pb-3 border-b border-black/10 mb-4">
               <span className="text-xs font-bold text-ink uppercase tracking-wider flex items-center gap-2">
@@ -310,7 +310,7 @@ export default function ReaderPage() {
                         key={s.id}
                         onClick={() => setFontSize(s.id as TypographyFontSize)}
                         className={`flex-1 py-1 rounded-lg text-center font-bold transition ${
-                          fontSize === s.id ? "bg-walnut-800 text-parchment" : "hover:bg-black/5 text-neutral-700"
+                          fontSize === s.id ? "bg-ink text-paper" : "hover:bg-black/5 text-neutral-700"
                         }`}
                       >
                         {s.label}
@@ -331,7 +331,7 @@ export default function ReaderPage() {
                         key={a.id}
                         onClick={() => setAlignment(a.id as TypographyAlignment)}
                         className={`flex-1 py-1 rounded-lg flex items-center justify-center transition ${
-                          alignment === a.id ? "bg-walnut-800 text-parchment" : "hover:bg-black/5 text-neutral-700"
+                          alignment === a.id ? "bg-ink text-paper" : "hover:bg-black/5 text-neutral-700"
                         }`}
                       >
                         <a.icon size={14} />
@@ -442,7 +442,7 @@ export default function ReaderPage() {
                   setCurrentChapterNum(currentChapterNum + 1);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="flex items-center gap-2 bg-walnut-800 px-6 py-3 text-sm font-semibold text-parchment transition hover:bg-walnut-950"
+                className="flex items-center gap-2 bg-ink px-6 py-3 text-sm font-semibold text-ink transition hover:bg-ink/85"
               >
                 {item.chapters[currentChapterNum]?.title}
                 <ChevronRight size={16} />
