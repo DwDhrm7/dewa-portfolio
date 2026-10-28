@@ -34,9 +34,8 @@ export default function Navbar() {
     return (
       <nav className="writer-realm fixed top-0 z-50 w-full border-b border-ink/10 bg-paper/95 font-ui text-ink backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-[1192px] items-center justify-between px-6">
-          <Link href="/writer" className="flex items-baseline gap-2.5">
-            <span className="font-serif text-[22px] italic text-oak">DD</span>
-            <span className="text-[15px] font-semibold tracking-tight">Dewa Dharma</span>
+          <Link href="/writer" className="text-[17px] font-semibold tracking-tight">
+            Dewa Dharma
           </Link>
 
           <div className="flex items-center gap-5 text-sm">
@@ -62,13 +61,8 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 z-50 w-full border-b border-black/5 bg-[rgba(246,244,239,0.9)] text-neutral-950 backdrop-blur-2xl">
         <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-14 lg:px-20">
-          <Link href="/tech" className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-950 font-headline text-xs font-bold text-white">
-              DD
-            </span>
-            <span className="font-headline text-sm font-extrabold uppercase tracking-[0.2em]">
-              Dewa Dharma
-            </span>
+          <Link href="/tech" className="font-headline text-sm font-extrabold uppercase tracking-[0.2em]">
+            Dewa Dharma
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { WriterItem, WriterCategory } from "@/types/writer";
 import { formatDate } from "./useWriterItems";
 import { woodImages } from "./woodImages";
@@ -23,6 +24,7 @@ const achievements = [
   "Juara I Penulisan Puisi, PEKSIMIDA Bali 2026",
   "Delegasi Bali, PEKSIMINAS 2026",
   "Juara I Baca Puisi Putra, PEKSIMIDA Bali 2024",
+  "Delegasi Bali, PEKSIMINAS 2024",
   "Juara I Baca Puisi Nasional, CORISINDO 2024",
   "Juara II Baca Puisi Nasional, OFSN 2024",
 ];
@@ -82,11 +84,9 @@ export function WriterShell({
 
         <aside className="mt-16 border-t border-ink/10 pt-10 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-2">
           <div className="lg:sticky lg:top-28">
-            <p className="font-ui text-base font-semibold">I Dewa Made Dharma Putra Santika</p>
+            <p className="font-ui text-base font-semibold">Profil Penulis</p>
             <p className="mt-3 font-ui text-sm leading-relaxed text-ink-soft">
-              Penyair muda asal Tabanan, Bali. Tumbuh dari panggung Teater Jineng dan kini berteater di Teater
-              Biner, ITB STIKOM Bali. Menulis puisi romansa tentang kerinduan, kehilangan, dan harapan, banyak
-              terinspirasi oleh Sapardi Djoko Damono dan Alma Neira.
+              Dewa Dharma Putra bernama lengkap I Dewa Made Dharma Putra Santika adalah penulis dan penyair muda asal Bali. Ia aktif menulis dan membaca puisi. Ia meraih juara pertama baca puisi putra pada PEKSIMIDA 2024 Bali dan menjadi peserta PEKSIMINAS 2024 di Universitas Negeri Jakarta. Pada PEKSIMIDA Bali 2026, ia meraih juara pertama penulisan puisi dan melaju ke PEKSIMINAS 2026 di Universitas Negeri Jember.
             </p>
 
             <p className="mt-10 font-ui text-base font-semibold">Prestasi</p>
@@ -196,28 +196,15 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
         style={{ clipPath: tornEdge(seed + 7), transform: `rotate(${-tilt * 2}deg) translate(${side === "left" ? 8 : -8}px, 6px)` }}
       />
       <div className="relative drop-shadow-[0_14px_18px_rgba(60,42,25,0.13)] transition-[filter] duration-500 group-hover:drop-shadow-[0_22px_26px_rgba(60,42,25,0.18)]">
-        <div
-          className={`paper-grain flex flex-col gap-7 px-7 py-10 sm:gap-9 sm:px-10 sm:py-12 ${
-            side === "left" ? "sm:flex-row" : "sm:flex-row-reverse"
-          }`}
-          style={{ clipPath: tornEdge(seed) }}
-        >
-          <div className="w-28 shrink-0 sm:w-36">
-            {novel.coverImage ? (
-              <img
-                src={novel.coverImage}
-                alt={`Sampul ${novel.title}`}
-                className="aspect-[848/1200] w-full object-cover shadow-[2px_6px_14px_rgba(36,28,21,0.25)]"
-              />
-            ) : (
-              <div className="flex aspect-[848/1200] w-full flex-col justify-between bg-ink p-3 text-paper shadow-[2px_6px_14px_rgba(36,28,21,0.25)]">
-                <span className="font-serif text-lg leading-tight">{novel.title}</span>
-                <span className="font-ui text-[10px] text-paper/60">Dewa Dharma Putra</span>
-              </div>
-            )}
-          </div>
+        {/* the torn paper is its own layer, so the cover is free to leave it */}
+        <div aria-hidden="true" className="paper-grain absolute inset-0" style={{ clipPath: tornEdge(seed) }} />
 
-          <div className="min-w-0 flex-1">
+        <div
+          className={`relative px-7 pb-10 pt-[10.5rem] sm:py-12 ${
+            side === "left" ? "sm:pl-[13rem] sm:pr-10" : "sm:pl-10 sm:pr-[13rem]"
+          }`}
+        >
+          <div className="min-w-0">
             <p className="font-ui text-[13px] text-ink-soft">
               {novel.isPreview ? `Pratinjau, ${chapters.length} bagian` : `${chapters.length} bagian`}
               {novel.readTime ? `, ${novel.readTime}` : ""}
@@ -251,8 +238,108 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
             )}
           </div>
         </div>
+
+        <div
+          className={`absolute -top-10 w-32 transition-transform duration-500 ease-out group-hover:-translate-y-3 motion-reduce:transition-none sm:-top-12 sm:w-48 ${
+            side === "left"
+              ? "left-6 -rotate-3 group-hover:-rotate-6 sm:-left-10"
+              : "right-6 rotate-3 group-hover:rotate-6 sm:-right-7"
+          }`}
+        >
+          <Cover item={novel} />
+        </div>
       </div>
     </motion.div>
+  );
+}
+
+/** A book cover that sits on top of its container rather than inside it. */
+function Cover({ item }: { item: WriterItem }) {
+  const shadow = "shadow-[0_28px_40px_-14px_rgba(36,28,21,0.55),0_6px_14px_rgba(36,28,21,0.18)]";
+  return (
+    <div className={`relative aspect-[2/3] w-full overflow-hidden ${shadow}`}>
+      {item.coverImage ? (
+        <img src={item.coverImage} alt={`Sampul ${item.title}`} className="h-full w-full object-cover" />
+      ) : (
+        <div className="flex h-full flex-col justify-between bg-ink p-4 text-paper">
+          <span className="font-serif text-xl leading-tight">{item.title}</span>
+          <span className="font-ui text-[10px] text-paper/60">Dewa Dharma Putra</span>
+        </div>
+      )}
+      <div aria-hidden="true" className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/35 to-transparent" />
+    </div>
+  );
+}
+
+/** A short story gets more weight than a poem: a washed panel with its cover leaning out of the top. */
+export function StoryPanel({ story }: { story: WriterItem }) {
+  return (
+    <article className="mt-20 first:mt-16 sm:mt-24">
+      <Link
+        href={`/writer/read/${story.slug}`}
+        className="group relative block bg-wash/70 px-6 pb-8 pt-[8.5rem] transition-colors hover:bg-wash sm:min-h-[15rem] sm:py-9 sm:pl-8 sm:pr-[13rem]"
+      >
+        <p className="font-ui text-[13px] text-ink-soft">Cerpen, {formatDate(story.date)}</p>
+        <h2 className="mt-2 text-2xl leading-snug sm:text-[26px]">{story.title}</h2>
+        <p className="mt-3 line-clamp-3 whitespace-pre-line text-[17px] leading-relaxed text-ink-soft">
+          {story.synopsis}
+        </p>
+        {story.readTime && <p className="mt-4 font-ui text-[13px] text-ink-soft">{story.readTime}</p>}
+
+        <div className="absolute -top-10 right-6 w-24 rotate-3 transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-6 motion-reduce:transition-none sm:-right-8 sm:-top-14 sm:w-40">
+          <Cover item={story} />
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+export function StoryList({ stories }: { stories: WriterItem[] | null }) {
+  if (stories === null) return <p className="py-10 font-ui text-sm text-ink-soft">Memuat karya...</p>;
+  return (
+    <div>
+      {stories.map((story) => (
+        <StoryPanel key={story.id} story={story} />
+      ))}
+    </div>
+  );
+}
+
+export function Pager({ page, pages, onChange }: { page: number; pages: number; onChange: (page: number) => void }) {
+  const step = "inline-flex h-11 items-center gap-1.5 px-2 text-ink-soft transition hover:text-ink disabled:pointer-events-none disabled:opacity-30";
+  return (
+    <nav aria-label="Halaman puisi" className="mt-10 flex items-center justify-between gap-4 font-ui text-sm">
+      <button type="button" className={step} disabled={page === 1} onClick={() => onChange(page - 1)}>
+        <ChevronLeft size={16} />
+        <span className="hidden sm:inline">Sebelumnya</span>
+      </button>
+
+      <span className="tabular-nums text-ink-soft sm:hidden">
+        Halaman {page} dari {pages}
+      </span>
+      <ol className="hidden items-center gap-1 sm:flex">
+        {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
+          <li key={n}>
+            <button
+              type="button"
+              aria-label={`Halaman ${n}`}
+              aria-current={n === page ? "page" : undefined}
+              onClick={() => onChange(n)}
+              className={`h-10 w-10 rounded-full tabular-nums transition ${
+                n === page ? "bg-ink text-paper" : "text-ink-soft hover:bg-wash hover:text-ink"
+              }`}
+            >
+              {n}
+            </button>
+          </li>
+        ))}
+      </ol>
+
+      <button type="button" className={step} disabled={page === pages} onClick={() => onChange(page + 1)}>
+        <span className="hidden sm:inline">Berikutnya</span>
+        <ChevronRight size={16} />
+      </button>
+    </nav>
   );
 }
 
@@ -260,7 +347,7 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
 export function NovelShelf({ novels }: { novels: WriterItem[] }) {
   if (novels.length === 0) return null;
   return (
-    <div className="relative py-10">
+    <div className="relative pb-10 pt-20">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.06] sepia"
@@ -270,7 +357,7 @@ export function NovelShelf({ novels }: { novels: WriterItem[] }) {
           WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 100%)",
         }}
       />
-      <div className="relative space-y-14 sm:space-y-16">
+      <div className="relative space-y-24 sm:space-y-28">
         {novels.map((novel, i) => (
           <NovelSheet key={novel.id} novel={novel} side={i % 2 === 0 ? "left" : "right"} seed={101 + i * 53} />
         ))}

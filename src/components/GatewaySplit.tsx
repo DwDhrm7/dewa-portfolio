@@ -18,7 +18,6 @@ import { woodImages } from "@/components/writer/woodImages";
 const VIEW_W = 1600;
 const VIEW_H = 900;
 const CENTER_X = VIEW_W / 2;
-const CENTER_Y = VIEW_H / 2;
 
 /**
  * Deterministic engraving-style contour artwork. It is rendered twice
@@ -44,82 +43,22 @@ function MonochromeArt({ nameLabel, hintLabel }: { nameLabel: string; hintLabel:
   });
 
   return (
-    <svg
-      viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-      preserveAspectRatio="none"
-      className="h-full w-full"
-      aria-hidden="true"
-    >
-      <rect x="0" y="0" width={VIEW_W} height={VIEW_H} fill="#0a0a0a" />
-      {lines.map((line, i) => (
-        <path
-          key={i}
-          d={line.d}
-          fill="none"
-          stroke="#ffffff"
-          strokeWidth={0.75}
-          opacity={line.opacity}
-        />
-      ))}
+    <div className="relative h-full w-full" aria-hidden="true">
+      <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} preserveAspectRatio="none" className="h-full w-full">
+        <rect x="0" y="0" width={VIEW_W} height={VIEW_H} fill="#0a0a0a" />
+        {lines.map((line, i) => (
+          <path key={i} d={line.d} fill="none" stroke="#ffffff" strokeWidth={0.75} opacity={line.opacity} />
+        ))}
+        <line x1={CENTER_X} y1={0} x2={CENTER_X} y2={VIEW_H} stroke="#ffffff" strokeOpacity={0.14} strokeWidth={1} />
+      </svg>
 
-      {/* center seam */}
-      <line
-        x1={CENTER_X}
-        y1={0}
-        x2={CENTER_X}
-        y2={VIEW_H}
-        stroke="#ffffff"
-        strokeOpacity={0.14}
-        strokeWidth={1}
-      />
-
-      {/* emblem ring */}
-      <circle
-        cx={CENTER_X}
-        cy={CENTER_Y - 36}
-        r={58}
-        fill="none"
-        stroke="#ffffff"
-        strokeOpacity={0.55}
-        strokeWidth={1}
-      />
-      <text
-        x={CENTER_X}
-        y={CENTER_Y - 24}
-        textAnchor="middle"
-        fontSize={34}
-        fill="#ffffff"
-        fillOpacity={0.92}
-        style={{ fontFamily: "var(--font-headline), serif" }}
-      >
-        DD
-      </text>
-
-      <text
-        x={CENTER_X}
-        y={CENTER_Y + 58}
-        textAnchor="middle"
-        fontSize={13}
-        letterSpacing={4}
-        fill="#ffffff"
-        fillOpacity={0.6}
-        style={{ fontFamily: "var(--font-headline), sans-serif" }}
-      >
-        {nameLabel.toUpperCase()}
-      </text>
-      <text
-        x={CENTER_X}
-        y={CENTER_Y + 86}
-        textAnchor="middle"
-        fontSize={11}
-        letterSpacing={2.5}
-        fill="#ffffff"
-        fillOpacity={0.38}
-        style={{ fontFamily: "var(--font-body), sans-serif" }}
-      >
-        {hintLabel.toUpperCase()}
-      </text>
-    </svg>
+      {/* Real text, not SVG, so it never stretches with the artwork; centred on the seam it splits with the doors. */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-center text-white">
+        <p className="font-headline text-5xl font-light tracking-[-0.02em] text-white/90 md:text-7xl">Dewa Dharma</p>
+        <p className="mt-5 font-headline text-[10px] uppercase tracking-[0.3em] text-white/55 md:text-xs">{nameLabel}</p>
+        <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-white/35 md:text-[11px]">{hintLabel}</p>
+      </div>
+    </div>
   );
 }
 
@@ -202,10 +141,7 @@ export default function GatewaySplit() {
       style={{ perspective: "1800px" }}
     >
       {/* Top identity bar */}
-      <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-6 md:px-12">
-        <span className="font-headline text-xs font-bold uppercase tracking-[0.3em] text-white/90">
-          Dewa Dharma
-        </span>
+      <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-center justify-end px-6 py-6 md:px-12">
         <button
           onClick={toggleLanguage}
           className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80 backdrop-blur-md transition hover:border-white/40 hover:text-white"
