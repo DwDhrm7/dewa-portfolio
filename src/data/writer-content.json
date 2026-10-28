@@ -1,0 +1,115 @@
+[
+  {
+    "id": "novel-arsitek-bayang",
+    "slug": "arsitek-bayang-bayang",
+    "title": "Arsitek Bayang-Bayang",
+    "subtitle": "Sebuah Novel tentang Ingatan, Kode, dan Kota yang Hilang",
+    "category": "novel",
+    "synopsis": "Di sebuah kota pesisir yang terbelah antara masa lalu dan otomatisasi kecerdasan buatan, seorang insinyur muda menemukan serangkaian cetak biru algoritma yang ditinggalkan ayahnya—arsitektur yang tidak dibangun untuk mengontrol mesin, melainkan untuk menyimpan kenangan manusia yang perlahan terhapus oleh waktu.",
+    "date": "2026-03-15",
+    "readTime": "45 min read",
+    "coverImage": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["Fiksi Spekulatif", "Eksistensial", "Kota"],
+    "isPublished": true,
+    "featured": true,
+    "typography": {
+      "fontFamily": "fraunces",
+      "fontSize": "base",
+      "alignment": "justify",
+      "paperTheme": "cream",
+      "lineSpacing": "relaxed"
+    },
+    "chapters": [
+      {
+        "id": "ch-1",
+        "chapterNumber": 1,
+        "title": "Bab 1: Titik Temu di Bawah Gerimis",
+        "date": "2026-03-15",
+        "wordCount": 780,
+        "content": "Lampu-lampu kota Denpasar di kala senja selalu memiliki rona tembaga yang aneh. Aspal masih basah oleh sisa hujan lebat dua jam lalu, memantulkan bayang-bayang papan reklame neon dan siluet pohon kamboja yang meranggas.\n\nDewa duduk di sudut kedai tua di tepian Sanur, menghadap laptop tua yang kipas pendinginnya mendengung letih. Di layarnya, baris-baris kode biner bergulir lambat, bukan sebagai program modern dengan antarmuka gemerlap, melainkan fragmen data lawas dari tahun 1998 yang baru saja ia ekstrak dari hard disk magnetik berdebu milik mendiang pamannya.\n\n\"Kamu masih mencari pola itu?\" tanya seorang gadis yang baru saja meletakkan secangkir kopi hitam tanpa gula di mejanya. Suaranya datar, namun ada tatapan cemas di balik kacamata berbingkai bulat itu.\n\n\"Bukan sekadar pola, Ratih,\" bisik Dewa tanpa mengalihkan pandangan dari kursor yang berkedip. \"Ini struktur memori. Siapa pun yang menulis ini tahu bahwa kota ini akan berubah begitu cepat sehingga batu dan bata tak akan sanggup lagi menyimpan ingatan kita. Mereka membangun arsip di dalam bayang-bayang sirkuit.\"\n\nDi luar, deru sepeda motor perlahan surut, digantikan oleh suara deburan ombak yang membentur pemecah gelombang di kejauhan. Sebuah lonjakan arus listrik tiba-tiba membuat lampu gantung tembaga di atas kepala mereka berkedip dua kali, dan di layar monitor Dewa, satu kalimat tunggal muncul di baris paling bawah terminal: *'Jika kamu membaca ini, berarti kamu adalah orang terakhir yang mengingat jalan pulang.'*"
+      },
+      {
+        "id": "ch-2",
+        "chapterNumber": 2,
+        "title": "Bab 2: Dialog di Antara Frekuensi",
+        "date": "2026-03-22",
+        "wordCount": 850,
+        "content": "Pagi datang dengan kabut tipis yang merayapi celah genteng tanah liat. Di meja kerjanya yang penuh dengan modul mikrokontroler, resistor lepas, dan buku-buku catatan bersampul kulit kusam, Dewa mulai memetakan koordinat yang tersembunyi di balik checksum berkas kemarin.\n\nKoordinat itu tidak menunjuk ke gedung pencakar langit atau stasiun transmisi telekomunikasi, melainkan ke sebuah pura kecil berlumut di lereng perbukitan timur Bali—tempat di mana antena radio amatir peninggalan dekade 80-an masih berdiri tegak di samping rumpun bambu betung.\n\n\"Untuk apa radio tua itu terus memancarkan sinyal jika tidak ada stasiun yang menerima?\" pikir Dewa.\n\nKetika osiloskopnya disambungkan ke frekuensi 142.150 MHz, sebuah dengungan harmonis terdengar. Bukan derau putih statis biasa, melainkan deretan nada ritmis yang menyerupai tabuhan gamelan selonding, namun diubah ke dalam gelombang sinusoidal murni. Setiap siklus gelombang memuat enkripsi data teks.\n\n\"Sains memberi kita alat untuk mengukur dunia,\" gumam Dewa pelan, teringat pesan dosen pembimbingnya dulu. \"Tetapi hanya tulisan dan rasa yang mampu memberi arti pada apa yang kita ukur.\"\n\nIa menekan tombol rekam. Sinyal itu mulai didekodekan, huruf demi huruf, bait demi bait."
+      },
+      {
+        "id": "ch-3",
+        "chapterNumber": 3,
+        "title": "Bab 3: Cetak Biru yang Tersisa",
+        "date": "2026-03-29",
+        "wordCount": 920,
+        "content": "Ketika babak baru sejarah dimulai, kita sering kali terlalu terburu-buru mengubur apa yang kita anggap usang. Padahal, masa depan tak pernah berdiri di atas ruang hampa; ia selalu bertumpu pada fondasi luka dan harapan yang dipahat generasi sebelumnya.\n\nDi depan gerbang batu candi bentar yang retak oleh akar beringin, Dewa menemukan kotak logam tertanam sedalam setengah meter di bawah tanah liat merah. Di dalamnya bukan emas atau surat wasiat, melainkan gulungan kertas kalkir dan sebuah drive optik kaca kuarsa yang dirancang tahan ratusan tahun.\n\nPada lembaran kalkir pertama, tergambar peta rancang bangun kota yang menyatukan aliran air Subak dengan jaringan serat optik pasif. Sebuah visi sintesis yang harmonis: teknologi yang tidak memperkosa alam, melainkan menjadi pelindung bagi siklus kehidupan lokal.\n\n\"Mereka tidak pernah kalah dari zaman,\" kata Dewa pada dirinya sendiri sambil memeluk kotak itu di dada. \"Mereka hanya menunggu seseorang yang cukup sabar untuk membaca kembali apa yang telah mereka bisikkan ke dalam angin.\""
+      }
+    ]
+  },
+  {
+    "id": "cerpen-kotak-musik",
+    "slug": "kotak-musik-dan-sinyal-tanpa-nama",
+    "title": "Kotak Musik dan Sinyal Tanpa Nama",
+    "subtitle": "Kisah tentang frekuensi kerinduan yang tersesat di antara kabel serat optik",
+    "category": "cerpen",
+    "synopsis": "Sebuah kotak musik kuno berbahan kayu jati tiba-tiba mengeluarkan melodi baru setiap kali hujan deras turun di pelabuhan tua Benoa. Bagi seorang teknisi transmisi data, melodi itu bukan musik biasa—ia adalah pesan suara yang dikirim seseorang tiga puluh tahun silam.",
+    "date": "2026-02-18",
+    "readTime": "12 min read",
+    "coverImage": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["Fiksi Realis", "Romantisisme", "Misteri"],
+    "isPublished": true,
+    "featured": true,
+    "typography": {
+      "fontFamily": "fraunces",
+      "fontSize": "base",
+      "alignment": "justify",
+      "paperTheme": "parchment",
+      "lineSpacing": "relaxed"
+    },
+    "content": "Kakek selalu berkata bahwa kayu jati tidak pernah benar-benar mati. Bahkan setelah ditebang, dikeringkan, dan dipahat menjadi perabot, serat-seratnya masih menyimpan ingatan tentang angin musim barat dan rintik air yang pernah membasahi dedaunannya.\n\nAku menganggap itu dongeng orang tua sampai malam ketika badai tropis menghantam Pelabuhan Benoa. Listrik padam di seluruh distrik pergudangan, menyisakan suara deburan ombak dan derit tiang-tiang kapal nelayan yang bertumbukan di dermaga.\n\nDi kamarku di lantai dua, kotak musik peninggalan nenek—yang silindernya sudah berkarat dan pemutarnya patah sejak aku berusia delapan tahun—tiba-tiba mulai berputar sendiri.\n\nTing... ting... tong...\n\nNada-nada logam berdenting pelan di kegelapan kamar. Bukan lagu pengantar tidur Wina yang biasanya, melainkan sebuah melodi ganjil berketukan ganjil, seperti sandi Morse yang dimainkan dengan harpa. Bulu kudukku meremang. Aku meraih ponselku dan menyalakan lampu senter. Silinder kuningan di dalam kotak itu bergerak perlahan, digerakkan oleh kumparan kawat tembaga mikro yang bergetar akibat induksi elektromagnetik yang tak wajar.\n\nSebagai teknisi telekomunikasi, naluri analitisku mengalahkan rasa takut. Aku mendekatkan perekam suara ke bibir kotak musik. Ketika frekuensinya dianalisis pada spektrum gelombang keesokan harinya, pola itu cocok persis dengan transmisi telegraf kabel bawah laut rute Surabaya-Benoa tahun 1965.\n\nPesannya sederhana, namun cukup untuk membuat air mata siapapun menetes: *'Kapal kami tertahan kabut di selat. Jangan matikan lentera di beranda. Aku pasti pulang.'*\n\nSelama tiga puluh tahun, lentera itu telah padam. Tetapi laut tidak pernah melupakan janji yang pernah dilayangkan di atas gelombangnya."
+  },
+  {
+    "id": "puisi-batas-sunyi",
+    "slug": "batas-sunyi-di-ujung-senja",
+    "title": "Batas Sunyi di Ujung Senja",
+    "subtitle": "Kumpulan bait renungan tentang jeda di antara riuh dunia",
+    "category": "puisi",
+    "synopsis": "Sebuah puisi tentang ruang hening yang sering kita lewatkan saat mengejar kecepatan zaman.",
+    "date": "2026-03-01",
+    "readTime": "3 min read",
+    "coverImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["Sajak", "Kontemplasi", "Jiwa"],
+    "isPublished": true,
+    "featured": true,
+    "typography": {
+      "fontFamily": "fraunces",
+      "fontSize": "lg",
+      "alignment": "center",
+      "paperTheme": "cream",
+      "lineSpacing": "loose"
+    },
+    "content": "Ada saat di mana cakrawala berhenti berdebat dengan malam,\nKetika merah tembaga pasrah pada biru yang paling pekat,\nDan kita, yang seharian memburu angka dan kepastian,\nTersudut di beranda tanpa sebutir pun alasan.\n\nBerapa banyak kata yang kita hamburkan siang tadi,\nUntuk membuktikan bahwa kita ada di hadapan orang banyak?\nNamun di hadapan angin senja yang menyapu pipi,\nSemua gelar dan sanggahan luruh menjadi bisu.\n\nHening ini bukan kekosongan,\nIa adalah bejana yang menunggu kita isi dengan jujur.\nTentang lelah yang kita tutup dengan senyum tipis,\nDan rindu pada rumah yang tak beralamat pasti.\n\nBiarkan malam menelan batas-batas bayanganmu,\nSebab di ujung senja yang tanggal ini,\nKamu tidak perlu menjadi siapa-siapa lagi\nKecuali jiwa yang berani bernapas dengan tenang."
+  },
+  {
+    "id": "puisi-denyut-sirkuit",
+    "slug": "denyut-sirkuit-dan-jiwa-yang-bertanya",
+    "title": "Denyut Sirkuit dan Jiwa yang Bertanya",
+    "subtitle": "Perjumpaan antara logika biner dan getar nurani",
+    "category": "puisi",
+    "synopsis": "Menemukan titik temu antara kode-kode kecerdasan buatan dan kerapuhan rasa manusia.",
+    "date": "2026-02-10",
+    "readTime": "3 min read",
+    "coverImage": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["Sastra Digital", "Filsafat", "Kode"],
+    "isPublished": true,
+    "featured": false,
+    "typography": {
+      "fontFamily": "mono",
+      "fontSize": "base",
+      "alignment": "left",
+      "paperTheme": "obsidian",
+      "lineSpacing": "relaxed"
+    },
+    "content": "0 dan 1 berbaris di atas silikon tipis,\nMemetakan kemungkinan dari miliaran probabilitas,\nKita mengajarkan mesin bagaimana cara menebak rindu,\nMengukur getaran suara, mengubah air mata jadi matriks gradien.\n\nNamun ketika lampu layar mati,\nDan arus listrik terputus dari dinding,\nSiapa yang akan mengajari kita menahan sepi?\nKetika tak ada lagi prompt yang sanggup menjawab:\n\"Mengapa hati ini tetap merasa sendiri di tengah jaringan tanpa batas?\"\n\nLogika merapikan dunia luar,\nTetapi sastra merawat kekacauan yang ada di dalam.\nKita adalah arsitek yang merakit menara biner,\nSekaligus peziarah yang menangis di kaki tangganya."
+  }
+]

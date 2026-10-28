@@ -4,11 +4,30 @@ export const en: TranslationKeys = {
   // Navbar
   nav: {
     home: "Home",
+    tech: "Technology",
+    writer: "Writings",
     about: "About",
     resume: "Resume",
     portfolio: "Portfolio",
-    studio: "Studio",
     contact: "Contact",
+  },
+
+  // Gateway
+  gateway: {
+    badge: "Personal Exploration",
+    title: "Choose who Dewa Dharma you know",
+    subtitle: "Two realms of creation, one soul. Enter the realm you wish to explore.",
+    techBadge: "THE TECHNOLOGIST",
+    techTitle: "Software & AI Engineer",
+    techDesc: "Exploring artificial intelligence, computer vision, IoT, and intelligent architectures built for tomorrow.",
+    techCta: "Enter The Tech Realm",
+    techTags: ["AI & Vision", "IoT Systems", "Full-stack Dev", "Robotics"],
+    writerBadge: "THE STORYTELLER",
+    writerTitle: "Writer & Poet",
+    writerDesc: "An anthology of poetry, short stories, novel chapters, and soul musings crafted in timeless typography.",
+    writerCta: "Enter The Writer's Realm",
+    writerTags: ["Poetry", "Stories", "Novels", "Literature"],
+    hint: "Move your cursor left or right",
   },
 
   // Hero
@@ -18,7 +37,7 @@ export const en: TranslationKeys = {
     eyebrow: "Personal Portfolio / 2026",
     titleLine1: "Engineering Clarity",
     titleLine2: "from Complexity.",
-    viewPortfolio: "Order F&B Website →",
+    viewPortfolio: "Explore Tech Works →",
     downloadCV: "Download CV",
     focusLabel: "Current Focus",
     focusTitle: "AI, IoT, and Interface Systems",
@@ -30,15 +49,6 @@ export const en: TranslationKeys = {
       "Building intelligent products with a calm editorial language and a strong technical core.",
     selectedWorkLabel: "Selected Work",
     explore: "Explore",
-  },
-
-
-  
-  // Studio Teaser
-  studioTeaser: {
-    title: "Need a Website for Your F&B Business?",
-    subtitle: "Dewa Studio provides premium website design exclusively for cafés and restaurants. Choose from 9 world-class design concepts, I tailor it to your brand, and your site goes live in 7 days.",
-    cta: "Explore the Collection",
   },
 
   // About

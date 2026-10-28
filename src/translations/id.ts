@@ -2,11 +2,30 @@ export const id = {
   // Navbar
   nav: {
     home: "Beranda",
+    tech: "Teknologi",
+    writer: "Kepenulisan",
     about: "Tentang",
     resume: "Resume",
     portfolio: "Portofolio",
-    studio: "Studio",
     contact: "Kontak",
+  },
+
+  // Gateway
+  gateway: {
+    badge: "Eksplorasi Personal",
+    title: "Choose who Dewa Dharma you know",
+    subtitle: "Dua ruang cipta, satu identitas. Silakan masuki semesta yang ingin Anda telusuri.",
+    techBadge: "SISI TEKNOLOGI",
+    techTitle: "Software & AI Engineer",
+    techDesc: "Eksplorasi kecerdasan buatan, visi komputer, IoT, dan arsitektur sistem cerdas berorientasi masa depan.",
+    techCta: "Masuki Dunia Teknologi",
+    techTags: ["AI & Vision", "IoT Systems", "Full-stack Dev", "Robotics"],
+    writerBadge: "SISI KEPENULISAN",
+    writerTitle: "Penulis & Sastrawan",
+    writerDesc: "Kumpulan puisi, cerpen, bab novel, dan renungan jiwa dalam tipografi sastra yang tenang dan bebas.",
+    writerCta: "Masuki Ruang Kata",
+    writerTags: ["Puisi", "Cerpen", "Novel", "Sastra"],
+    hint: "Gerakkan kursor ke kiri atau ke kanan",
   },
 
   // Hero
@@ -16,7 +35,7 @@ export const id = {
     eyebrow: "Portofolio Personal / 2026",
     titleLine1: "Engineering Clarity",
     titleLine2: "from Complexity.",
-    viewPortfolio: "Pesan Website F&B →",
+    viewPortfolio: "Jelajahi Karya Teknologi →",
     downloadCV: "Download CV",
     focusLabel: "Fokus Saat Ini",
     focusTitle: "AI, IoT, dan Sistem Antarmuka",
@@ -28,15 +47,6 @@ export const id = {
       "Membangun produk cerdas dengan bahasa visual editorial yang tenang dan fondasi teknis yang kuat.",
     selectedWorkLabel: "Karya Pilihan",
     explore: "Jelajahi",
-  },
-
-
-  
-  // Studio Teaser
-  studioTeaser: {
-    title: "Butuh Website untuk Bisnis F&B Anda?",
-    subtitle: "Dewa Studio melayani pembuatan website premium khusus untuk kafe dan restoran. Pilih dari 9 konsep desain kelas dunia, saya sesuaikan dengan brand Anda, dan website siap live dalam 7 hari.",
-    cta: "Jelajahi Koleksi Desain",
   },
 
   // About
