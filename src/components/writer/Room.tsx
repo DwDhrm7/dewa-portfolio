@@ -103,7 +103,8 @@ export function WriterShell({
         </div>
 
         <aside className="mt-16 border-t border-ink/10 pt-10 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-2">
-          <Reveal className="lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {/* Pinned only on screens tall enough to show all of it; otherwise it scrolls with the page, never clipped. */}
+          <Reveal className="lg:[@media(min-height:980px)]:sticky lg:[@media(min-height:980px)]:top-28">
             <p className="font-ui text-base font-semibold">{c.profileTitle}</p>
             <p className="mt-3 font-ui text-sm leading-relaxed text-ink-soft">
               {c.profile}
