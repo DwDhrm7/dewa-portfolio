@@ -40,6 +40,67 @@ function parseChapter(value: string | null | undefined): number {
 const LIST_ITEM = /^(•|\d+\.)\t/;
 const FOOTNOTE = /^[⁰¹²³⁴⁵⁶⁷⁸⁹]+ /;
 const MARGIN_VOICE = /^Pinggir:?\s+/;
+const BLOCK_KIND = /^::([a-z]+):: /;
+const INLINE_TAG = /<(\/?)(b|i|sc|sup)>/g;
+
+/** Emphasis carried over from the manuscript: <b>, <i>, <sc> (small caps) and <sup>. Drawn as elements, never as HTML. */
+function Inline({ text }: { text: string }) {
+  if (!text.includes("<")) return <>{text}</>;
+  const root: React.ReactNode[] = [];
+  const open: { tag: string; nodes: React.ReactNode[] }[] = [];
+  const into = () => (open.length ? open[open.length - 1].nodes : root);
+  let last = 0;
+  let key = 0;
+  for (const match of text.matchAll(INLINE_TAG)) {
+    const at = match.index ?? 0;
+    if (at > last) into().push(text.slice(last, at));
+    last = at + match[0].length;
+    const [, closing, tag] = match;
+    if (!closing) {
+      open.push({ tag, nodes: [] });
+    } else if (open.length && open[open.length - 1].tag === tag) {
+      const done = open.pop()!;
+      const k = key++;
+      into().push(
+        tag === "b" ? (
+          <strong key={k}>{done.nodes}</strong>
+        ) : tag === "i" ? (
+          <em key={k}>{done.nodes}</em>
+        ) : tag === "sup" ? (
+          <sup key={k}>{done.nodes}</sup>
+        ) : (
+          <span key={k} className="[font-variant-caps:small-caps] tracking-[0.03em]">
+            {done.nodes}
+          </span>
+        )
+      );
+    }
+  }
+  if (last < text.length) into().push(text.slice(last));
+  while (open.length) into().push(...open.pop()!.nodes); // an unclosed tag just loses its emphasis
+  return <>{root}</>;
+}
+
+/** How each kind of block in a manuscript is set, taken from the printed layout. */
+const KIND: Record<string, string> = {
+  tr: "mb-[0.45em] ml-[1.5em] text-left text-[0.9em] leading-[1.35]",
+  pg: "my-[0.9em] ml-[1.6em] mr-[0.8em] border-l-2 border-dotted pl-4 text-left text-[0.92em] italic opacity-80",
+  news: "my-[0.9em] ml-[1em] mr-[0.8em] border px-3 py-2 text-[0.82em] leading-[1.35]",
+  lead: "mb-[0.35em] mt-[1em] text-left",
+  date: "mb-[1.2em] text-center text-[0.82em] italic opacity-70",
+  formula: "my-[0.7em] text-center italic",
+  term: "mb-[0.5em] pl-[0.9em] -indent-[0.9em] text-[0.88em] leading-[1.35]",
+  defn: "mb-[0.5em] ml-[0.9em] text-[0.88em] leading-[1.35]",
+  ref: "mb-[0.4em] pl-[1.1em] -indent-[1.1em] text-left text-[0.82em] leading-[1.3]",
+  quote: "my-[0.5em] ml-[0.6em] border-l-2 pl-3 text-left text-[0.85em] italic opacity-80",
+  stz: "mb-[1.4em] text-left",
+  center: "mb-[1.4em] text-center",
+  epigraph: "mb-[1.6em] text-center italic",
+  insert: "my-[0.9em] ml-[2em] text-left italic",
+};
+
+type Layout = "plain" | "garamond" | "times";
+const FRAMED = new Set(["pg", "news", "quote"]);
 
 function Table({ block, border }: { block: string; border: string }) {
   const rows = block.split("\n").map((line) => line.replace(/^\|\s*|\s*\|$/g, "").split(/\s*\|\s*/));
@@ -74,20 +135,38 @@ function Table({ block, border }: { block: string; border: string }) {
 
 /**
  * Poems keep their line breaks and stanzas; prose becomes paragraphs; "* * *" becomes an ornament.
- * Prose may also carry "## " section headings, "### " card headings, "| a | b |" tables,
- * numbered or bulleted items, footnotes, and the journal's second voice ("Pinggir:").
+ * Prose may also carry "## " section headings, "### " card headings, "| a | b |" tables, numbered or
+ * bulleted items, footnotes and the journal's second voice. In book mode (a manuscript set in Garamond)
+ * paragraphs are indented rather than spaced, and "::kind:: " blocks and inline emphasis follow the print.
  */
-function Body({ text, poem, border }: { text: string; poem: boolean; border: string }) {
+function Body({ text, poem, border, layout }: { text: string; poem: boolean; border: string; layout: Layout }) {
+  const book = layout !== "plain";
   return (
     <>
       {text.split(/\n{2,}/).map((block, i) => {
         if (block.trim() === SCENE_BREAK) return <Ornament key={i} className="my-12" />;
-        if (block.startsWith("## "))
+        if (block.startsWith("## ")) {
+          const [label, ...rest] = block.slice(3).split("\n");
+          const title = rest.join(" ");
+          const head = title ? (
+            <>
+              <span className="mb-[0.6em] block text-[0.62em] font-normal uppercase tracking-[0.25em] opacity-60">{label}</span>
+              {title}
+            </>
+          ) : (
+            label
+          );
+          const cls = !book
+            ? "mb-6 mt-14 text-[24px] leading-snug first:mt-0"
+            : layout === "garamond"
+              ? "mb-[0.9em] mt-[2.2em] text-center text-[1.05em] font-normal tracking-[0.14em] [font-variant-caps:small-caps] first:mt-0"
+              : "mb-[1.1em] mt-[2.4em] text-center text-[1.12em] font-normal first:mt-0";
           return (
-            <h2 key={i} className="mb-6 mt-14 text-[24px] leading-snug first:mt-0">
-              {block.slice(3)}
+            <h2 key={i} className={cls}>
+              {head}
             </h2>
           );
+        }
         if (poem)
           return (
             <p key={i} className="mb-[1.6em] whitespace-pre-wrap">
@@ -112,13 +191,22 @@ function Body({ text, poem, border }: { text: string; poem: boolean; border: str
           return (
             <p key={i} className="mb-[0.6em] flex gap-3 pl-1">
               <span className="w-5 shrink-0 text-right tabular-nums opacity-60">{item[1]}</span>
-              <span className="min-w-0">{block.slice(item[0].length)}</span>
+              <span className="min-w-0">
+                <Inline text={block.slice(item[0].length)} />
+              </span>
             </p>
           );
         if (FOOTNOTE.test(block))
           return (
             <p key={i} className="mb-[0.8em] text-[0.8em] leading-relaxed opacity-75">
               {block}
+            </p>
+          );
+        const kind = BLOCK_KIND.exec(block);
+        if (kind)
+          return (
+            <p key={i} className={`whitespace-pre-line ${KIND[kind[1]] ?? ""} ${FRAMED.has(kind[1]) ? border : ""}`}>
+              <Inline text={block.slice(kind[0].length)} />
             </p>
           );
         if (MARGIN_VOICE.test(block))
@@ -128,13 +216,30 @@ function Body({ text, poem, border }: { text: string; poem: boolean; border: str
               {block.replace(MARGIN_VOICE, "")}
             </p>
           );
+        const indented = block.startsWith("\t");
+        const content = indented ? block.slice(1) : block;
         return (
-          <p key={i} className="mb-[1.25em] whitespace-pre-line">
-            {block}
+          <p key={i} className={book ? `whitespace-pre-line ${indented ? "[text-indent:var(--indent)]" : ""}` : "mb-[1.25em] whitespace-pre-line"}>
+            <Inline text={content} />
           </p>
         );
       })}
     </>
+  );
+}
+
+/** A chapter opening as in the printed book: a small label, the name in small capitals, an ornament. */
+function ChapterHead({ title }: { title: string }) {
+  const [label, ...rest] = title.split(": ");
+  const name = rest.join(": ");
+  return (
+    <header className="mb-[2.4em] mt-2 text-center">
+      {name && <p className="text-[0.62em] uppercase tracking-[0.28em] opacity-60">{label}</p>}
+      <h2 className="mt-[0.7em] text-[1.9em] font-normal leading-tight tracking-[0.02em] [font-variant-caps:small-caps]">{name || label}</h2>
+      <p aria-hidden="true" className="mt-[0.8em] text-[1.1em] opacity-40">
+        ❧
+      </p>
+    </header>
   );
 }
 
@@ -224,6 +329,21 @@ export default function Reader({ item }: { item: WriterItem }) {
   };
 
   // Medium reads at 20px / 32px with a hair of negative tracking.
+  // A manuscript set in Garamond keeps its printed layout: the face, tight leading, indents instead of gaps.
+  const face = item.typography?.fontFamily;
+  const layout: Layout = face === "garamond" ? "garamond" : face === "times" ? "times" : "plain";
+  const book = layout !== "plain";
+  const bookSizeClasses: Record<TypographyFontSize, string> = {
+    sm: "text-[18px] sm:text-[19px]",
+    base: "text-[20px] sm:text-[22px]",
+    lg: "text-[22px] sm:text-[24px]",
+    xl: "text-[24px] sm:text-[26px]",
+  };
+  // As set in the manuscripts: Garamond 1.25 with a 1.5em indent, Times 1.5 with a 1cm indent.
+  const bookSet =
+    layout === "garamond"
+      ? { family: 'var(--font-garamond), "EB Garamond", Garamond, Georgia, serif', indent: "1.5em", leading: "leading-[1.4]" }
+      : { family: 'var(--font-times), "Times New Roman", Tinos, Times, serif', indent: "2.3em", leading: "leading-[1.5]" };
   const sizeClasses: Record<TypographyFontSize, string> = {
     sm: "text-[17px] sm:text-[18px] leading-[1.65]",
     base: "text-[18px] sm:text-[20px] leading-[1.6]",
@@ -473,15 +593,19 @@ export default function Reader({ item }: { item: WriterItem }) {
         </header>
 
         <article
-          className={`font-serif tracking-[-0.003em] ${sizeClasses[fontSize]} ${alignClasses[alignment]}`}
+          lang={book ? "id" : undefined}
+          style={book ? ({ fontFamily: bookSet.family, "--indent": bookSet.indent } as React.CSSProperties) : undefined}
+          className={`${book ? `hyphens-auto [text-wrap:pretty] ${bookSet.leading}` : "font-serif tracking-[-0.003em]"} ${
+            (book ? bookSizeClasses : sizeClasses)[fontSize]
+          } ${alignClasses[alignment]}`}
         >
           {item.category === "novel" && currentChapter ? (
             <>
-              <h2 className="mb-8 text-[26px] leading-tight">{currentChapter.title}</h2>
-              <Body text={currentChapter.content} poem={false} border={currentTheme.border} />
+              {layout === "garamond" ? <ChapterHead title={currentChapter.title} /> : <h2 className="mb-8 text-[26px] leading-tight">{currentChapter.title}</h2>}
+              <Body text={currentChapter.content} poem={false} border={currentTheme.border} layout={layout} />
             </>
           ) : (
-            <Body text={item.content ?? ""} poem={isPoem} border={currentTheme.border} />
+            <Body text={item.content ?? ""} poem={isPoem} border={currentTheme.border} layout={layout} />
           )}
         </article>
 

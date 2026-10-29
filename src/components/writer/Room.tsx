@@ -245,7 +245,7 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
             </p>
             <h2 className="mt-2 text-[28px] leading-tight sm:text-[32px]">{novel.title}</h2>
             {novel.subtitle && <p className="mt-1.5 font-ui text-base text-ink-soft">{novel.subtitle}</p>}
-            <p className="mt-4 line-clamp-5 text-[17px] leading-relaxed text-ink/85">{novel.synopsis}</p>
+            <p className="mt-4 text-[17px] leading-relaxed text-ink/85">{novel.synopsis}</p>
 
             {chapters.length > 0 && (
               <ul className="mt-5 space-y-1 font-ui text-sm">

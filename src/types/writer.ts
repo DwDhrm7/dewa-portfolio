@@ -1,6 +1,6 @@
 export type WriterCategory = "puisi" | "cerpen" | "novel";
 
-export type TypographyFontFamily = "fraunces" | "serif" | "sans" | "mono";
+export type TypographyFontFamily = "fraunces" | "serif" | "sans" | "mono" | "garamond" | "times";
 export type TypographyFontSize = "sm" | "base" | "lg" | "xl";
 export type TypographyAlignment = "left" | "center" | "justify";
 export type TypographyPaperTheme = "cream" | "parchment" | "obsidian" | "sepia" | "clean-white";

@@ -23,7 +23,7 @@ export const LIMITS = {
 } as const;
 
 const CATEGORIES: WriterCategory[] = ["puisi", "cerpen", "novel"];
-const FONTS: TypographyFontFamily[] = ["fraunces", "serif", "sans", "mono"];
+const FONTS: TypographyFontFamily[] = ["fraunces", "serif", "sans", "mono", "garamond", "times"];
 const SIZES: TypographyFontSize[] = ["sm", "base", "lg", "xl"];
 const ALIGNMENTS: TypographyAlignment[] = ["left", "center", "justify"];
 const THEMES: TypographyPaperTheme[] = ["cream", "parchment", "obsidian", "sepia", "clean-white"];

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Inter_Tight, Source_Serif_4, Cedarville_Cursive } from "next/font/google";
+import { Inter, Manrope, Inter_Tight, Source_Serif_4, Cedarville_Cursive, EB_Garamond, Tinos } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -25,6 +25,23 @@ const readingSerif = Source_Serif_4({
   variable: "--font-reading",
   style: ["normal", "italic"],
   axes: ["opsz"],
+});
+
+// The face of the Jurnal Jantama manuscripts, so the page reads like the printed book.
+const garamond = EB_Garamond({
+  subsets: ["latin", "latin-ext", "greek"],
+  display: "swap",
+  variable: "--font-garamond",
+  style: ["normal", "italic"],
+});
+
+// The face of the short story manuscripts (Times New Roman), metric-compatible so the lines break as in the document.
+const times = Tinos({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-times",
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
 });
 
 const handwriting = Cedarville_Cursive({
@@ -75,7 +92,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased ${inter.variable} ${manrope.variable} ${readingSerif.variable} ${writerSans.variable} ${handwriting.variable}`}>
+      <body className={`antialiased ${inter.variable} ${manrope.variable} ${readingSerif.variable} ${writerSans.variable} ${handwriting.variable} ${garamond.variable} ${times.variable}`}>
         <ScrollMemory />
         <LanguageProvider>
           <Navbar />
