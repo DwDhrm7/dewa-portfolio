@@ -247,7 +247,7 @@ export default function Reader({ item }: { item: WriterItem }) {
     <div className={`min-h-screen transition-colors duration-300 ${currentTheme.bg} ${currentTheme.text}`}>
       
       {/* Top Reading Progress Bar */}
-      <div className="fixed top-20 left-0 right-0 z-40 h-0.5 bg-black/10">
+      <div className="fixed inset-x-0 top-[65px] z-[41] h-0.5 bg-black/10">
         <div 
           className="h-full bg-ink transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}
@@ -257,7 +257,8 @@ export default function Reader({ item }: { item: WriterItem }) {
       {/* ========================================================================= */}
       {/* FLOATING TOP CONTROLS (Distraction-Free Capable) */}
       {/* ========================================================================= */}
-      <header className={`fixed top-24 left-4 right-4 z-40 transition-opacity duration-300 ${
+      {/* The band is solid and sits flush under the site bar (64px + its 1px rule), so text never shows between them. */}
+      <header className={`fixed inset-x-0 top-[65px] z-40 border-b px-4 pb-3 pt-4 transition-opacity duration-300 ${currentTheme.bg} ${currentTheme.border} ${
         isDistractionFree ? "opacity-0 hover:opacity-100" : "opacity-100"
       }`}>
         <div className="mx-auto max-w-4xl flex items-center justify-between rounded-sm border border-oak/30 bg-paper/95 p-3 shadow-lg backdrop-blur-xl text-neutral-900 font-ui">
