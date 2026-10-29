@@ -33,6 +33,7 @@ export const en: TranslationKeys = {
     loadingWriter: "Opening the writing room",
     loadingGateway: "Returning to the gateway",
     hint: "Move your cursor left or right to find out",
+    hintTouch: "Tap a side to step inside",
   },
 
   // Hero

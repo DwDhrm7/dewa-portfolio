@@ -31,6 +31,7 @@ export const id = {
     loadingWriter: "Membuka ruang kata",
     loadingGateway: "Kembali ke gerbang",
     hint: "Gerakkan kursor ke kiri atau kanan untuk mengetahuinya",
+    hintTouch: "Ketuk salah satu sisi untuk masuk",
   },
 
   // Hero

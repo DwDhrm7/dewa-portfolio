@@ -137,7 +137,17 @@ function Page({ side, head, folio, children }: { side: "left" | "right"; head: s
  * (once per door) and clipped to each half, so the leaves meet at the gutter when the doors
  * are shut, and each door turns away like a page.
  */
-function OpenBook({ greeting, nameLabel, hintLabel }: { greeting: string; nameLabel: string; hintLabel: string }) {
+function OpenBook({
+  greeting,
+  nameLabel,
+  hintLabel,
+  touchHintLabel,
+}: {
+  greeting: string;
+  nameLabel: string;
+  hintLabel: string;
+  touchHintLabel: string;
+}) {
   return (
     <div className="relative h-full w-full bg-[#1b130c]" aria-hidden="true">
       <Page side="left" head="De Machinis" folio="xii">
@@ -178,7 +188,13 @@ function OpenBook({ greeting, nameLabel, hintLabel }: { greeting: string; nameLa
       <div className="absolute left-1/2 top-1/2 w-[82%] -translate-x-1/2 -translate-y-1/2 text-center">
         <p className="book-ink whitespace-nowrap font-serif text-[12px] italic md:text-7xl lg:text-8xl">{greeting}</p>
         <p className="book-ink mt-4 font-serif text-[10px] uppercase leading-relaxed tracking-[0.28em] md:text-sm">{nameLabel}</p>
-        <p className="mt-6 font-ui text-[10px] uppercase leading-relaxed tracking-[0.2em] text-[#5a4428] md:text-[11px]">{hintLabel}</p>
+        {/* Phones have no cursor to move, so they get their own instruction. */}
+        <p className="mt-6 hidden font-ui text-[10px] uppercase leading-relaxed tracking-[0.2em] text-[#5a4428] md:text-[11px] [@media(hover:hover)]:block">
+          {hintLabel}
+        </p>
+        <p className="mt-6 font-ui text-[10px] uppercase leading-relaxed tracking-[0.2em] text-[#5a4428] md:text-[11px] [@media(hover:hover)]:hidden">
+          {touchHintLabel}
+        </p>
       </div>
 
       {/* low exposure: the spread sits in dim, warm light */}
@@ -305,6 +321,10 @@ export default function GatewaySplit() {
       className="relative h-[100dvh] w-full select-none overflow-hidden bg-black text-white"
       style={{ perspective: "1800px" }}
     >
+      <h1 className="sr-only">
+        Dewa Dharma: {t.gateway.choose}
+      </h1>
+
       {/* Top identity bar */}
       <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-center justify-end px-6 py-6 md:px-12">
         <button
@@ -322,13 +342,13 @@ export default function GatewaySplit() {
         side="left"
         rotate={rotateLeft}
         openAmount={openLeft}
-        art={<OpenBook greeting={t.gateway.greeting} nameLabel={t.gateway.choose} hintLabel={t.gateway.hint} />}
+        art={<OpenBook greeting={t.gateway.greeting} nameLabel={t.gateway.choose} hintLabel={t.gateway.hint} touchHintLabel={t.gateway.hintTouch} />}
       />
       <DoorFace
         side="right"
         rotate={rotateRight}
         openAmount={openRight}
-        art={<OpenBook greeting={t.gateway.greeting} nameLabel={t.gateway.choose} hintLabel={t.gateway.hint} />}
+        art={<OpenBook greeting={t.gateway.greeting} nameLabel={t.gateway.choose} hintLabel={t.gateway.hint} touchHintLabel={t.gateway.hintTouch} />}
       />
 
       {/* Tech reveal, behind the left door */}
@@ -420,11 +440,11 @@ export default function GatewaySplit() {
       </Link>
 
       {/* Minimal wayfinding captions, always visible */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 flex items-center justify-between px-6 py-6 text-[11px] font-semibold uppercase tracking-[0.22em] md:px-12">
-        <span className="rounded-full bg-black/40 px-3 py-1 text-white/80 backdrop-blur-md">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 flex items-end justify-between gap-3 px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6 text-[9px] font-semibold uppercase tracking-[0.16em] sm:px-6 sm:text-[11px] sm:tracking-[0.22em] md:px-12">
+        <span className="max-w-[46%] rounded-full bg-black/40 px-3 py-1 leading-snug text-white/80 backdrop-blur-md">
           {t.gateway.techTitle}
         </span>
-        <span className="rounded-full bg-black/40 px-3 py-1 text-white/80 backdrop-blur-md">
+        <span className="max-w-[46%] rounded-full bg-black/40 px-3 py-1 text-right leading-snug text-white/80 backdrop-blur-md">
           {t.gateway.writerTitle}
         </span>
       </div>

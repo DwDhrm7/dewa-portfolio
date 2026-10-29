@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollMemory from "@/components/ScrollMemory";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { siteUrl } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,25 +40,27 @@ const writerSans = Inter_Tight({
   variable: "--font-writer-ui",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dewa-portfolio.vercel.app";
-const description = "Portfolio I Dewa Made Dharma Putra Santika - IT Student, AI & Robotics Enthusiast";
+const description =
+  "I Dewa Made Dharma Putra Santika, an AIoT software engineer and writer from Bali. Step into the engineer's portfolio or the writer's blog.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Dewa Dharma | Portfolio",
+  title: { default: "Dewa Dharma · Engineer & Writer", template: "%s · Dewa Dharma" },
   description,
+  applicationName: "Dewa Dharma",
+  authors: [{ name: "I Dewa Made Dharma Putra Santika", url: siteUrl }],
   openGraph: {
-    title: "Dewa Dharma | Portfolio",
+    title: "Dewa Dharma · Engineer & Writer",
     description,
-    url: siteUrl,
-    siteName: "Dewa Dharma Portfolio",
+    url: "/",
+    siteName: "Dewa Dharma",
     locale: "en_US",
     alternateLocale: ["id_ID"],
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Dewa Dharma | Portfolio",
+    title: "Dewa Dharma · Engineer & Writer",
     description,
   },
   icons: {

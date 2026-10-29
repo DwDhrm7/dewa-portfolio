@@ -8,6 +8,7 @@ import {
   saveWriterItem,
 } from "@/lib/writerStorage";
 import { isSameOrigin, isStudioAuthenticated } from "@/lib/studioAuth";
+import { summarize } from "@/lib/writerContent";
 import type { WriterItem } from "@/types/writer";
 
 const noStore = { "Cache-Control": "no-store" };
@@ -24,15 +25,6 @@ function fail(status: number, error: string, extra: Record<string, unknown> = {}
 function serverError(context: string, error: unknown) {
   console.error(`[api/writer] ${context}:`, error);
   return fail(500, "Terjadi kesalahan di server.");
-}
-
-function summarize(item: WriterItem): WriterItem {
-  const { content, ...rest } = item;
-  return {
-    ...rest,
-    excerpt: content?.split(/\n{2,}/).slice(0, 2).join("\n\n"),
-    chapters: item.chapters?.map((chapter) => ({ ...chapter, content: "" })),
-  };
 }
 
 export async function GET(req: NextRequest) {
