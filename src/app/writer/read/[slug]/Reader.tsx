@@ -92,6 +92,12 @@ function Body({ text, poem, border }: { text: string; poem: boolean; border: str
               {block}
             </p>
           );
+        if (block.startsWith("> "))
+          return (
+            <blockquote key={i} className={`mb-[1.1em] whitespace-pre-line border-l-2 ${border} pl-4 italic opacity-80`}>
+              {block.replace(/^> ?/gm, "")}
+            </blockquote>
+          );
         if (block.startsWith("### "))
           return (
             <h3 key={i} className={`mb-3 mt-10 border-t ${border} pt-6 font-ui text-[0.85em] font-semibold uppercase tracking-[0.08em]`}>
