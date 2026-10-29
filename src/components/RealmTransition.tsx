@@ -10,7 +10,7 @@ export const LEAVE_MS = 2300;
 
 export type Destination = "tech" | "writer" | "gateway";
 
-const look: Record<Destination, { ground: string; title: string; label: string; track: string; bar: string }> = {
+export const look: Record<Destination, { ground: string; title: string; label: string; track: string; bar: string }> = {
   tech: {
     ground: "bg-[#f6f4ef] text-neutral-950",
     title: "font-headline text-3xl font-extrabold tracking-tight md:text-5xl",
@@ -120,8 +120,8 @@ function Scribble({ span, delay, instant }: { span: number; delay: number; insta
 }
 
 /** Each place has its own way of waiting: a rocket for the tech side, pen scribbles for the writing side. */
-function Loader({ to, instant, delay }: { to: Destination; instant: boolean; delay: number }) {
-  const span = instant ? 0.2 : LEAVE_MS / 1000 - delay - 0.1;
+export function Loader({ to, instant, delay, total = LEAVE_MS / 1000 }: { to: Destination; instant: boolean; delay: number; total?: number }) {
+  const span = instant ? 0.2 : total - delay - 0.1;
   if (to === "tech") return <RocketRun span={span} delay={delay} instant={instant} />;
   if (to === "writer") return <Scribble span={span} delay={delay} instant={instant} />;
   const s = look[to];

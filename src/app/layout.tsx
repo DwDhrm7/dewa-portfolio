@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollMemory from "@/components/ScrollMemory";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import RealmEntrance from "@/components/RealmEntrance";
+import { ENTRANCE_SCRIPT } from "@/lib/entrance";
 import { siteUrl } from "@/lib/site";
 
 const inter = Inter({
@@ -91,10 +93,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: ENTRANCE_SCRIPT }} />
+      </head>
       <body className={`antialiased ${inter.variable} ${manrope.variable} ${readingSerif.variable} ${writerSans.variable} ${handwriting.variable} ${garamond.variable} ${times.variable}`}>
         <ScrollMemory />
         <LanguageProvider>
+          <RealmEntrance />
           <Navbar />
           <main className="relative z-10 min-h-screen">{children}</main>
           <Footer />

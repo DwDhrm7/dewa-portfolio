@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* The entrance screen exists only for a visitor who lands on a realm without passing the gateway.
+   The script in the page head sets html[data-entrance] before the first paint. */
+#entrance {
+  display: none;
+}
+html[data-entrance] #entrance {
+  display: flex;
+}
+html[data-entrance] {
+  overflow: hidden;
+}
+
 :root {
   --background: #f6f4ef;
   --foreground: #171717;

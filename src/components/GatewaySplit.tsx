@@ -16,6 +16,7 @@ import { Cpu, Feather, Globe, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 import { LEAVE_MS, TransitionScreen } from "@/components/RealmTransition";
+import { markEntered } from "@/lib/entrance";
 import FadedBackdrop from "@/components/writer/FadedBackdrop";
 import { woodImages } from "@/components/writer/woodImages";
 
@@ -274,6 +275,7 @@ export default function GatewaySplit() {
     e.preventDefault();
     if (leaving) return;
     const href = realm === "tech" ? "/tech" : "/writer";
+    markEntered(realm); // the loading screen below is this visitor's entrance
     router.prefetch(href);
     setTarget(realm === "tech" ? -1 : 1);
     setLeaving(realm);
