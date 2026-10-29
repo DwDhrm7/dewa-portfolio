@@ -134,7 +134,7 @@ Komentar memakai Supabase (login dan database). Semua tabelnya berawalan `blog_`
 
 - **Tabel:** `blog_profiles`, `blog_comments`, `blog_reports`, `blog_bans`, `blog_admins`. Fungsi bantu ada di skema `blog_private`, yang tidak terbuka lewat API.
 - **Aturan di database:** pembaca hanya bisa menulis atas namanya sendiri dan hanya mengubah isi komentarnya. Batas 3 komentar per menit dan 50 per hari, 1 sampai 2000 karakter, satu tingkat balasan, dan akun yang diblokir ditolak. Nama yang meniru penulis tidak diterima, dan hanya profil penulis yang bertanda Penulis.
-- **Moderasi:** penulis masuk memakai email yang terdaftar di `blog_admins` dan profilnya bertanda `is_author`. Tombol Sembunyikan, Hapus, dan Blokir muncul langsung di bawah tiap komentar, lengkap dengan jumlah laporan.
+- **Moderasi:** penulis masuk memakai email yang terdaftar di `blog_admins`; profilnya otomatis bertanda `is_author` saat login pertama. Tombol Sembunyikan, Hapus, dan Blokir muncul langsung di bawah tiap komentar, lengkap dengan jumlah laporan.
 - **Tampilan:** komentar dimuat terpisah dari teks bacaan, jadi membaca tidak menunggunya.
 
 Menyiapkan dari nol:
@@ -143,7 +143,7 @@ Menyiapkan dari nol:
 2. Di Supabase, Authentication, URL Configuration: isi Site URL dengan alamat situs dan tambahkan `https://<domain>/**` serta `http://localhost:3000/**` ke Redirect URLs.
 3. Aktifkan provider Google di Authentication, Providers, dengan Client ID dan Secret dari Google Cloud Console.
 4. Tautan masuk lewat email memerlukan SMTP sendiri. Layanan email bawaan Supabase hanya untuk uji coba dan sangat terbatas.
-5. Daftarkan email penulis: `insert into public.blog_admins values ('email@penulis.com');`, lalu setelah masuk sekali, tandai profilnya sebagai penulis lewat SQL editor.
+5. Daftarkan email penulis: `insert into public.blog_admins values ('email@penulis.com');`. Tanda Penulis dan tombol moderasi muncul otomatis begitu email itu masuk.
 6. Isi `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` di Vercel.
 
 ## Content Management
