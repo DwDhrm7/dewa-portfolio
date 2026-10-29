@@ -32,7 +32,7 @@ export default function TechPage() {
         : t.portfolio.categories.additional;
 
   return (
-    <div className="px-6 pb-24 pt-32 md:px-14 md:pb-32 lg:px-20">
+    <div className="px-6 pb-24 pt-28 md:px-14 md:pb-32 lg:px-20">
       <div className="mx-auto max-w-[1440px]">
         
         {/* ========================================================================= */}
@@ -45,51 +45,51 @@ export default function TechPage() {
           className="mb-20"
         >
 
-          <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
-            <div className="max-w-4xl">
-              <h1 className="font-headline text-5xl font-extrabold leading-[0.95] tracking-[-0.05em] text-neutral-950 md:text-7xl lg:text-8xl">
-                {p.titleLine1}
-                <br />
-                {p.titleLine2}
-              </h1>
-            </div>
+          {/* One column of heading and buttons beside one of flight and tagline, so nothing floats in empty space.
+              On small screens they stack as heading, tagline, buttons. */}
+          <div className="flex flex-col gap-10 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] xl:gap-x-12 xl:gap-y-10">
+            <h1 className="font-headline text-5xl font-extrabold leading-[0.95] tracking-[-0.05em] text-neutral-950 md:text-7xl lg:text-8xl xl:col-start-1 xl:row-start-1 xl:text-[4.75rem] 2xl:text-8xl">
+              {p.titleLine1}
+              <br />
+              {p.titleLine2}
+            </h1>
 
-            <div className="w-full lg:min-w-0 lg:max-w-xl lg:flex-1">
-              {/* The corner above the tagline would otherwise stay empty on wide screens. */}
-              <div className="mb-4 hidden lg:block">
+            <div className="w-full xl:col-start-2 xl:row-span-2 xl:row-start-1 xl:self-center">
+              {/* The corner above the tagline would otherwise stay empty once the hero sits side by side. */}
+              <div className="mb-3 hidden xl:block">
                 <HeroFlight />
               </div>
               <p className="text-lg font-medium leading-relaxed text-neutral-600 md:text-xl lg:text-2xl">
                 {t.hero.tagline}
               </p>
             </div>
-          </div>
 
-          {/* CTA Buttons */}
-          <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
-            <Link
-              href="/portfolio"
-              className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-neutral-950 px-8 py-4 text-xs font-extrabold uppercase tracking-[0.22em] text-white transition hover:bg-neutral-800 sm:w-auto shadow-md"
-            >
-              <span>{p.viewProjects}</span>
-              <ArrowUpRight size={16} />
-            </Link>
+            {/* CTA Buttons */}
+            <div className="flex flex-col items-center gap-4 sm:flex-row xl:col-start-1 xl:row-start-2">
+              <Link
+                href="/portfolio"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-neutral-950 px-8 py-4 text-xs font-extrabold uppercase tracking-[0.22em] text-white transition hover:bg-neutral-800 sm:w-auto shadow-md"
+              >
+                <span>{p.viewProjects}</span>
+                <ArrowUpRight size={16} />
+              </Link>
             
-            <a
-              href={downloadCvHref}
-              download
-              className="inline-flex w-full items-center justify-center gap-3 rounded-xl border-2 border-black/10 bg-white/80 px-8 py-4 text-xs font-extrabold uppercase tracking-[0.22em] text-neutral-950 transition hover:bg-black hover:text-white sm:w-auto shadow-sm"
-            >
-              <Download size={16} />
-              <span>{t.hero.downloadCV}</span>
-            </a>
+              <a
+                href={downloadCvHref}
+                download
+                className="inline-flex w-full items-center justify-center gap-3 rounded-xl border-2 border-black/10 bg-white/80 px-8 py-4 text-xs font-extrabold uppercase tracking-[0.22em] text-neutral-950 transition hover:bg-black hover:text-white sm:w-auto shadow-sm"
+              >
+                <Download size={16} />
+                <span>{t.hero.downloadCV}</span>
+              </a>
 
-            <Link
-              href="/contact"
-              className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-black/5 bg-neutral-100/60 px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-neutral-700 transition hover:bg-neutral-200 sm:w-auto"
-            >
-              <span>{p.collaborate}</span>
-            </Link>
+              <Link
+                href="/contact"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-black/5 bg-neutral-100/60 px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-neutral-700 transition hover:bg-neutral-200 sm:w-auto"
+              >
+                <span>{p.collaborate}</span>
+              </Link>
+            </div>
           </div>
         </motion.div>
 

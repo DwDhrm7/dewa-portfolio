@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const W = 800;
-const H = 500;
+const H = 420;
 const TURNS = 4.6 * Math.PI;
 
 /**
@@ -13,11 +13,11 @@ const TURNS = 4.6 * Math.PI;
  */
 function flightPath() {
   const a = W / TURNS; // how far the wheel advances per radian
-  const b = 95; // loop radius; larger than `a`, which is what makes the curve loop
+  const b = 82; // loop radius; larger than `a`, which is what makes the curve loop
   const points: string[] = [];
   for (let t = 0; t <= TURNS; t += 0.04) {
     const x = a * t - b * Math.sin(t);
-    const y = H / 2 - b * Math.cos(t) + 70 * Math.sin(0.55 * t);
+    const y = H / 2 - b * Math.cos(t) + 52 * Math.sin(0.55 * t);
     points.push(`${points.length ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`);
   }
   return points.join("");
@@ -45,7 +45,7 @@ export default function HeroFlight() {
     <div
       ref={box}
       aria-hidden="true"
-      className="pointer-events-none relative aspect-[800/500] w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
+      className="pointer-events-none relative aspect-[800/420] w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
     >
       <div className="absolute left-0 top-0 text-neutral-950" style={{ width: W, height: H, transform: `scale(${scale})`, transformOrigin: "top left" }}>
         <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} className="absolute inset-0" fill="none" stroke="currentColor" strokeLinecap="round">
