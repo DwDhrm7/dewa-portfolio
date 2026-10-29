@@ -34,6 +34,109 @@ const look: Record<Destination, { ground: string; title: string; label: string; 
   },
 };
 
+const EASE = [0.65, 0, 0.35, 1] as const;
+
+/** Tech: a small line-art rocket flies along the line, and the line fills in behind it. */
+function RocketRun({ span, delay, instant }: { span: number; delay: number; instant: boolean }) {
+  return (
+    <div aria-hidden="true" className="relative mt-8 h-8 w-64">
+      <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-neutral-950/10" />
+      <motion.div
+        className="absolute left-0 top-1/2 h-px -translate-y-1/2 bg-neutral-950"
+        initial={{ width: instant ? "100%" : "0%" }}
+        animate={{ width: "100%" }}
+        transition={{ duration: span, delay, ease: EASE }}
+      />
+      <motion.div
+        className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
+        initial={{ left: instant ? "100%" : "0%" }}
+        animate={{ left: "100%" }}
+        transition={{ duration: span, delay, ease: EASE }}
+      >
+        <svg
+          viewBox="0 0 24 44"
+          className="h-7 w-auto rotate-90 text-neutral-950"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 2c4 4 5.5 9 5.5 15v8h-11v-8C6.5 11 8 6 12 2z" />
+          <circle cx="12" cy="13" r="2.2" />
+          <path d="M6.5 19l-3.5 5v4l3.5-3M17.5 19l3.5 5v4l-3.5-3" />
+          <motion.path
+            d="M9.5 29c0 3 1 6 2.5 10 1.5-4 2.5-7 2.5-10"
+            style={{ originX: 0.5, originY: 0 }}
+            animate={instant ? undefined : { scaleY: [1, 1.5, 0.85, 1.35, 1], opacity: [1, 0.8, 1, 0.7, 1] }}
+            transition={{ duration: 0.35, repeat: Infinity }}
+          />
+        </svg>
+      </motion.div>
+    </div>
+  );
+}
+
+/** Writer: three pen strokes scribbled one after another, a loose wave, a retrace, and an underline. */
+const STROKES = [
+  { d: "M8 40 C 30 8, 54 54, 78 22 S 122 50, 146 18 S 192 46, 216 20 S 256 38, 276 22", width: 2.2, ink: 0.85, share: 0.45 },
+  { d: "M14 30 C 42 52, 62 12, 96 38 S 154 12, 182 40 S 236 16, 270 38", width: 1.6, ink: 0.5, share: 0.35 },
+  { d: "M22 54 C 84 47, 168 59, 262 49", width: 1.5, ink: 0.7, share: 0.2 },
+];
+
+function Scribble({ span, delay, instant }: { span: number; delay: number; instant: boolean }) {
+  let begin = delay;
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 284 64"
+      className="mt-8 h-16 w-72 text-ink"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {STROKES.map((stroke, i) => {
+        const duration = instant ? 0 : span * stroke.share;
+        const at = begin;
+        begin += duration;
+        return (
+          <motion.path
+            key={i}
+            d={stroke.d}
+            strokeWidth={stroke.width}
+            strokeOpacity={stroke.ink}
+            initial={{ pathLength: instant ? 1 : 0, opacity: instant ? 1 : 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              pathLength: { duration, delay: at, ease: "easeInOut" },
+              opacity: { duration: 0.01, delay: at },
+            }}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+/** Each place has its own way of waiting: a rocket for the tech side, pen scribbles for the writing side. */
+function Loader({ to, instant, delay }: { to: Destination; instant: boolean; delay: number }) {
+  const span = instant ? 0.2 : LEAVE_MS / 1000 - delay - 0.1;
+  if (to === "tech") return <RocketRun span={span} delay={delay} instant={instant} />;
+  if (to === "writer") return <Scribble span={span} delay={delay} instant={instant} />;
+  const s = look[to];
+  return (
+    <div className={`mt-8 h-px w-40 overflow-hidden ${s.track}`}>
+      <motion.div
+        className={`h-full origin-left ${s.bar}`}
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: span, delay, ease: EASE }}
+      />
+    </div>
+  );
+}
+
 /** A short pause between leaving and arriving, in the colours of the place you are going to. */
 export function TransitionScreen({
   to,
@@ -68,14 +171,7 @@ export function TransitionScreen({
         {title}
       </motion.p>
       <p className={`mt-4 text-xs uppercase tracking-[0.25em] ${s.label}`}>{label}</p>
-      <div className={`mt-8 h-px w-40 overflow-hidden ${s.track}`}>
-        <motion.div
-          className={`h-full origin-left ${s.bar}`}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: instant ? 0.2 : LEAVE_MS / 1000 - delay - 0.1, delay, ease: [0.65, 0, 0.35, 1] }}
-        />
-      </div>
+      <Loader to={to} instant={instant} delay={delay} />
     </motion.div>
   );
 }

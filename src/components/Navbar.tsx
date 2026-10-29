@@ -28,7 +28,7 @@ export default function Navbar() {
     { name: t.nav.contact, href: "/contact" },
   ];
 
-  const backLabel = isEn ? "Back to gateway" : "Kembali ke gerbang";
+  const backLabel = isEn ? "Back" : "Kembali";
   const isActive = (href: string) => pathname === href;
 
   if (isWriter) {

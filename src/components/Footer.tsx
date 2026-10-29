@@ -19,7 +19,7 @@ export default function Footer() {
   if (pathname === "/") return null;
 
   const isWriter = pathname.startsWith("/writer");
-  const backLabel = language === "en" ? "Back to gateway" : "Kembali ke gerbang";
+  const backLabel = language === "en" ? "Back" : "Kembali";
 
   if (isWriter) {
     return (

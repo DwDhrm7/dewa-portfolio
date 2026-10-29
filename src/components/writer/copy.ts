@@ -48,7 +48,7 @@ const copy = {
       more: { puisi: "Puisi lainnya", cerpen: "Cerpen lainnya", novel: "Rak novel" },
     },
     comments: {
-      title: "Komentar", count: (n: number) => `Komentar (${n})`,
+      write: "Tulis komentar", title: "Komentar", count: (n: number) => `Komentar (${n})`,
       rules: "Tulis dengan santun. Komentar yang melanggar bisa disembunyikan.",
       placeholder: "Tulis komentarmu...", replyPlaceholder: "Tulis balasan...",
       send: "Kirim", sending: "Mengirim...", save: "Simpan", cancel: "Batal",
@@ -110,7 +110,7 @@ const copy = {
       more: { puisi: "More poems", cerpen: "More short stories", novel: "Novel shelf" },
     },
     comments: {
-      title: "Comments", count: (n: number) => `Comments (${n})`,
+      write: "Write a comment", title: "Comments", count: (n: number) => `Comments (${n})`,
       rules: "Please be kind. Comments that break the rules may be hidden.",
       placeholder: "Write a comment...", replyPlaceholder: "Write a reply...",
       send: "Post", sending: "Posting...", save: "Save", cancel: "Cancel",

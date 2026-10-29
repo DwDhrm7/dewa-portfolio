@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Session, SupabaseClient } from "@supabase/supabase-js";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { clearCommentReturn, hasCommentReturn, rememberCommentReturn } from "@/lib/commentsReturn";
 import { getSupabase } from "@/lib/supabase";
 import { useWriterCopy } from "./copy";
 
@@ -122,6 +123,7 @@ function SignIn({ sb, border }: { sb: SupabaseClient; border: string }) {
   const here = () => window.location.href.split("#")[0];
 
   async function withGoogle() {
+    rememberCommentReturn();
     await sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: here() } });
   }
 
@@ -129,6 +131,7 @@ function SignIn({ sb, border }: { sb: SupabaseClient; border: string }) {
     event.preventDefault();
     if (state === "sending" || !email.includes("@")) return;
     setState("sending");
+    rememberCommentReturn();
     const { error } = await sb.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: here() } });
     setState(error ? "error" : "sent");
   }
@@ -192,6 +195,8 @@ export default function Comments({ workSlug, chapter, border }: { workSlug: stri
   const [editing, setEditing] = useState<string | null>(null);
   const [renaming, setRenaming] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const [wantsToWrite, setWantsToWrite] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const userId = session?.user.id ?? null;
   const isAuthor = me?.is_author === true;
@@ -210,6 +215,14 @@ export default function Comments({ workSlug, chapter, border }: { workSlug: stri
     const { data } = sb.auth.onAuthStateChange((_event, next) => setSession(next));
     return () => data.subscription.unsubscribe();
   }, [sb]);
+
+  // Coming back from signing in: land on the comments instead of the top of the page.
+  useEffect(() => {
+    if (!session || !hasCommentReturn()) return;
+    clearCommentReturn();
+    // No cleanup on purpose: the session can change object right after mounting, and the scroll must still happen.
+    setTimeout(() => sectionRef.current?.scrollIntoView({ block: "start", behavior: "instant" }), 60);
+  }, [session]);
 
   // Every login has a profile; older logins that predate the table get one here.
   useEffect(() => {
@@ -434,14 +447,23 @@ export default function Comments({ workSlug, chapter, border }: { workSlug: stri
   }
 
   return (
-    <section aria-labelledby="comments-title" className={`mt-20 border-t ${border} pt-10 font-ui`}>
+    <section ref={sectionRef} id="komentar" aria-labelledby="comments-title" className={`mt-20 scroll-mt-40 border-t ${border} pt-10 font-ui`}>
       <h2 id="comments-title" className="text-[1.15em] font-semibold">
         {comments ? c.count(visibleCount) : c.title}
       </h2>
       <p className="mt-1 text-[0.8em] opacity-60">{c.rules}</p>
 
       <div className="mt-6">
-        {sb && !session && <SignIn sb={sb} border={border} />}
+        {sb && !session && !wantsToWrite && (
+          <button
+            type="button"
+            onClick={() => setWantsToWrite(true)}
+            className={`rounded-sm border ${border} px-4 py-2 text-[0.9em] font-medium transition hover:bg-black/5`}
+          >
+            {c.write}
+          </button>
+        )}
+        {sb && !session && wantsToWrite && <SignIn sb={sb} border={border} />}
         {sb && session && (
           <div className="space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-2 text-[0.85em]">

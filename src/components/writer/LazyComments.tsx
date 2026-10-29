@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import { hasCommentReturn } from "@/lib/commentsReturn";
 
 const Comments = dynamic(() => import("./Comments"), { ssr: false, loading: () => null });
 
@@ -16,6 +17,11 @@ export default function LazyComments(props: { workSlug: string; chapter: number 
   useEffect(() => {
     const element = anchor.current;
     if (!element || near) return;
+    // Back from signing in: show the comments at once so the page can scroll to them.
+    if (hasCommentReturn()) {
+      setNear(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
