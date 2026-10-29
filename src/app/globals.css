@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* The rocket in the tech hero: it flies the looping wave, and its short trail (a dash on the same path,
+   measured in path lengths) keeps one step behind it. */
+@keyframes hero-fly {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+@keyframes hero-trail {
+  from { stroke-dashoffset: 0.14; }
+  to { stroke-dashoffset: -0.86; }
+}
+@keyframes hero-flame {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(1.45); opacity: 0.7; }
+}
+.hero-rocket {
+  animation: hero-fly 12s linear infinite;
+  will-change: offset-distance;
+}
+.hero-trail {
+  animation: hero-trail 12s linear infinite;
+}
+.hero-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: hero-flame 0.35s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-rocket, .hero-trail, .hero-flame { animation: none; }
+  .hero-rocket { offset-distance: 30%; }
+  .hero-trail { stroke-dashoffset: -0.16; }
+}
+
 /* The entrance screen exists only for a visitor who lands on a realm without passing the gateway.
    The script in the page head sets html[data-entrance] before the first paint. */
 #entrance {

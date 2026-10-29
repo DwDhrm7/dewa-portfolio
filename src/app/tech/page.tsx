@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { artifacts } from "@/data/artifacts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
+import HeroFlight from "@/components/HeroFlight";
 
 export default function TechPage() {
   const { language } = useLanguage();
@@ -53,9 +54,15 @@ export default function TechPage() {
               </h1>
             </div>
 
-            <p className="max-w-xl text-lg font-medium leading-relaxed text-neutral-600 md:text-xl lg:text-2xl">
-              {t.hero.tagline}
-            </p>
+            <div className="w-full lg:min-w-0 lg:max-w-xl lg:flex-1">
+              {/* The corner above the tagline would otherwise stay empty on wide screens. */}
+              <div className="mb-4 hidden lg:block">
+                <HeroFlight />
+              </div>
+              <p className="text-lg font-medium leading-relaxed text-neutral-600 md:text-xl lg:text-2xl">
+                {t.hero.tagline}
+              </p>
+            </div>
           </div>
 
           {/* CTA Buttons */}
