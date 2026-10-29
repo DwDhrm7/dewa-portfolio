@@ -109,13 +109,6 @@ export function WriterShell({
               {c.profile}
             </p>
 
-            <p className="mt-10 font-ui text-base font-semibold">{c.achievementsTitle}</p>
-            <ul className="mt-4 space-y-3 font-ui text-sm text-ink-soft">
-              {c.achievements.map((a) => (
-                <li key={a}>{a}</li>
-              ))}
-            </ul>
-
             <p className="mt-10 font-ui text-base font-semibold">{c.support.title}</p>
             <p className="mt-3 font-ui text-sm leading-relaxed text-ink-soft">{c.support.body}</p>
             <a
@@ -126,6 +119,13 @@ export function WriterShell({
             >
               {c.support.button}
             </a>
+
+            <p className="mt-10 font-ui text-base font-semibold">{c.achievementsTitle}</p>
+            <ul className="mt-4 space-y-3 font-ui text-sm text-ink-soft">
+              {c.achievements.map((a) => (
+                <li key={a}>{a}</li>
+              ))}
+            </ul>
           </Reveal>
         </aside>
       </div>
