@@ -29,6 +29,7 @@ Situs dibagi menjadi tiga area. Setiap realm hanya bisa kembali ke gateway, tida
   - Konten muncul bertahap saat di-scroll.
 - **Writer Studio (`/writer/studio`).** CMS khusus pemilik untuk menambah dan mengubah karya.
 - **Ingatan posisi scroll.** Tombol back, baik di browser maupun di reader, kembali ke posisi scroll terakhir di halaman sebelumnya, di tech maupun writer.
+- **Komentar di Blog.** Pembaca membaca tanpa akun dan berkomentar setelah masuk lewat Google atau tautan email. Komentar per bab untuk novel, per karya untuk puisi dan cerpen, dengan balasan satu tingkat. Detail di bagian Komentar.
 - **Portfolio berbasis data.** Proyek dan artefak diambil dari `src/data/artifacts.ts`.
 - **Form kontak** melalui EmailJS.
 
@@ -114,6 +115,8 @@ Salin `.env.example` menjadi `.env.local`, lalu isi:
 | `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` | EmailJS public key |
 | `WRITER_STUDIO_PASSWORD` | Kata sandi Writer Studio, hanya di server. Biarkan kosong untuk mengunci studio. |
 | `NEXT_PUBLIC_SITE_URL` | URL publik situs, untuk metadata dan social preview |
+| `NEXT_PUBLIC_SUPABASE_URL` | URL proyek Supabase untuk komentar. Kosong berarti komentar tidak tampil. |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Kunci publishable Supabase. Publik dengan sengaja; keamanan ada di aturan database. |
 
 `.env.local` sudah ada di `.gitignore`. Jangan pernah commit kata sandi studio.
 
@@ -124,6 +127,24 @@ npm run dev
 ```
 
 Buka [http://localhost:3000](http://localhost:3000).
+
+## Komentar
+
+Komentar memakai Supabase (login dan database). Semua tabelnya berawalan `blog_` dan dilindungi row level security plus trigger.
+
+- **Tabel:** `blog_profiles`, `blog_comments`, `blog_reports`, `blog_bans`, `blog_admins`. Fungsi bantu ada di skema `blog_private`, yang tidak terbuka lewat API.
+- **Aturan di database:** pembaca hanya bisa menulis atas namanya sendiri dan hanya mengubah isi komentarnya. Batas 3 komentar per menit dan 50 per hari, 1 sampai 2000 karakter, satu tingkat balasan, dan akun yang diblokir ditolak. Nama yang meniru penulis tidak diterima, dan hanya profil penulis yang bertanda Penulis.
+- **Moderasi:** penulis masuk memakai email yang terdaftar di `blog_admins` dan profilnya bertanda `is_author`. Tombol Sembunyikan, Hapus, dan Blokir muncul langsung di bawah tiap komentar, lengkap dengan jumlah laporan.
+- **Tampilan:** komentar dimuat terpisah dari teks bacaan, jadi membaca tidak menunggunya.
+
+Menyiapkan dari nol:
+
+1. Jalankan migrasi komentar di proyek Supabase (tabel dan aturan di atas).
+2. Di Supabase, Authentication, URL Configuration: isi Site URL dengan alamat situs dan tambahkan `https://<domain>/**` serta `http://localhost:3000/**` ke Redirect URLs.
+3. Aktifkan provider Google di Authentication, Providers, dengan Client ID dan Secret dari Google Cloud Console.
+4. Tautan masuk lewat email memerlukan SMTP sendiri. Layanan email bawaan Supabase hanya untuk uji coba dan sangat terbatas.
+5. Daftarkan email penulis: `insert into public.blog_admins values ('email@penulis.com');`, lalu setelah masuk sekali, tandai profilnya sebagai penulis lewat SQL editor.
+6. Isi `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` di Vercel.
 
 ## Content Management
 

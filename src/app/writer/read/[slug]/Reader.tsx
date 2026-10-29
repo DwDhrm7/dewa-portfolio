@@ -27,6 +27,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { WriterItem, TypographyPaperTheme, TypographyFontSize, TypographyAlignment } from "@/types/writer";
 import { useWriterCopy } from "@/components/writer/copy";
 import { canGoBackInApp } from "@/components/ScrollMemory";
+import LazyComments from "@/components/writer/LazyComments";
+import { commentsEnabled } from "@/lib/supabase";
 
 const SCENE_BREAK = "* * *";
 
@@ -519,6 +521,15 @@ export default function Reader({ item }: { item: WriterItem }) {
           <p className="mt-10 text-center font-ui text-sm opacity-60">
             {r.previewEnd}
           </p>
+        )}
+
+        {commentsEnabled && !currentChapter?.title.startsWith("Lampiran") && (
+          <LazyComments
+            key={`${item.slug}:${currentChapter?.chapterNumber ?? "-"}`}
+            workSlug={item.slug}
+            chapter={item.category === "novel" && currentChapter ? currentChapter.chapterNumber : null}
+            border={currentTheme.border}
+          />
         )}
 
         <div className={`mt-20 border-t ${currentTheme.border} pt-12 text-center`}>
