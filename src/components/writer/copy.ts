@@ -25,6 +25,11 @@ const copy = {
       "Juara I Baca Puisi Nasional, CORISINDO 2024",
       "Juara II Baca Puisi Nasional, OFSN 2024",
     ],
+    support: {
+      title: "Dukung Penulis",
+      body: "Kalau tulisan-tulisan ini menemanimu, kamu bisa mentraktir penulisnya secangkir kopi.",
+      button: "Dukung lewat Saweria",
+    },
     category: { puisi: "Puisi", cerpen: "Cerpen", novel: "Novel" },
     loading: "Memuat karya...",
     empty: "Belum ada karya di sini.",
@@ -45,6 +50,8 @@ const copy = {
       panelTitle: "Pengaturan baca", close: "Tutup", size: "Ukuran huruf:", align: "Perataan teks:", paper: "Warna kertas:",
       themes: { cream: "Krem", parchment: "Perkamen", sepia: "Sepia", "clean-white": "Putih", obsidian: "Malam" },
       previewEnd: "Pratinjau berakhir di sini.", byline: "Karya I Dewa Made Dharma Putra Santika",
+      copyright:
+        "Karya ini dilindungi hak cipta. Dilarang mengutip, menyalin, menyunting, menyebarluaskan, atau mengaku sebagai pemilik karya ini tanpa izin tertulis dari penulis. Pelanggaran dapat dikenai tindakan hukum berdasarkan Undang-Undang Nomor 28 Tahun 2014 tentang Hak Cipta.",
       more: { puisi: "Puisi lainnya", cerpen: "Cerpen lainnya", novel: "Rak novel" },
     },
     comments: {
@@ -87,6 +94,11 @@ const copy = {
       "1st place, National Poetry Reading, CORISINDO 2024",
       "2nd place, National Poetry Reading, OFSN 2024",
     ],
+    support: {
+      title: "Support the writer",
+      body: "If these words kept you company, you can buy the writer a coffee.",
+      button: "Support on Saweria",
+    },
     category: { puisi: "Poem", cerpen: "Short story", novel: "Novel" },
     loading: "Loading works...",
     empty: "Nothing here yet.",
@@ -107,6 +119,8 @@ const copy = {
       panelTitle: "Reading settings", close: "Close", size: "Text size:", align: "Alignment:", paper: "Paper colour:",
       themes: { cream: "Cream", parchment: "Parchment", sepia: "Sepia", "clean-white": "White", obsidian: "Night" },
       previewEnd: "The preview ends here.", byline: "By I Dewa Made Dharma Putra Santika",
+      copyright:
+        "This work is protected by copyright. Quoting, copying, editing, republishing, or passing it off as someone else's work without the author's written permission is prohibited and may lead to legal action under Indonesian copyright law (Law No. 28 of 2014).",
       more: { puisi: "More poems", cerpen: "More short stories", novel: "Novel shelf" },
     },
     comments: {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { WriterItem, WriterCategory } from "@/types/writer";
+import { saweriaUrl } from "@/lib/site";
 import { useWriterCopy } from "./copy";
 import { woodImages } from "./woodImages";
 
@@ -102,7 +103,7 @@ export function WriterShell({
         </div>
 
         <aside className="mt-16 border-t border-ink/10 pt-10 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-2">
-          <Reveal className="lg:sticky lg:top-28">
+          <Reveal className="lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <p className="font-ui text-base font-semibold">{c.profileTitle}</p>
             <p className="mt-3 font-ui text-sm leading-relaxed text-ink-soft">
               {c.profile}
@@ -114,6 +115,17 @@ export function WriterShell({
                 <li key={a}>{a}</li>
               ))}
             </ul>
+
+            <p className="mt-10 font-ui text-base font-semibold">{c.support.title}</p>
+            <p className="mt-3 font-ui text-sm leading-relaxed text-ink-soft">{c.support.body}</p>
+            <a
+              href={saweriaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex rounded-full border border-ink/20 px-5 py-2.5 font-ui text-sm font-medium transition hover:border-ink hover:bg-ink hover:text-paper"
+            >
+              {c.support.button}
+            </a>
           </Reveal>
         </aside>
       </div>

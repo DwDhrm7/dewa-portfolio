@@ -659,6 +659,7 @@ export default function Reader({ item }: { item: WriterItem }) {
         <div className={`mt-20 border-t ${currentTheme.border} pt-12 text-center`}>
           <Ornament className="mb-5" />
           <p className="font-ui text-sm opacity-60">{r.byline}</p>
+          <p className="mx-auto mt-4 max-w-md font-ui text-xs leading-relaxed opacity-50">{r.copyright}</p>
           <Link
             href={`/writer/${item.category}`}
             onClick={backInHistory}
