@@ -35,23 +35,97 @@ function parseChapter(value: string | null | undefined): number {
   return Number.isFinite(n) && n >= 1 ? n : 1;
 }
 
-/** Poems keep their line breaks and stanzas; prose becomes paragraphs; "* * *" becomes an ornament. */
-function Body({ text, poem }: { text: string; poem: boolean }) {
+const LIST_ITEM = /^(•|\d+\.)\t/;
+const FOOTNOTE = /^[⁰¹²³⁴⁵⁶⁷⁸⁹]+ /;
+const MARGIN_VOICE = /^Pinggir:?\s+/;
+
+function Table({ block, border }: { block: string; border: string }) {
+  const rows = block.split("\n").map((line) => line.replace(/^\|\s*|\s*\|$/g, "").split(/\s*\|\s*/));
+  const [head, ...body] = rows;
+  return (
+    <div className="mb-[1.5em] overflow-x-auto">
+      <table className="w-full border-collapse font-ui text-[0.82em] leading-snug">
+        <thead>
+          <tr className={`border-b-2 ${border}`}>
+            {head.map((cell, i) => (
+              <th key={i} className="px-3 py-2 text-left font-semibold first:pl-0">
+                {cell}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {body.map((row, r) => (
+            <tr key={r} className={`border-b ${border}`}>
+              {row.map((cell, i) => (
+                <td key={i} className="px-3 py-2 align-top first:pl-0">
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/**
+ * Poems keep their line breaks and stanzas; prose becomes paragraphs; "* * *" becomes an ornament.
+ * Prose may also carry "## " section headings, "### " card headings, "| a | b |" tables,
+ * numbered or bulleted items, footnotes, and the journal's second voice ("Pinggir:").
+ */
+function Body({ text, poem, border }: { text: string; poem: boolean; border: string }) {
   return (
     <>
-      {text.split(/\n{2,}/).map((block, i) =>
-        block.trim() === SCENE_BREAK ? (
-          <Ornament key={i} className="my-12" />
-        ) : block.startsWith("## ") ? (
-          <h2 key={i} className="mb-6 mt-14 text-[24px] leading-snug first:mt-0">
-            {block.slice(3)}
-          </h2>
-        ) : (
-          <p key={i} className={poem ? "mb-[1.6em] whitespace-pre-wrap" : "mb-[1.25em] whitespace-pre-line"}>
+      {text.split(/\n{2,}/).map((block, i) => {
+        if (block.trim() === SCENE_BREAK) return <Ornament key={i} className="my-12" />;
+        if (block.startsWith("## "))
+          return (
+            <h2 key={i} className="mb-6 mt-14 text-[24px] leading-snug first:mt-0">
+              {block.slice(3)}
+            </h2>
+          );
+        if (poem)
+          return (
+            <p key={i} className="mb-[1.6em] whitespace-pre-wrap">
+              {block}
+            </p>
+          );
+        if (block.startsWith("### "))
+          return (
+            <h3 key={i} className={`mb-3 mt-10 border-t ${border} pt-6 font-ui text-[0.85em] font-semibold uppercase tracking-[0.08em]`}>
+              {block.slice(4)}
+            </h3>
+          );
+        if (block.startsWith("| ")) return <Table key={i} block={block} border={border} />;
+        const item = LIST_ITEM.exec(block);
+        if (item)
+          return (
+            <p key={i} className="mb-[0.6em] flex gap-3 pl-1">
+              <span className="w-5 shrink-0 text-right tabular-nums opacity-60">{item[1]}</span>
+              <span className="min-w-0">{block.slice(item[0].length)}</span>
+            </p>
+          );
+        if (FOOTNOTE.test(block))
+          return (
+            <p key={i} className="mb-[0.8em] text-[0.8em] leading-relaxed opacity-75">
+              {block}
+            </p>
+          );
+        if (MARGIN_VOICE.test(block))
+          return (
+            <p key={i} className={`mb-[1.25em] whitespace-pre-line border-l-2 border-dotted ${border} pl-4 italic`}>
+              <span className="not-italic font-ui text-[0.75em] font-semibold uppercase tracking-[0.12em] opacity-60">Pinggir</span>{" "}
+              {block.replace(MARGIN_VOICE, "")}
+            </p>
+          );
+        return (
+          <p key={i} className="mb-[1.25em] whitespace-pre-line">
             {block}
           </p>
-        )
-      )}
+        );
+      })}
     </>
   );
 }
@@ -395,10 +469,10 @@ export default function Reader({ item }: { item: WriterItem }) {
           {item.category === "novel" && currentChapter ? (
             <>
               <h2 className="mb-8 text-[26px] leading-tight">{currentChapter.title}</h2>
-              <Body text={currentChapter.content} poem={false} />
+              <Body text={currentChapter.content} poem={false} border={currentTheme.border} />
             </>
           ) : (
-            <Body text={item.content ?? ""} poem={isPoem} />
+            <Body text={item.content ?? ""} poem={isPoem} border={currentTheme.border} />
           )}
         </article>
 
