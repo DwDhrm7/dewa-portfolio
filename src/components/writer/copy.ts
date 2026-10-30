@@ -47,8 +47,8 @@ const copy = {
     reader: {
       notFound: "Karya ini tidak ditemukan.", backHome: "Kembali ke ruang sastra", back: "Kembali",
       share: "Salin tautan baca", settings: "Pengaturan tampilan", quietOn: "Mode hening", quietOff: "Keluar mode hening",
-      panelTitle: "Pengaturan baca", close: "Tutup", size: "Ukuran huruf:", align: "Perataan teks:", paper: "Warna kertas:",
-      themes: { cream: "Krem", parchment: "Perkamen", sepia: "Sepia", "clean-white": "Putih", obsidian: "Malam" },
+      panelTitle: "Pengaturan baca", close: "Tutup", size: "Ukuran huruf:", align: "Perataan teks:", paper: "Warna kertas:", spacing: "Jarak baris:", spacingOptions: { book: "Rapat", comfy: "Nyaman", airy: "Lega" },
+      themes: { cream: "Krem", parchment: "Perkamen", sepia: "Sepia", "clean-white": "Putih", obsidian: "Malam", dusk: "Senja" },
       previewEnd: "Pratinjau berakhir di sini.", byline: "Karya I Dewa Made Dharma Putra Santika",
       copyright:
         "Karya ini dilindungi hak cipta. Dilarang mengutip, menyalin, menyunting, menyebarluaskan, atau mengaku sebagai pemilik karya ini tanpa izin tertulis dari penulis. Pelanggaran dapat dikenai tindakan hukum berdasarkan Undang-Undang Nomor 28 Tahun 2014 tentang Hak Cipta.",
@@ -127,8 +127,8 @@ const copy = {
     reader: {
       notFound: "This work could not be found.", backHome: "Back to the writing", back: "Back",
       share: "Copy link", settings: "Display settings", quietOn: "Distraction-free mode", quietOff: "Exit distraction-free mode",
-      panelTitle: "Reading settings", close: "Close", size: "Text size:", align: "Alignment:", paper: "Paper colour:",
-      themes: { cream: "Cream", parchment: "Parchment", sepia: "Sepia", "clean-white": "White", obsidian: "Night" },
+      panelTitle: "Reading settings", close: "Close", size: "Text size:", align: "Alignment:", paper: "Paper colour:", spacing: "Line spacing:", spacingOptions: { book: "Tight", comfy: "Comfortable", airy: "Airy" },
+      themes: { cream: "Cream", parchment: "Parchment", sepia: "Sepia", "clean-white": "White", obsidian: "Night", dusk: "Dusk" },
       previewEnd: "The preview ends here.", byline: "By I Dewa Made Dharma Putra Santika",
       copyright:
         "This work is protected by copyright. Quoting, copying, editing, republishing, or passing it off as someone else's work without the author's written permission is prohibited and may lead to legal action under Indonesian copyright law (Law No. 28 of 2014).",

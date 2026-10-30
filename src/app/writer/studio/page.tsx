@@ -696,6 +696,7 @@ export default function WriterStudioPage() {
                         <option value="sepia">Sepia Vintage</option>
                         <option value="clean-white">Putih Murni</option>
                         <option value="obsidian">Malam Obsidian</option>
+                        <option value="dusk">Senja Lembut</option>
                       </select>
                     </div>
                   </div>

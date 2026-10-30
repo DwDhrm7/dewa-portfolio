@@ -99,6 +99,16 @@ const KIND: Record<string, string> = {
   insert: "my-[0.9em] ml-[2em] text-left italic",
 };
 
+const SETTINGS_KEY = "writer-reader-settings";
+type Spacing = "book" | "comfy" | "airy";
+/** Line spacing: "book" is the printed manuscript's; the default is looser, which is easier on tired eyes. */
+const LEADING: Record<Spacing, { garamond: string; times: string; plain: string }> = {
+  book: { garamond: "leading-[1.4]", times: "leading-[1.5]", plain: "leading-[1.6]" },
+  comfy: { garamond: "leading-[1.6]", times: "leading-[1.65]", plain: "leading-[1.7]" },
+  airy: { garamond: "leading-[1.85]", times: "leading-[1.9]", plain: "leading-[1.95]" },
+};
+const PAPER_THEMES: Record<string, true> = { cream: true, parchment: true, obsidian: true, dusk: true, sepia: true, "clean-white": true };
+
 type Layout = "plain" | "garamond" | "times";
 const FRAMED = new Set(["pg", "news", "quote"]);
 
@@ -266,7 +276,25 @@ export default function Reader({ item }: { item: WriterItem }) {
   const [fontSize, setFontSize] = useState<TypographyFontSize>(item.typography?.fontSize || "base");
   const [alignment, setAlignment] = useState<TypographyAlignment>(item.typography?.alignment || "left");
   const [paperTheme, setPaperTheme] = useState<TypographyPaperTheme>(item.typography?.paperTheme || "cream");
+  const [spacing, setSpacing] = useState<Spacing>("comfy");
   const [scrollProgress, setScrollProgress] = useState<number>(0);
+
+  // Reader settings are kept on this device, so a reader sets them once. Loaded after mount to match the server render.
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+      if (["sm", "base", "lg", "xl"].includes(saved.fontSize)) setFontSize(saved.fontSize);
+      if (["left", "center", "justify"].includes(saved.alignment)) setAlignment(saved.alignment);
+      if (saved.paperTheme in PAPER_THEMES) setPaperTheme(saved.paperTheme);
+      if (saved.spacing in LEADING) setSpacing(saved.spacing);
+    } catch {}
+  }, []);
+  const remember = (patch: Record<string, string>) => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify({ ...saved, ...patch }));
+    } catch {}
+  };
 
   // Track reading scroll progress
   useEffect(() => {
@@ -314,6 +342,12 @@ export default function Reader({ item }: { item: WriterItem }) {
       border: "border-white/10",
       accent: "text-stone-300",
     },
+    dusk: {
+      bg: "bg-[#24211d]",
+      text: "text-[#d6cebf]",
+      border: "border-white/10",
+      accent: "text-stone-300",
+    },
     sepia: {
       bg: "bg-[#EFE5D0]",
       text: "text-[#3D3225]",
@@ -342,13 +376,13 @@ export default function Reader({ item }: { item: WriterItem }) {
   // As set in the manuscripts: Garamond 1.25 with a 1.5em indent, Times 1.5 with a 1cm indent.
   const bookSet =
     layout === "garamond"
-      ? { family: 'var(--font-garamond), "EB Garamond", Garamond, Georgia, serif', indent: "1.5em", leading: "leading-[1.4]" }
-      : { family: 'var(--font-times), "Times New Roman", Tinos, Times, serif', indent: "2.3em", leading: "leading-[1.5]" };
+      ? { family: 'var(--font-garamond), "EB Garamond", Garamond, Georgia, serif', indent: "1.5em", leading: LEADING[spacing].garamond }
+      : { family: 'var(--font-times), "Times New Roman", Tinos, Times, serif', indent: "2.3em", leading: LEADING[spacing].times };
   const sizeClasses: Record<TypographyFontSize, string> = {
-    sm: "text-[17px] sm:text-[18px] leading-[1.65]",
-    base: "text-[18px] sm:text-[20px] leading-[1.6]",
-    lg: "text-[20px] sm:text-[22px] leading-[1.6]",
-    xl: "text-[22px] sm:text-[24px] leading-[1.6]",
+    sm: "text-[17px] sm:text-[18px]",
+    base: "text-[18px] sm:text-[20px]",
+    lg: "text-[20px] sm:text-[22px]",
+    xl: "text-[22px] sm:text-[24px]",
   };
 
   // Alignment map
@@ -498,7 +532,10 @@ export default function Reader({ item }: { item: WriterItem }) {
                     ].map((s) => (
                       <button
                         key={s.id}
-                        onClick={() => setFontSize(s.id as TypographyFontSize)}
+                        onClick={() => {
+                          setFontSize(s.id as TypographyFontSize);
+                          remember({ fontSize: s.id });
+                        }}
                         className={`flex-1 py-1 rounded-lg text-center font-bold transition ${
                           fontSize === s.id ? "bg-ink text-paper" : "hover:bg-black/5 text-neutral-700"
                         }`}
@@ -519,7 +556,10 @@ export default function Reader({ item }: { item: WriterItem }) {
                     ].map((a) => (
                       <button
                         key={a.id}
-                        onClick={() => setAlignment(a.id as TypographyAlignment)}
+                        onClick={() => {
+                          setAlignment(a.id as TypographyAlignment);
+                          remember({ alignment: a.id });
+                        }}
                         className={`flex-1 py-1 rounded-lg flex items-center justify-center transition ${
                           alignment === a.id ? "bg-ink text-paper" : "hover:bg-black/5 text-neutral-700"
                         }`}
@@ -531,20 +571,45 @@ export default function Reader({ item }: { item: WriterItem }) {
                 </div>
               </div>
 
+              {/* Line spacing */}
+              <div>
+                <label className="text-neutral-500 mb-1.5 block">{r.spacing}</label>
+                <div className="flex items-center gap-1.5 bg-black/[0.03] p-1 rounded-xl border border-black/10">
+                  {(Object.keys(LEADING) as Spacing[]).map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => {
+                        setSpacing(s);
+                        remember({ spacing: s });
+                      }}
+                      className={`flex-1 py-1 rounded-lg text-center font-medium transition ${
+                        spacing === s ? "bg-ink text-paper" : "hover:bg-black/5 text-neutral-700"
+                      }`}
+                    >
+                      {r.spacingOptions[s]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Paper Theme Choice */}
               <div>
                 <label className="text-neutral-500 mb-1.5 block">{r.paper}</label>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
                   {[
                     { id: "cream", label: r.themes["cream"], bg: "bg-[#FAF7F0] text-black border-stone-900/30" },
                     { id: "parchment", label: r.themes["parchment"], bg: "bg-[#F4ECD8] text-black border-stone-900/40" },
                     { id: "sepia", label: r.themes["sepia"], bg: "bg-[#EFE5D0] text-black border-stone-800/40" },
                     { id: "clean-white", label: r.themes["clean-white"], bg: "bg-white text-black border-neutral-300" },
+                    { id: "dusk", label: r.themes["dusk"], bg: "bg-[#24211d] text-[#d6cebf] border-stone-700" },
                     { id: "obsidian", label: r.themes["obsidian"], bg: "bg-[#141414] text-white border-neutral-700" },
                   ].map((th) => (
                     <button
                       key={th.id}
-                      onClick={() => setPaperTheme(th.id as TypographyPaperTheme)}
+                      onClick={() => {
+                        setPaperTheme(th.id as TypographyPaperTheme);
+                        remember({ paperTheme: th.id });
+                      }}
                       className={`rounded-xl py-2 px-1 text-center border text-[11px] font-medium transition ${th.bg} ${
                         paperTheme === th.id ? "ring-2 ring-oak ring-offset-2" : ""
                       }`}
@@ -605,7 +670,7 @@ export default function Reader({ item }: { item: WriterItem }) {
           style={book ? ({ fontFamily: bookSet.family, "--indent": bookSet.indent } as React.CSSProperties) : undefined}
           className={`${book ? `hyphens-auto [text-wrap:pretty] ${bookSet.leading}` : "font-serif tracking-[-0.003em]"} ${
             (book ? bookSizeClasses : sizeClasses)[fontSize]
-          } ${alignClasses[alignment]}`}
+          } ${book ? "" : LEADING[spacing].plain} ${alignClasses[alignment]}`}
         >
           {item.category === "novel" && currentChapter ? (
             <>

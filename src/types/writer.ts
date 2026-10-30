@@ -3,7 +3,7 @@ export type WriterCategory = "puisi" | "cerpen" | "novel";
 export type TypographyFontFamily = "fraunces" | "serif" | "sans" | "mono" | "garamond" | "times";
 export type TypographyFontSize = "sm" | "base" | "lg" | "xl";
 export type TypographyAlignment = "left" | "center" | "justify";
-export type TypographyPaperTheme = "cream" | "parchment" | "obsidian" | "sepia" | "clean-white";
+export type TypographyPaperTheme = "cream" | "parchment" | "obsidian" | "dusk" | "sepia" | "clean-white";
 export type TypographyLineSpacing = "normal" | "relaxed" | "loose";
 
 export interface NovelChapter {
