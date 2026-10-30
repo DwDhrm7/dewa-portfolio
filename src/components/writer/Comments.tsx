@@ -87,7 +87,7 @@ function Composer({
         placeholder={placeholder}
         aria-label={placeholder}
         autoFocus={autoFocus}
-        className={`w-full resize-y rounded-sm border ${border} bg-transparent p-3 text-[0.95em] leading-relaxed outline-none focus:border-current`}
+        className={`w-full resize-y rounded-sm border ${border} bg-transparent p-3 text-[16px] leading-relaxed outline-none focus:border-current sm:text-[0.95em]`}
       />
       <div className="flex items-center justify-between gap-3">
         <span className="text-[0.75em] tabular-nums opacity-50">

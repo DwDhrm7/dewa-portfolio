@@ -23,9 +23,14 @@ function explain(message: string, c: Copy): string {
 function Picker({ label, value, onChange, starLabel }: { label: string; value: number; onChange: (n: number) => void; starLabel: (n: number) => string }) {
   const [hover, setHover] = useState(0);
   return (
-    <div className="flex items-center justify-between gap-4">
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
       <span className="text-[0.9em]">{label}</span>
-      <span role="radiogroup" aria-label={label} className="inline-flex text-[1.7em] leading-none" onMouseLeave={() => setHover(0)}>
+      <span
+        role="radiogroup"
+        aria-label={label}
+        className="flex w-full max-w-[17rem] justify-between text-[2.1em] leading-none sm:inline-flex sm:w-auto sm:max-w-none sm:justify-start sm:text-[1.7em]"
+        onMouseLeave={() => setHover(0)}
+      >
         {[1, 2, 3, 4, 5].map((n) => (
           <button
             key={n}
@@ -37,7 +42,7 @@ function Picker({ label, value, onChange, starLabel }: { label: string; value: n
             onMouseEnter={() => setHover(n)}
             onFocus={() => setHover(n)}
             onBlur={() => setHover(0)}
-            className="px-0.5 transition hover:scale-110"
+            className="p-1 transition hover:scale-110 sm:px-0.5 sm:py-0"
           >
             <svg viewBox="0 0 24 24" className="h-[1em] w-[1em]" fill={n <= (hover || value) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
               <path d={STAR_PATH} />
@@ -182,7 +187,7 @@ export default function Rating({ workSlug, border }: { workSlug: string; border:
             {c.rate}
           </button>
         )}
-        {sb && !session && wantsToRate && <SignIn sb={sb} border={border} target="penilaian" />}
+        {sb && !session && wantsToRate && <SignIn sb={sb} border={border} target="penilaian" prompt={c.signInPrompt} />}
         {sb && session && isAuthor && <p className="text-[0.9em] opacity-70">{c.authorNote}</p>}
         {sb && session && !isAuthor && (
           <div className={`space-y-4 border ${border} p-4`}>
@@ -190,7 +195,7 @@ export default function Rating({ workSlug, border }: { workSlug: string; border:
             {KEYS.map((key) => (
               <Picker key={key} label={c.dims[key]} value={draft[key]} onChange={(n) => setDraft((d) => ({ ...d, [key]: n }))} starLabel={c.star} />
             ))}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
               <span role="status" className={`text-[0.85em] ${note && !note.ok ? "text-red-600" : "opacity-70"}`}>
                 {note?.text}
               </span>
@@ -198,7 +203,7 @@ export default function Rating({ workSlug, border }: { workSlug: string; border:
                 type="button"
                 onClick={submit}
                 disabled={busy}
-                className={`rounded-sm border ${border} px-4 py-1.5 text-[0.85em] font-medium transition hover:bg-black/5 disabled:opacity-40`}
+                className={`w-full rounded-sm border ${border} px-4 py-3 text-[0.85em] font-medium transition hover:bg-black/5 disabled:opacity-40 sm:w-auto sm:py-1.5`}
               >
                 {busy ? c.saving : mine ? c.update : c.submit}
               </button>
