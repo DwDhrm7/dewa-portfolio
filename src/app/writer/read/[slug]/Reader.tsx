@@ -369,6 +369,14 @@ export default function Reader({ item }: { item: WriterItem }) {
   };
 
   const isPoem = item.category === "puisi";
+  // Novels and stories can be rated; a novel is rated once, on the last chapter of the story itself.
+  const storyChapters = (item.chapters ?? []).filter((ch) => !ch.title.startsWith("Lampiran"));
+  const lastStoryChapter = storyChapters[storyChapters.length - 1];
+  const ratable =
+    item.category !== "puisi" &&
+    !item.isPreview &&
+    !item.comingSoon &&
+    (item.category !== "novel" || !currentChapter || currentChapter.chapterNumber === lastStoryChapter?.chapterNumber);
   const isLastChapter = !item.chapters || currentChapterNum >= item.chapters.length;
 
   return (
@@ -653,6 +661,7 @@ export default function Reader({ item }: { item: WriterItem }) {
             workSlug={item.slug}
             chapter={item.category === "novel" && currentChapter ? currentChapter.chapterNumber : null}
             border={currentTheme.border}
+            rate={ratable}
           />
         )}
 

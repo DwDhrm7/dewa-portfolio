@@ -54,6 +54,16 @@ const copy = {
         "Karya ini dilindungi hak cipta. Dilarang mengutip, menyalin, menyunting, menyebarluaskan, atau mengaku sebagai pemilik karya ini tanpa izin tertulis dari penulis. Pelanggaran dapat dikenai tindakan hukum berdasarkan Undang-Undang Nomor 28 Tahun 2014 tentang Hak Cipta.",
       more: { puisi: "Puisi lainnya", cerpen: "Cerpen lainnya", novel: "Rak novel" },
     },
+    rating: {
+      title: "Penilaian", overall: "Keseluruhan",
+      dims: { plot: "Plot", conflict: "Konflik", style: "Gaya Bahasa" },
+      raters: (n: number) => `${n} penilai`,
+      notEnough: (n: number) => (n === 0 ? "Belum ada penilaian." : `Baru ${n} penilai. Angkanya tampil mulai 3 penilai.`),
+      rate: "Beri penilaian", yours: "Penilaianmu", submit: "Kirim penilaian", update: "Perbarui penilaian", saving: "Menyimpan...",
+      thanks: "Terima kasih, penilaianmu tersimpan.", pickAll: "Isi ketiga penilaian dulu.",
+      authorNote: "Penulis tidak menilai karyanya sendiri.", star: (n: number) => `${n} dari 5`,
+      errors: { generic: "Terjadi kesalahan. Coba lagi.", banned: "Akunmu tidak bisa memberi penilaian." },
+    },
     comments: {
       write: "Tulis komentar", title: "Komentar", count: (n: number) => `Komentar (${n})`,
       rules: "Tulis dengan santun. Komentar yang melanggar bisa disembunyikan.",
@@ -122,6 +132,16 @@ const copy = {
       copyright:
         "This work is protected by copyright. Quoting, copying, editing, republishing, or passing it off as someone else's work without the author's written permission is prohibited and may lead to legal action under Indonesian copyright law (Law No. 28 of 2014).",
       more: { puisi: "More poems", cerpen: "More short stories", novel: "Novel shelf" },
+    },
+    rating: {
+      title: "Rating", overall: "Overall",
+      dims: { plot: "Plot", conflict: "Conflict", style: "Writing style" },
+      raters: (n: number) => (n === 1 ? "1 rater" : `${n} raters`),
+      notEnough: (n: number) => (n === 0 ? "No ratings yet." : `Only ${n} so far. Scores show from 3 raters.`),
+      rate: "Rate this work", yours: "Your rating", submit: "Submit rating", update: "Update rating", saving: "Saving...",
+      thanks: "Thank you, your rating is saved.", pickAll: "Rate all three first.",
+      authorNote: "The author does not rate their own work.", star: (n: number) => `${n} out of 5`,
+      errors: { generic: "Something went wrong. Try again.", banned: "Your account cannot rate." },
     },
     comments: {
       write: "Write a comment", title: "Comments", count: (n: number) => `Comments (${n})`,

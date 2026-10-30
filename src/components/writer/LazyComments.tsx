@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { hasCommentReturn } from "@/lib/commentsReturn";
 
 const Comments = dynamic(() => import("./Comments"), { ssr: false, loading: () => null });
+const Rating = dynamic(() => import("./Rating"), { ssr: false, loading: () => null });
 
 /**
- * Comments are the last thing on the page, so neither their code nor their data is fetched
+ * Rating and comments are the last things on the page, so neither their code nor their data is fetched
  * until the reader is within reach of them.
  */
-export default function LazyComments(props: { workSlug: string; chapter: number | null; border: string }) {
+export default function LazyComments(props: { workSlug: string; chapter: number | null; border: string; rate?: boolean }) {
+  const { rate, ...commentProps } = props;
   const anchor = useRef<HTMLDivElement>(null);
   const [near, setNear] = useState(false);
 
@@ -35,5 +37,14 @@ export default function LazyComments(props: { workSlug: string; chapter: number 
     return () => observer.disconnect();
   }, [near]);
 
-  return <div ref={anchor}>{near && <Comments {...props} />}</div>;
+  return (
+    <div ref={anchor}>
+      {near && (
+        <>
+          {rate && <Rating workSlug={props.workSlug} border={props.border} />}
+          <Comments {...commentProps} />
+        </>
+      )}
+    </div>
+  );
 }

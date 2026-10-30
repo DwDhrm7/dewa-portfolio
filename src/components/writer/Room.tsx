@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { WriterItem, WriterCategory } from "@/types/writer";
 import { saweriaUrl } from "@/lib/site";
+import { RatingChip } from "./ratings";
 import { useWriterCopy } from "./copy";
 import { woodImages } from "./woodImages";
 
@@ -255,6 +256,7 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
               ) : (
                 novel.readTime || "Coming Soon!"
               )}
+              {!novel.isPreview && !novel.comingSoon && <RatingChip slug={novel.slug} />}
             </p>
             <h2 className="mt-2 text-[28px] leading-tight sm:text-[32px]">{novel.title}</h2>
             {novel.subtitle && <p className="mt-1.5 font-ui text-base text-ink-soft">{novel.subtitle}</p>}
@@ -342,7 +344,10 @@ export function StoryPanel({ story }: { story: WriterItem }) {
         href={`/writer/read/${story.slug}`}
         className="group relative block bg-wash/70 px-6 pb-8 pt-[8.5rem] transition-colors hover:bg-wash sm:min-h-[15rem] sm:py-9 sm:pl-8 sm:pr-[13rem]"
       >
-        <p className="font-ui text-[13px] text-ink-soft">{c.category.cerpen}, {c.formatDate(story.date)}</p>
+        <p className="font-ui text-[13px] text-ink-soft">
+          {c.category.cerpen}, {c.formatDate(story.date)}
+          <RatingChip slug={story.slug} />
+        </p>
         <h2 className="mt-2 text-2xl leading-snug sm:text-[26px]">{story.title}</h2>
         <p className="mt-3 line-clamp-3 whitespace-pre-line text-[17px] leading-relaxed text-ink-soft">
           {story.synopsis}

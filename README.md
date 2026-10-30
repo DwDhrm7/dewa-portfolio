@@ -29,6 +29,7 @@ Situs dibagi menjadi tiga area. Setiap realm hanya bisa kembali ke gateway, tida
   - Konten muncul bertahap saat di-scroll.
 - **Writer Studio (`/writer/studio`).** CMS khusus pemilik untuk menambah dan mengubah karya.
 - **Ingatan posisi scroll.** Tombol back, baik di browser maupun di reader, kembali ke posisi scroll terakhir di halaman sebelumnya, di tech maupun writer.
+- **Penilaian karya.** Plot, Konflik, dan Gaya Bahasa per novel dan cerpen, dirangkum jadi nilai keseluruhan, tampil di akhir karya dan di kartu daftar.
 - **Komentar di Blog.** Pembaca membaca tanpa akun dan berkomentar setelah masuk lewat Google atau tautan email. Komentar per bab untuk novel, per karya untuk puisi dan cerpen, dengan balasan satu tingkat. Detail di bagian Komentar.
 - **Portfolio berbasis data.** Proyek dan artefak diambil dari `src/data/artifacts.ts`.
 - **Form kontak** melalui EmailJS.
@@ -136,6 +137,8 @@ Komentar memakai Supabase (login dan database). Semua tabelnya berawalan `blog_`
 - **Aturan di database:** pembaca hanya bisa menulis atas namanya sendiri dan hanya mengubah isi komentarnya. Batas 3 komentar per menit dan 50 per hari, 1 sampai 2000 karakter, satu tingkat balasan, dan akun yang diblokir ditolak. Nama yang meniru penulis tidak diterima, dan hanya profil penulis yang bertanda Penulis.
 - **Moderasi:** penulis masuk memakai email yang terdaftar di `blog_admins`; profilnya otomatis bertanda `is_author` saat login pertama. Tombol Sembunyikan, Hapus, dan Blokir muncul langsung di bawah tiap komentar, lengkap dengan jumlah laporan.
 - **Tampilan:** komentar dimuat terpisah dari teks bacaan, jadi membaca tidak menunggunya.
+
+**Penilaian.** Novel dan cerpen (bukan puisi) bisa dinilai 1 sampai 5 bintang untuk Plot, Konflik, dan Gaya Bahasa, lalu dirangkum menjadi nilai keseluruhan. Memberi nilai wajib login (akun yang sama dengan komentar), satu akun satu penilaian per karya dan boleh diubah. Penulis dan akun yang diblokir tidak bisa menilai. Pengunjung hanya melihat rata-rata, dan angkanya baru muncul setelah 3 penilai; baris penilaian per orang tidak pernah terbuka. Tabelnya `blog_ratings`, ringkasannya lewat fungsi `blog_rating_summary`.
 
 Menyiapkan dari nol:
 
