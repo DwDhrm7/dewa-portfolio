@@ -4,7 +4,7 @@
     python3 scripts/import_jurnal_jantama.py "/path/to/folder/with/Jurnal_Jantama_Seri_1.docx"
 
 The folder must hold Jurnal_Jantama_Seri_1.docx, _2.docx and _3.docx; "THE CLEAN HAND -remastered.docx" is
-imported too when it is there (its ARSIP illustrations are not carried over: the reader shows text only). Series 1 and 2 are imported whole; Series 3
+imported too, from "THE CLEAN HAND - naskah lengkap.md" (or the .docx when that is a real Word file); its ARSIP illustrations are not carried over: the reader shows text only). Series 1 and 2 are imported whole; Series 3
 is a Preview made of the post-office scene of its prologue plus three lines quoted from Series 2. Only the chapters
 and reading time change; titles, covers, dates, synopses and typography settings stay as they are on the site.
 
@@ -336,6 +336,53 @@ def convert_clean_hand(path):
     return chapters
 
 
+def curly(text):
+    """Straight double quotes to typographic ones; a quote opens after a space, a bracket, a dash or the start."""
+    out = []
+    for i, ch in enumerate(text):
+        if ch != '"':
+            out.append(ch)
+            continue
+        j = i - 1
+        while j >= 0 and text[j] == "*":
+            j -= 1
+        out.append("“" if j < 0 or text[j] in " \n\t([—–-" else "”")
+    return "".join(out)
+
+
+def emphasis(line):
+    line = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", line)
+    return re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"<i>\1</i>", line)
+
+
+def convert_clean_hand_md(path):
+    """The Clean Hand from its Markdown manuscript: "# Label: Name" opens a chapter; images are skipped."""
+    chapters, current = [], None
+    for raw in curly(Path(path).read_text()).split("\n\n"):
+        block = raw.strip()
+        head = re.match(r"^# (.+?)(?:\n|$)", block)
+        if head:
+            label, _, name = head.group(1).partition(": ")
+            if label == "The Clean Hand" and not chapters and current is None:
+                continue  # the book's own title, ahead of the first chapter
+            current = {"label": label, "name": name, "blocks": []}
+            chapters.append(current)
+            block = block[head.end():].strip()
+            if not block:
+                continue
+        if current is None or block in ("", "---") or block.startswith("![") or "◆" in block and len(block) < 40:
+            if current and "◆" in block and current["blocks"]:
+                current["blocks"].append("* * *")
+            continue
+        if re.fullmatch(r"\*[^*]+\*", block) and not current["blocks"]:
+            current["blocks"].append("::date:: " + block.strip("*"))
+        elif block.startswith("## "):
+            current["blocks"].append(block)
+        else:
+            current["blocks"].append("\n".join(emphasis(l) for l in block.split("\n")))
+    return chapters
+
+
 # ---------------------------------------------------------------- the site's data
 
 
@@ -440,9 +487,10 @@ def main(folder):
             check(c["content"], f"series {n}, {c['title']}")
         print(f"Seri {n}: {len(chapters)} bagian, {words} kata, {item['readTime']}; berubah: {len(changed)} ({', '.join(changed[:4])}{'...' if len(changed) > 4 else ''})")
 
+    hand_md = folder / "THE CLEAN HAND - naskah lengkap.md"
     hand = folder / "THE CLEAN HAND -remastered.docx"
-    if hand.exists():
-        chapters = to_chapters(convert_clean_hand(hand))
+    if hand_md.exists() or (hand.exists() and zipfile.is_zipfile(hand)):
+        chapters = to_chapters(convert_clean_hand_md(hand_md) if hand_md.exists() else convert_clean_hand(hand))
         item = by_id["novel-the-clean-hand"]
         old = {c["title"]: c["content"] for c in item.get("chapters", [])}
         words = sum(c["wordCount"] for c in chapters)
