@@ -24,7 +24,7 @@ export const LIMITS = {
 } as const;
 
 const CATEGORIES: WriterCategory[] = ["puisi", "cerpen", "novel"];
-const FONTS: TypographyFontFamily[] = ["fraunces", "serif", "sans", "mono", "garamond", "times", "readable"];
+const FONTS: TypographyFontFamily[] = ["fraunces", "serif", "sans", "mono", "garamond", "times", "readable", "novel"];
 const SIZES: TypographyFontSize[] = ["sm", "base", "lg", "xl"];
 const ALIGNMENTS: TypographyAlignment[] = ["left", "center", "justify"];
 const THEMES: TypographyPaperTheme[] = ["cream", "parchment", "obsidian", "dusk", "sepia", "clean-white"];

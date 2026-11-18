@@ -110,7 +110,8 @@ const LEADING: Record<Spacing, { garamond: string; times: string; plain: string 
 const PAPER_THEMES: Record<string, true> = { cream: true, parchment: true, obsidian: true, dusk: true, sepia: true, "clean-white": true };
 
 /** "readable" is the site's own reading serif, set for ease: left-aligned, spaced paragraphs, no indents or hyphens. */
-type Layout = "plain" | "garamond" | "times" | "readable";
+/** "novel" is the same reading serif set like a printed novel: indented paragraphs, a chapter opening, a drop cap. */
+type Layout = "plain" | "garamond" | "times" | "readable" | "novel";
 const FRAMED = new Set(["pg", "news", "quote"]);
 
 function Table({ block, border }: { block: string; border: string }) {
@@ -152,9 +153,10 @@ function Table({ block, border }: { block: string; border: string }) {
  */
 function Body({ text, poem, border, layout }: { text: string; poem: boolean; border: string; layout: Layout }) {
   const book = layout !== "plain";
+  const blocks = text.split(/\n{2,}/);
   return (
     <>
-      {text.split(/\n{2,}/).map((block, i) => {
+      {blocks.map((block, i) => {
         if (block.trim() === SCENE_BREAK) return <Ornament key={i} className="my-12" />;
         if (block.startsWith("## ")) {
           const [label, ...rest] = block.slice(3).split("\n");
@@ -167,7 +169,7 @@ function Body({ text, poem, border, layout }: { text: string; poem: boolean; bor
           ) : (
             label
           );
-          const cls = !book || layout === "readable"
+          const cls = !book || layout === "readable" || layout === "novel"
             ? "mb-6 mt-14 text-[24px] leading-snug first:mt-0"
             : layout === "garamond"
               ? "mb-[0.9em] mt-[2.2em] text-center text-[1.05em] font-normal tracking-[0.14em] [font-variant-caps:small-caps] first:mt-0"
@@ -229,6 +231,23 @@ function Body({ text, poem, border, layout }: { text: string; poem: boolean; bor
           );
         const indented = block.startsWith("\t");
         const content = indented ? block.slice(1) : block;
+        if (layout === "novel") {
+          // As in print: an opening paragraph (after a heading, a date line or a scene break) is flush left, the rest are indented.
+          const prev = blocks[i - 1];
+          const opens = i === 0 || prev.startsWith("::date::") || prev.startsWith("## ") || prev.trim() === SCENE_BREAK;
+          // A drop cap only suits an opening paragraph long enough to sit beside it.
+          const first = content.length > 200 && blocks.slice(0, i).every((b) => b.startsWith("::date::"));
+          return (
+            <p
+              key={i}
+              className={`whitespace-pre-line ${opens ? "" : "[text-indent:1.4em]"} ${
+                first ? "first-letter:float-left first-letter:mr-[0.12em] first-letter:mt-[0.06em] first-letter:text-[3.5em] first-letter:leading-[0.78]" : ""
+              }`}
+            >
+              <Inline text={content} />
+            </p>
+          );
+        }
         if (layout === "readable")
           return (
             <p key={i} className="mb-[1em] whitespace-pre-line">
@@ -246,13 +265,13 @@ function Body({ text, poem, border, layout }: { text: string; poem: boolean; bor
 }
 
 /** A chapter opening as in the printed book: a small label, the name in small capitals, an ornament. */
-function ChapterHead({ title }: { title: string }) {
+function ChapterHead({ title, caps = true }: { title: string; caps?: boolean }) {
   const [label, ...rest] = title.split(": ");
   const name = rest.join(": ");
   return (
     <header className="mb-[2.4em] mt-2 text-center">
       {name && <p className="text-[0.62em] uppercase tracking-[0.28em] opacity-60">{label}</p>}
-      <h2 className="mt-[0.7em] text-[1.9em] font-normal leading-tight tracking-[0.02em] [font-variant-caps:small-caps]">{name || label}</h2>
+      <h2 className={`mt-[0.7em] text-[1.9em] font-normal leading-tight tracking-[0.02em] [font-family:inherit] ${caps ? "[font-variant-caps:small-caps]" : ""}`}>{name || label}</h2>
       <p aria-hidden="true" className="mt-[0.8em] text-[1.1em] opacity-40">
         ❧
       </p>
@@ -372,7 +391,7 @@ export default function Reader({ item }: { item: WriterItem }) {
   // Medium reads at 20px / 32px with a hair of negative tracking.
   // A manuscript set in Garamond keeps its printed layout: the face, tight leading, indents instead of gaps.
   const face = item.typography?.fontFamily;
-  const layout: Layout = face === "garamond" ? "garamond" : face === "times" ? "times" : face === "readable" ? "readable" : "plain";
+  const layout: Layout = face === "garamond" ? "garamond" : face === "times" ? "times" : face === "readable" ? "readable" : face === "novel" ? "novel" : "plain";
   const book = layout !== "plain";
   const readableSizeClasses: Record<TypographyFontSize, string> = {
     sm: "text-[17px] sm:text-[19px]",
@@ -388,7 +407,7 @@ export default function Reader({ item }: { item: WriterItem }) {
   };
   // As set in the manuscripts: Garamond 1.25 with a 1.5em indent, Times 1.5 with a 1cm indent.
   const bookSet =
-    layout === "readable"
+    layout === "readable" || layout === "novel"
       ? { family: 'var(--font-reading), "Source Serif 4", Georgia, serif', indent: "0", leading: LEADING[spacing].plain }
       : layout === "garamond"
       ? { family: 'var(--font-garamond), "EB Garamond", Garamond, Georgia, serif', indent: "1.5em", leading: LEADING[spacing].garamond }
@@ -683,13 +702,13 @@ export default function Reader({ item }: { item: WriterItem }) {
         <article
           lang={book ? "id" : undefined}
           style={book ? ({ fontFamily: bookSet.family, "--indent": bookSet.indent } as React.CSSProperties) : undefined}
-          className={`${book ? `${layout === "readable" ? "" : "hyphens-auto "}[text-wrap:pretty] ${bookSet.leading}` : "font-serif tracking-[-0.003em]"} ${
-            (layout === "readable" ? readableSizeClasses : book ? bookSizeClasses : sizeClasses)[fontSize]
+          className={`${book ? `${layout === "readable" || layout === "novel" ? "" : "hyphens-auto "}[text-wrap:pretty] ${bookSet.leading}` : "font-serif tracking-[-0.003em]"} ${
+            (layout === "readable" || layout === "novel" ? readableSizeClasses : book ? bookSizeClasses : sizeClasses)[fontSize]
           } ${book ? "" : LEADING[spacing].plain} ${alignClasses[alignment]}`}
         >
           {item.category === "novel" && currentChapter ? (
             <>
-              {layout === "garamond" ? <ChapterHead title={currentChapter.title} /> : <h2 className="mb-8 text-[26px] leading-tight">{currentChapter.title}</h2>}
+              {layout === "garamond" || layout === "novel" ? <ChapterHead title={currentChapter.title} caps={layout === "garamond"} /> : <h2 className="mb-8 text-[26px] leading-tight">{currentChapter.title}</h2>}
               <Body text={currentChapter.content} poem={false} border={currentTheme.border} layout={layout} />
             </>
           ) : (
