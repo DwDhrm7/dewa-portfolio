@@ -37,9 +37,9 @@ NOVELS = {
 
 # Three lines from Series 2 (Halaman 059) that open the Series 3 preview, copied word for word.
 QUOTES = [
-    "> Stempel di resi: Kantor Pos Muara Baru. Tanggal di stempel itu: 14 Oktober 2025.\n> Kurir itu tidak bisa menjelaskan tanggalnya.",
+    "> Stempel di resi: Kantor Pos Muara Baru. Tanggal di stempel: 14 Oktober 2025.\n> Kurirnya tidak bisa menjelaskan tanggal itu.",
     "> Simpan dua-duanya. Jurnalnya, dan buku kasmu. Jangan ada yang dibuang lagi. Aku akan datang menjemput keduanya.",
-    "> Aku tidak tahu siapa ia. Pai tidak tahu. Pak Tom bilang ia tidak tahu, dan untuk pertama kalinya aku percaya ia tidak tahu.",
+    "> Aku tidak tahu siapa dia. Pai tidak tahu. Pak Tom bilang dia juga tidak tahu, dan untuk pertama kalinya aku percaya dia memang tidak tahu.",
     "> Buku kas Bu Warsini, Halaman 059",
 ]
 

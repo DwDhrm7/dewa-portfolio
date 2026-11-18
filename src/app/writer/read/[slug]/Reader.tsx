@@ -109,7 +109,8 @@ const LEADING: Record<Spacing, { garamond: string; times: string; plain: string 
 };
 const PAPER_THEMES: Record<string, true> = { cream: true, parchment: true, obsidian: true, dusk: true, sepia: true, "clean-white": true };
 
-type Layout = "plain" | "garamond" | "times";
+/** "readable" is the site's own reading serif, set for ease: left-aligned, spaced paragraphs, no indents or hyphens. */
+type Layout = "plain" | "garamond" | "times" | "readable";
 const FRAMED = new Set(["pg", "news", "quote"]);
 
 function Table({ block, border }: { block: string; border: string }) {
@@ -166,7 +167,7 @@ function Body({ text, poem, border, layout }: { text: string; poem: boolean; bor
           ) : (
             label
           );
-          const cls = !book
+          const cls = !book || layout === "readable"
             ? "mb-6 mt-14 text-[24px] leading-snug first:mt-0"
             : layout === "garamond"
               ? "mb-[0.9em] mt-[2.2em] text-center text-[1.05em] font-normal tracking-[0.14em] [font-variant-caps:small-caps] first:mt-0"
@@ -228,6 +229,12 @@ function Body({ text, poem, border, layout }: { text: string; poem: boolean; bor
           );
         const indented = block.startsWith("\t");
         const content = indented ? block.slice(1) : block;
+        if (layout === "readable")
+          return (
+            <p key={i} className="mb-[1em] whitespace-pre-line">
+              <Inline text={content} />
+            </p>
+          );
         return (
           <p key={i} className={book ? `whitespace-pre-line ${indented ? "[text-indent:var(--indent)]" : ""}` : "mb-[1.25em] whitespace-pre-line"}>
             <Inline text={content} />
@@ -365,8 +372,14 @@ export default function Reader({ item }: { item: WriterItem }) {
   // Medium reads at 20px / 32px with a hair of negative tracking.
   // A manuscript set in Garamond keeps its printed layout: the face, tight leading, indents instead of gaps.
   const face = item.typography?.fontFamily;
-  const layout: Layout = face === "garamond" ? "garamond" : face === "times" ? "times" : "plain";
+  const layout: Layout = face === "garamond" ? "garamond" : face === "times" ? "times" : face === "readable" ? "readable" : "plain";
   const book = layout !== "plain";
+  const readableSizeClasses: Record<TypographyFontSize, string> = {
+    sm: "text-[17px] sm:text-[19px]",
+    base: "text-[19px] sm:text-[21px]",
+    lg: "text-[21px] sm:text-[23px]",
+    xl: "text-[23px] sm:text-[25px]",
+  };
   const bookSizeClasses: Record<TypographyFontSize, string> = {
     sm: "text-[18px] sm:text-[19px]",
     base: "text-[20px] sm:text-[22px]",
@@ -375,7 +388,9 @@ export default function Reader({ item }: { item: WriterItem }) {
   };
   // As set in the manuscripts: Garamond 1.25 with a 1.5em indent, Times 1.5 with a 1cm indent.
   const bookSet =
-    layout === "garamond"
+    layout === "readable"
+      ? { family: 'var(--font-reading), "Source Serif 4", Georgia, serif', indent: "0", leading: LEADING[spacing].plain }
+      : layout === "garamond"
       ? { family: 'var(--font-garamond), "EB Garamond", Garamond, Georgia, serif', indent: "1.5em", leading: LEADING[spacing].garamond }
       : { family: 'var(--font-times), "Times New Roman", Tinos, Times, serif', indent: "2.3em", leading: LEADING[spacing].times };
   const sizeClasses: Record<TypographyFontSize, string> = {
@@ -668,8 +683,8 @@ export default function Reader({ item }: { item: WriterItem }) {
         <article
           lang={book ? "id" : undefined}
           style={book ? ({ fontFamily: bookSet.family, "--indent": bookSet.indent } as React.CSSProperties) : undefined}
-          className={`${book ? `hyphens-auto [text-wrap:pretty] ${bookSet.leading}` : "font-serif tracking-[-0.003em]"} ${
-            (book ? bookSizeClasses : sizeClasses)[fontSize]
+          className={`${book ? `${layout === "readable" ? "" : "hyphens-auto "}[text-wrap:pretty] ${bookSet.leading}` : "font-serif tracking-[-0.003em]"} ${
+            (layout === "readable" ? readableSizeClasses : book ? bookSizeClasses : sizeClasses)[fontSize]
           } ${book ? "" : LEADING[spacing].plain} ${alignClasses[alignment]}`}
         >
           {item.category === "novel" && currentChapter ? (
