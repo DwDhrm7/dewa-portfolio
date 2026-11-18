@@ -259,7 +259,13 @@ export function NovelSheet({ novel, side, seed }: { novel: WriterItem; side: "le
               {!novel.isPreview && !novel.comingSoon && <RatingChip slug={novel.slug} />}
             </p>
             <h2 className="mt-2 text-[28px] leading-tight sm:text-[32px]">{novel.title}</h2>
-            {novel.subtitle && <p className="mt-1.5 font-ui text-base text-ink-soft">{novel.subtitle}</p>}
+            {(novel.genre || novel.subtitle) && (
+              <p className="mt-1.5 font-ui text-base text-ink-soft">
+                {novel.genre && <span className="font-semibold text-ink">{c.genre(novel.genre)}</span>}
+                {novel.genre && novel.subtitle && " · "}
+                {novel.subtitle?.trim()}
+              </p>
+            )}
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85">{novel.synopsis}</p>
 
             {chapters.length > 0 && (
@@ -349,6 +355,7 @@ export function StoryPanel({ story }: { story: WriterItem }) {
           <RatingChip slug={story.slug} />
         </p>
         <h2 className="mt-2 text-2xl leading-snug sm:text-[26px]">{story.title}</h2>
+        {story.genre && <p className="mt-1.5 font-ui text-base font-semibold text-ink">{c.genre(story.genre)}</p>}
         <p className="mt-3 line-clamp-3 whitespace-pre-line text-[17px] leading-relaxed text-ink-soft">
           {story.synopsis}
         </p>

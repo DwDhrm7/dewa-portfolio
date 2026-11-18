@@ -567,6 +567,20 @@ export default function WriterStudioPage() {
                   </div>
                 </div>
 
+                {/* Genre (novels and stories) */}
+                {editingItem.category !== "puisi" && (
+                  <div>
+                    <label className="text-xs text-neutral-500 block mb-1.5">Genre:</label>
+                    <input
+                      type="text"
+                      placeholder="Contoh: Fiksi Ilmiah, Romansa, Thriller Hukum"
+                      value={editingItem.genre || ""}
+                      onChange={(e) => setEditingItem({ ...editingItem, genre: e.target.value })}
+                      className="w-full rounded-xl border border-stone-900/20 bg-white p-3 outline-none"
+                    />
+                  </div>
+                )}
+
                 {/* Row 2: Subtitle & Date */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="sm:col-span-2">

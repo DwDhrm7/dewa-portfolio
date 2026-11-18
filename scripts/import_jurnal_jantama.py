@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Rebuild the three Jurnal Jantama novels in src/data/writer-content.json from their Word manuscripts.
+"""Rebuild the Jurnal Jantama novels and The Clean Hand in src/data/writer-content.json from their Word manuscripts.
 
     python3 scripts/import_jurnal_jantama.py "/path/to/folder/with/Jurnal_Jantama_Seri_1.docx"
 
-The folder must hold Jurnal_Jantama_Seri_1.docx, _2.docx and _3.docx. Series 1 and 2 are imported whole; Series 3
+The folder must hold Jurnal_Jantama_Seri_1.docx, _2.docx and _3.docx; "THE CLEAN HAND -remastered.docx" is
+imported too when it is there (its ARSIP illustrations are not carried over: the reader shows text only). Series 1 and 2 are imported whole; Series 3
 is a Preview made of the post-office scene of its prologue plus three lines quoted from Series 2. Only the chapters
 and reading time change; titles, covers, dates, synopses and typography settings stay as they are on the site.
 
@@ -292,6 +293,49 @@ def convert(path):
     return chapters
 
 
+def convert_clean_hand(path):
+    """The Clean Hand: chapter marker (PROLOG / PERKARA X / EPILOG / LAMPIRAN), name, dateline, then prose."""
+    doc, _, _ = load(path)
+    chapters, current, marker, started = [], None, None, False
+    for el in list(doc.find(W + "body")):
+        if el.tag != W + "p":
+            continue
+        plain = clean(text_of(el))
+        if not plain or plain.startswith("ARSIP "):
+            continue
+        sz = el.find(f".//{W}sz")
+        size = int(sz.get(W + "val")) if sz is not None else 0
+        if re.match(r"^(PROLOG|PERKARA [A-Z]+|EPILOG|LAMPIRAN)$", plain) and size == 21 and started:
+            marker = plain
+            continue
+        if not started:
+            # everything before the first chapter marker is the cover, the contents and the epigraph
+            if plain == "PROLOG" and size == 21:
+                started, marker = True, plain
+            continue
+        if marker and size == 38:
+            label = marker.title()
+            current = {"label": label, "name": plain, "blocks": []}
+            chapters.append(current)
+            marker = None
+            continue
+        if current is None or re.fullmatch(r"[◆ ]+", plain):
+            if current and plain == "◆" and len(current["blocks"]) > 0:
+                current["blocks"].append("* * *")
+            continue
+        m = clean(markup(el))
+        m = re.sub(r"^<b>(.)</b><sc>", r"\1<sc>", m)  # the printed drop cap becomes a plain capital before the small-caps lead-in
+        if size == 20 and not current["blocks"]:
+            current["blocks"].append("::date:: " + plain)
+        elif size == 26:
+            current["blocks"].append("## " + plain)
+        elif current["label"] == "Lampiran" and current["name"] == "Kamus Istilah":
+            current["blocks"].append("- " + re.sub(r"^(<b>.*?</b>)\s+", r"\1: ", m))
+        else:
+            current["blocks"].append(re.sub(r"</b>\s+,", "</b>,", m))
+    return chapters
+
+
 # ---------------------------------------------------------------- the site's data
 
 
@@ -395,6 +439,18 @@ def main(folder):
         for c in chapters:
             check(c["content"], f"series {n}, {c['title']}")
         print(f"Seri {n}: {len(chapters)} bagian, {words} kata, {item['readTime']}; berubah: {len(changed)} ({', '.join(changed[:4])}{'...' if len(changed) > 4 else ''})")
+
+    hand = folder / "THE CLEAN HAND -remastered.docx"
+    if hand.exists():
+        chapters = to_chapters(convert_clean_hand(hand))
+        item = by_id["novel-the-clean-hand"]
+        old = {c["title"]: c["content"] for c in item.get("chapters", [])}
+        words = sum(c["wordCount"] for c in chapters)
+        item["chapters"] = chapters
+        item["readTime"] = f"± {max(1, round(words / 200 / 60))} jam baca"
+        for c in chapters:
+            check(c["content"], f"The Clean Hand, {c['title']}")
+        print(f"The Clean Hand: {len(chapters)} bagian, {words} kata, {item['readTime']}; berubah: {sum(old.get(c['title']) != c['content'] for c in chapters)}")
 
     DATA.write_text(json.dumps(data, indent=2, ensure_ascii=False) + ("\n" if raw.endswith("\n") else ""))
 

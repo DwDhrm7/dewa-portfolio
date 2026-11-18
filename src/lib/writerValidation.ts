@@ -12,6 +12,7 @@ import type {
 export const LIMITS = {
   title: 200,
   subtitle: 300,
+  genre: 60,
   synopsis: 3000,
   content: 400_000,
   chapters: 200,
@@ -117,6 +118,7 @@ export function validateItem(input: unknown): Result<WriterItem> {
   }
 
   const subtitle = str(raw.subtitle, LIMITS.subtitle, "Subjudul", errors);
+  const genre = str(raw.genre, LIMITS.genre, "Genre", errors);
   const synopsis = str(raw.synopsis, LIMITS.synopsis, "Sinopsis", errors);
   const content = str(raw.content, LIMITS.content, "Isi karya", errors);
 
@@ -162,6 +164,7 @@ export function validateItem(input: unknown): Result<WriterItem> {
       title,
       category: category as WriterCategory,
       ...(subtitle ? { subtitle } : {}),
+      ...(genre && category !== "puisi" ? { genre } : {}),
       synopsis,
       ...(category === "novel" ? { chapters } : { content }),
       date,

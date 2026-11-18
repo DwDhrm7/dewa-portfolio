@@ -28,6 +28,7 @@ export interface WriterItem {
   slug: string;
   title: string;
   subtitle?: string;
+  genre?: string; // novels and stories; shown before the subtitle on the card
   category: WriterCategory;
   synopsis: string;
   content?: string; // used for puisi & cerpen

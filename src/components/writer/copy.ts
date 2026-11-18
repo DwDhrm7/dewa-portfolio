@@ -7,6 +7,13 @@ const MONTHS = {
   en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 };
 
+const GENRES_EN: Record<string, string> = {
+  "Fiksi Ilmiah": "Science fiction",
+  "Thriller Hukum": "Legal thriller",
+  "Drama Sosial": "Social drama",
+  "Romansa": "Romance",
+};
+
 // Only the interface is translated; the works themselves stay in the language they were written in.
 const copy = {
   id: {
@@ -180,5 +187,7 @@ export function useWriterCopy() {
     const month = MONTHS[language]?.[Number(m[2]) - 1] ?? MONTHS.id[Number(m[2]) - 1];
     return language === "en" ? `${month} ${Number(m[3])}, ${m[1]}` : `${Number(m[3])} ${month} ${m[1]}`;
   };
-  return { ...c, formatDate };
+  // Genres are written in Indonesian in the data; English readers get the English name.
+  const genre = (g: string) => (language === "en" ? GENRES_EN[g] ?? g : g);
+  return { ...c, formatDate, genre };
 }
